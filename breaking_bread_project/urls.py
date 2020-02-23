@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
+from breakingbread import views
 
 urlpatterns = [
-    path('breakingbread/',include('breaking.urls')),
+    path('',views.index, name='index'),
+    path('breakingbread/',include('breakingbread.urls')),
     path('admin/', admin.site.urls),
 ]
