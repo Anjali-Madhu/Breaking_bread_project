@@ -1,5 +1,10 @@
 <!DOCTYPE html>
+{% if logged_in %}
+<h1>Welcome {{ username }}</h1>
+{% else %}
 <h1> Hello Breaking Bread!!!! </h1>
-<a href="{% url 'breakingbread:register' %}">Sign Up</a></li>
-
+{% endif %}
+<a href="{% url 'breakingbread:register' %}">Sign Up</a></li><br />
+<a href="{% url 'breakingbread:login' %}">Sign In</a></li><br />
+<a href="{% url 'breakingbread:logout' %}">Sign out</a></li><br />
 </html>

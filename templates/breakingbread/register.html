@@ -4,16 +4,19 @@
 <title>Registeration</title>
 </head>
 <body>
-<center><h1>Sign Up</h1>
+<center><h1>Sign Up</h1><br /><br />
 {% if registered %} 
-    <strong>thank you for registering!</strong>
+    <strong>Thank you for registering!</strong>
     <a href="{% url 'breakingbread:index' %}">Return to the homepage.</a><br />
 {% else %}
-    <strong>register here!</strong><br />
+    
     <form id="user_form" method="post" action="{% url 'breakingbread:register' %}" enctype="multipart/form-data">
+    
     {% csrf_token %}
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
+    <table>
+    {{ user_form.as_table }}
+    {{ profile_form.as_table }}
+    </table>
     <input type="submit" name="submit" value="Register" />
     </form></center>
 {% endif %}
