@@ -37,11 +37,7 @@ class Recipe(models.Model):
     cuisine = models.ForeignKey(Cuisine,on_delete=models.CASCADE)
     description = models.TextField(max_length=2000)
     created = models.DateTimeField(default=now)
-    modified = models.DateTimeField()
-    
-    def save(self, *args,**kwargs):
-        self.modified= now
-        super(Recipe,self).save(*args,**kwargs)
+
     #average rating
     @property
     def average_rating(self):
