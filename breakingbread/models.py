@@ -35,11 +35,6 @@ class Recipe(models.Model):
     #cooking type:0 for non-vegeterian,1 for vegetarian , 2 for vegan
     cooking_type = models.IntegerField(default=0)
     cuisine = models.ForeignKey(Cuisine,on_delete=models.CASCADE)
-    image1 = models.ImageField(upload_to='recipe_images',blank=False)
-    image2 = models.ImageField(upload_to='recipe_images',blank=True)
-    image3 = models.ImageField(upload_to='recipe_images',blank=True)
-    image4 = models.ImageField(upload_to='recipe_images',blank=True)
-    image5 = models.ImageField(upload_to='recipe_images',blank=True)
     description = models.TextField(max_length=2000)
     created = models.DateTimeField(default=now)
     modified = models.DateTimeField()
@@ -60,7 +55,12 @@ class Recipe(models.Model):
         return self.recipe_name
         
         
-    
+#Image table  
+        
+class Image(models.Model):
+    image_id=models.AutoField(primary_key=True)
+    picture = models.ImageField(blank=False)
+    recipe_id=models.ForeignKey(Recipe,on_delete=models.CASCADE,blank=False)
  #Review table   
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
