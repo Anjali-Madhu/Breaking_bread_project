@@ -24,6 +24,7 @@ def register(request):
     
     if request.method=="POST":
         user_form=SignUpForm(request.POST)
+        print('sahil ', user_form)
         profile_form = UserProfileForm(request.POST)
         
         if user_form.is_valid() and profile_form.is_valid():
