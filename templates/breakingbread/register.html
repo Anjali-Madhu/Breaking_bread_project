@@ -5,7 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign Up Form by Colorlib</title>
+    <title>Registeration</title>
+    <style>
+    .black-dropdown{
+        background-color:#111
+     }
+     ul.errorlist{
+         display:block
+     }
+    ul li:not(.init) { 
+    display: block; 
+    background: #fff;
+    color: $black-color;
+    padding: 5px 10px; 
+}
+    </style>
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
@@ -24,12 +38,13 @@
                 <div class="booking-form">
                     {% if registered %} 
                         <strong>Thank you for registering!</strong>
-                        <a href="{% url 'breakingbread:index' %}">Return to the homepage.</a><br />
+                        <a href="{% url 'breakingbread:login' %}">Login</a> to continue<br />
                     {% else %}
                         <form id="user_form" method="post" action="{% url 'breakingbread:register' %}" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ user_form }}
-                            {{ profile_form }}
+                            
+                          
                             <div class="form-submit" style="padding: 20px;">
                                 <input type="submit" value="Register" class="submit" id="submit" name="submit" />
                             </div>

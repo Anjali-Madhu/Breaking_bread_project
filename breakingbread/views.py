@@ -21,7 +21,6 @@ def index(request):
 
 def register(request):
     registered=False
-    
     if request.method=="POST":
         user_form=SignUpForm(request.POST)
         print('sahil ', user_form)
@@ -40,7 +39,13 @@ def register(request):
             profile.save()
             registered=True
         else:
-            print(user_form.errors,profile_form.errors)
+            context_dict = {'user_form':user_form,
+                            'profile_form':profile_form,
+                            'registered':registered,
+                            'user_form_errors':user_form.errors,
+                            'profile_form_errors':profile_form.errors}
+            return render(request,'breakingbread/register.html',context=context_dict)
+            #print(user_form.errors,profile_form.errors)
     else:
         user_form=SignUpForm()
         profile_form=UserProfileForm()
@@ -58,10 +63,12 @@ def user_login(request):
                 login(request, user)
                 return redirect(reverse('breakingbread:index'))
             else:
-                return HttpResponse("Your account is disabled.")
+                return render(request, 'breakingbread/login.html',context={"error":"Your account has been disabled"})
+                #return HttpResponse("Your account is disabled.")
         else:
-            print(f"Invalid login details: {username}, {password}")
-            return HttpResponse("Incorrect username or password")
+            #print(f"Invalid login details: {username}, {password}")
+            #return HttpResponse("Incorrect username or password")
+            return render(request, 'breakingbread/login.html',context={"error":"Incorrect username or password!"})
     else:
         return render(request, 'breakingbread/login.html')
     

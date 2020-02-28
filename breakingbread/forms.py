@@ -18,10 +18,12 @@ class SignUpForm(UserCreationForm):
         
 class UserProfileForm(forms.ModelForm):
     
-    usertype=forms.CharField(label="User Type  ",widget=forms.Select(choices=user_types))
+    usertype=forms.CharField(label="User Type  ",widget=forms.Select(choices=user_types),)
+    usertype.widget.attrs.update({'class':'black-dropdown'})
     
     class Meta:
         model=UserProfile
         fields=('usertype','address','picture',)
+
 
 
