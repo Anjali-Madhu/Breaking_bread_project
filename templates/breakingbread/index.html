@@ -21,14 +21,6 @@
 </head>
 
 <body>
-    {% if logged_in %}
-    <h1>Welcome {{ username }}</h1>
-    {% else %}
-    <h1> Hello Breaking Bread!!!! </h1>
-    {% endif %}
-    <a href="{% url 'breakingbread:register' %}">Sign Up</a></li><br />
-    <a href="{% url 'breakingbread:login' %}">Sign In</a></li><br />
-    <a href="{% url 'breakingbread:logout' %}">Sign out</a></li><br />
 
     <!-- Preloader -->
     <div id="preloader">
@@ -115,39 +107,7 @@
                             <div class="classynav">
                                 <ul>
                                     <li class="active"><a href="index.html">Home</a></li>
-                                    <li>
-                                        <a href="#">Pages</a>
-                                        <ul class="dropdown">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="about.html">About Us</a></li>
-                                            <li><a href="blog-post.html">Blog Post</a></li>
-                                            <li><a href="receipe-post.html">Receipe Post</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                            <li><a href="elements.html">Elements</a></li>
-                                            <li>
-                                                <a href="#">Dropdown</a>
-                                                <ul class="dropdown">
-                                                    <li><a href="index.html">Home</a></li>
-                                                    <li><a href="about.html">About Us</a></li>
-                                                    <li><a href="blog-post.html">Blog Post</a></li>
-                                                    <li><a href="receipe-post.html">Receipe Post</a></li>
-                                                    <li><a href="contact.html">Contact</a></li>
-                                                    <li><a href="elements.html">Elements</a></li>
-                                                    <li>
-                                                        <a href="#">Dropdown</a>
-                                                        <ul class="dropdown">
-                                                            <li><a href="index.html">Home</a></li>
-                                                            <li><a href="about.html">About Us</a></li>
-                                                            <li><a href="blog-post.html">Blog Post</a></li>
-                                                            <li><a href="receipe-post.html">Receipe Post</a></li>
-                                                            <li><a href="contact.html">Contact</a></li>
-                                                            <li><a href="elements.html">Elements</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                    
                                     <li>
                                         <a href="#">Mega Menu</a>
                                         <div class="megamenu">
@@ -189,12 +149,22 @@
                                     <li><a href="receipe-post.html">Receipies</a></li>
                                     <li><a href="receipe-post.html">4 Vegans</a></li>
                                     <li><a href="contact.html">Contact</a></li>
+                                    {% if logged_in %}
+                                        <li><a href="{% url 'breakingbread:logout' %}">Sign out</a></li>
+                                    {% else %}
+                                        <li><a href="{% url 'breakingbread:register' %}">Register</a></li>
+                                       
+                                        <li><a href="{% url 'breakingbread:login' %}">Log In</a></li>
+                                        
+                                     {% endif %}
+                                   
                                 </ul>
 
                                 <!-- Newsletter Form -->
                                 <div class="search-btn">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </div>
+
 
                             </div>
                             <!-- Nav End -->
@@ -214,7 +184,7 @@
                     <div class="row h-100 align-items-center">
                         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                             <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
-                                <h2 data-animation="fadeInUp" data-delay="300ms">Delicios Homemade Burger</h2>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">Delicious Homemade Burger</h2>
                                 <p data-animation="fadeInUp" data-delay="700ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique nisl vitae luctus sollicitudin. Fusce consectetur sem eget dui tristique, ac posuere arcu varius.</p>
                                 <a href="#" class="btn delicious-btn" data-animation="fadeInUp" data-delay="1000ms">See Receipe</a>
                             </div>
@@ -229,14 +199,14 @@
                     <div class="row h-100 align-items-center">
                         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                             <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
-                                <h2 data-animation="fadeInUp" data-delay="300ms">Delicios Homemade Burger</h2>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">Fancy Chinese Cuisine</h2>
                                 <p data-animation="fadeInUp" data-delay="700ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique nisl vitae luctus sollicitudin. Fusce consectetur sem eget dui tristique, ac posuere arcu varius.</p>
                                 <a href="#" class="btn delicious-btn" data-animation="fadeInUp" data-delay="1000ms">See Receipe</a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
 
             <!-- Single Hero Slide -->
             <div class="single-hero-slide bg-img" style="background-image: url(static/images/bg-img/bg7.jpg);">
@@ -244,7 +214,7 @@
                     <div class="row h-100 align-items-center">
                         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
                             <div class="hero-slides-content" data-animation="fadeInUp" data-delay="100ms">
-                                <h2 data-animation="fadeInUp" data-delay="300ms">Delicios Homemade Burger</h2>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">Something Sweet</h2>
                                 <p data-animation="fadeInUp" data-delay="700ms">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique nisl vitae luctus sollicitudin. Fusce consectetur sem eget dui tristique, ac posuere arcu varius.</p>
                                 <a href="#" class="btn delicious-btn" data-animation="fadeInUp" data-delay="1000ms">See Receipe</a>
                             </div>
@@ -262,7 +232,7 @@
                 <!-- Top Catagory Area -->
                 <div class="col-12 col-lg-6">
                     <div class="single-top-catagory">
-                        <img src="images/bg-img/bg2.jpg" alt="">
+                        <img src="{% static 'images/bg-img/bg2.jpg' %}" alt="">
                         <!-- Content -->
                         <div class="top-cta-content">
                             <h3>Strawberry Cake</h3>
@@ -274,7 +244,7 @@
                 <!-- Top Catagory Area -->
                 <div class="col-12 col-lg-6">
                     <div class="single-top-catagory">
-                        <img src="images/bg-img/bg3.jpg" alt="">
+                        <img src="{% static 'images/bg-img/bg3.jpg' %}" alt="">
                         <!-- Content -->
                         <div class="top-cta-content">
                             <h3>Chinesse Noodles</h3>
@@ -293,7 +263,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-heading">
-                        <h3>The best Receipies</h3>
+                        <h3>Top Rated Recipes of this Month</h3>
                     </div>
                 </div>
             </div>
@@ -301,13 +271,16 @@
             <div class="row">
                 <!-- Single Best Receipe Area -->
                 <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-best-receipe-area mb-30">
-                        <img src="images/bg-img/r1.jpg" alt="">
-                        <div class="receipe-content">
+                    <div class="single-best-receipe-area mb-30" >
+                        <img src="{% static 'images/bg-img/r1.jpg' %}" alt="">
+                        <div class="receipe-content" style="background-color:#F5F5F5; padding-bottom:50px;">
                             <a href="receipe-post.html">
                                 <h5>Sushi Easy Receipy</h5>
                             </a>
-                            <div class="ratings">
+                            <div class="username" style="float:left; padding-left: 10px;">
+                                <h6>by Username</h6>
+                            </div>
+                            <div class="ratings" style="float:right; padding-right: 10px;">
                                 <i class="fa fa-star" aria-hidden="true"></i>
                                 <i class="fa fa-star" aria-hidden="true"></i>
                                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -321,7 +294,7 @@
                 <!-- Single Best Receipe Area -->
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
-                        <img src="images/bg-img/r2.jpg" alt="">
+                        <img src="{% static 'images/bg-img/r2.jpg' %}"  alt="">
                         <div class="receipe-content">
                             <a href="receipe-post.html">
                                 <h5>Homemade Burger</h5>
@@ -340,7 +313,7 @@
                 <!-- Single Best Receipe Area -->
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
-                        <img src="img/bg-img/r3.jpg" alt="">
+                        <img src="{% static 'images/bg-img/r3.jpg' %}" alt="">
                         <div class="receipe-content">
                             <a href="receipe-post.html">
                                 <h5>Vegan Smoothie</h5>
@@ -359,7 +332,7 @@
                 <!-- Single Best Receipe Area -->
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
-                        <img src="img/bg-img/r4.jpg" alt="">
+                        <img src="{% static 'images/bg-img/r4.jpg' %}" alt="">
                         <div class="receipe-content">
                             <a href="receipe-post.html">
                                 <h5>Calabasa soup</h5>
@@ -378,7 +351,7 @@
                 <!-- Single Best Receipe Area -->
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
-                        <img src="img/bg-img/r5.jpg" alt="">
+                        <img src="{% static 'images/bg-img/r5.jpg' %}" alt="">
                         <div class="receipe-content">
                             <a href="receipe-post.html">
                                 <h5>Homemade Breakfast</h5>
@@ -397,7 +370,7 @@
                 <!-- Single Best Receipe Area -->
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30">
-                        <img src="img/bg-img/r6.jpg" alt="">
+                        <img src="{% static 'images/bg-img/r6.jpg' %}" alt="">
                         <div class="receipe-content">
                             <a href="receipe-post.html">
                                 <h5>Healthy Fruit Desert</h5>
@@ -417,7 +390,7 @@
     </section>
     <!-- ##### Best Receipe Area End ##### -->
     <!-- ##### CTA Area Start ##### -->
-    <section class="cta-area bg-img bg-overlay" style="background-image: url(img/bg-img/bg4.jpg);">
+    <section class="cta-area bg-img bg-overlay" style="background-image: url(static/images/bg-img/bg4.jpg);">
         <div class="container h-100">
             <div class="row h-100 align-items-center">
                 <div class="col-12">
@@ -442,7 +415,7 @@
                     <div class="single-small-receipe-area d-flex">
                         <!-- Receipe Thumb -->
                         <div class="receipe-thumb">
-                            <img src="img/bg-img/sr1.jpg" alt="">
+                            <img src="{% static 'images/bg-img/sr1.jpg' %}" alt="">
                         </div>
                         <!-- Receipe Content -->
                         <div class="receipe-content">
