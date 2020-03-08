@@ -57,9 +57,12 @@
                         <div class="breaking-news">
                             <div id="breakingNewsTicker" class="ticker">
                                 <ul>
-                                    <li><a href="#">Hello World!</a></li>
-                                    <li><a href="#">Welcome to Colorlib Family.</a></li>
-                                    <li><a href="#">Hello Delicious!</a></li>
+                                    {% if logged_in %}
+                                        <li><a href="#">Hello {{ username }}</a></li>
+                                    {% else %}
+                                        <li><a href="#">Hello YOU!</a></li>
+                                    {% endif %}
+                                    <li><a href="#">Find something DELICIOUS!</a></li>
                                 </ul>
                             </div>
                         </div>
