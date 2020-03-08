@@ -16,7 +16,7 @@
     <link rel="icon" href="{% static 'images/core-img/favicon.ico' %}">
 
     <!-- Core Stylesheet -->
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="static/style.css">
 
 </head>
 
@@ -180,8 +180,8 @@
                                             </ul>
                                             <div class="single-mega cn-col-4">
                                                 <div class="receipe-slider owl-carousel">
-                                                    <a href="#"><img src="images/bg-img/bg1.jpg" alt=""></a>
-                                                    <a href="#"><img src="images/bg-img/bg6.jpg" alt=""></a>
+                                                    <a href="#"><img src="{% static 'images/bg-img/bg1.jpg' %}" alt=""></a>
+                                                    <a href="#"><img src="{% static 'images/bg-img/bg6.jpg' %}" alt=""></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -209,7 +209,7 @@
     <section class="hero-area">
         <div class="hero-slides owl-carousel">
             <!-- Single Hero Slide -->
-            <div class="single-hero-slide bg-img" style="background-image: url(images/bg-img/bg1.jpg);">
+            <div class="single-hero-slide bg-img" style="background-image: url(static/images/bg-img/bg1.jpg);">
                 <div class="container h-100">
                     <div class="row h-100 align-items-center">
                         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
@@ -224,7 +224,7 @@
             </div>
 
             <!-- Single Hero Slide -->
-            <div class="single-hero-slide bg-img" style="background-image: url(images/bg-img/bg6.jpg);">
+            <div class="single-hero-slide bg-img" style="background-image: url(static/images/bg-img/bg6.jpg);">
                 <div class="container h-100">
                     <div class="row h-100 align-items-center">
                         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
@@ -239,7 +239,7 @@
             </div>
 
             <!-- Single Hero Slide -->
-            <div class="single-hero-slide bg-img" style="background-image: url(images/bg-img/bg7.jpg);">
+            <div class="single-hero-slide bg-img" style="background-image: url(static/images/bg-img/bg7.jpg);">
                 <div class="container h-100">
                     <div class="row h-100 align-items-center">
                         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
@@ -815,15 +815,15 @@
     <!-- ##### Footer Area Start ##### -->
     <!-- ##### All Javascript Files ##### -->
     <!-- jQuery-2.2.4 js -->
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
+    <script src="{% static 'js/jquery/jquery-2.2.4.min.js' %}"></script>
     <!-- Popper js -->
-    <script src="js/bootstrap/popper.min.js"></script>
+    <script src="{% static 'js/bootstrap/popper.min.js' %}"></script>
     <!-- Bootstrap js -->
-    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="{% static 'js/bootstrap/bootstrap.min.js' %}"></script>
     <!-- All Plugins js -->
-    <script src="js/plugins/plugins.js"></script>
+    <script src="{% static 'js/plugins/plugins.js' %}"></script>
     <!-- Active js -->
-    <script src="js/active.js"></script>
+    <script src="{% static 'js/active.js' %}"></script>
 </body>
 
 </html>
