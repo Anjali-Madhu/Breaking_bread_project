@@ -2,62 +2,66 @@
 {% load staticfiles %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Registeration</title>
+    <meta charset="utf-8">
+	<title>Registration</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="{% static 'css/style_register.css' %}"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
     <style>
-    .black-dropdown{
-        background-color:#111
-     }
-     ul.errorlist{
-         display:block
-     }
-    ul li:not(.init) { 
-    display: block; 
-    background: #fff;
-    color: $black-color;
-    padding: 5px 10px; 
-}
+        .errorlist {
+            color:red;
+            font-size: 12px;
+		}
+		.form-control {
+			width:auto;
+			display:inline-block;
+		}
+		.form-v6-content .form-detail {
+			overflow: scroll;
+			padding: 30px 40px;
+			position: relative;
+			width: 100%;
+		}
+		.form-v6-content {
+			height: 559px;
+		}
+		.page-content {
+			background-image: -webkit-linear-gradient( 136deg, #d08f5a 0%, rgb(205, 220, 224) 100%);
+		}
+		
     </style>
-
-    <!-- Font Icon -->
-    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
-    <!-- Main css -->
-    <link rel="stylesheet" href="{% static 'css/account_style.css' %}">
 </head>
-<body>
 
-    <div class="main">
-
-        <div class="container">
-            <div class="booking-content">
-                <div class="booking-image">
-                    <img class="booking-img" src="{% static 'images/form-img.jpg' %}" alt="Booking Image">
-                </div>
-                <div class="booking-form">
-                    {% if registered %} 
-                        <strong>Thank you for registering!</strong>
-                        <a href="{% url 'breakingbread:login' %}">Login</a> to continue<br />
-                    {% else %}
-                        <form id="user_form" method="post" action="{% url 'breakingbread:register' %}" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {{ user_form }}
-                            
-                          
-                            <div class="form-submit" style="padding: 20px;">
-                                <input type="submit" value="Register" class="submit" id="submit" name="submit" />
-                            </div>
-                        </form>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- JS -->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+<body class="form-v6">
+	<div class="page-content">
+		<div class="form-v6-content">
+			<div class="form-left">
+				<img src="{% static 'images/BB_logo.png' %}" alt="form">
+			</div>
+			{% if registered %} 
+				<strong style="color:gray;">Thank you for registering!</strong>
+				<a href="{% url 'breakingbread:login' %}">Login</a> to continue<br />
+			{% else %}
+				<form class="form-detail" method="post" action="{% url 'breakingbread:register' %}" enctype="multipart/form-data">
+					{% csrf_token %}
+					{{ user_form.as_p }}
+					{{ profile_form.address }}
+					<div class="form-group" style="padding:10px">
+						<label for="exampleFormControlSelect1" style="color: grey;padding:10px">Type</label>
+						{{ profile_form.usertype }}
+					</div>
+					<div class="form-group">
+						<label for="exampleFormControlSelect1" style="color: grey;padding:10px">Picture</label>
+						{{ profile_form.picture }}
+					</div>
+					<div class="form-row-last">
+						<input type="submit" name="register" class="register" value="Register">
+					</div>
+				</form>
+			{% endif %}
+		</div>
+	</div>
+</body>
 </html>
