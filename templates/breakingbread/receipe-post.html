@@ -353,22 +353,19 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="contact-form-area">
-                            <form action="#" method="post">
+                            <form id="review_form" method="post" action="/breakingbread/receipe-post.html">
                                 <div class="row">
-                                    <div class="col-12 col-lg-6">
-                                        <input type="text" class="form-control" id="name" placeholder="Name">
-                                    </div>
-                                    <div class="col-12 col-lg-6">
-                                        <input type="email" class="form-control" id="email" placeholder="E-mail">
+                                    <div class="col-12">
+                                        <!-- add csrf token -->
+                                         {% for field in form.visible_fields %}
+                                                {{ field.errors }}
+                                                {{ field.help_text }}
+                                                {{ field }}
+                                         {% endfor %}
+                                        <!--<textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Comment"></textarea>-->
                                     </div>
                                     <div class="col-12">
-                                        <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                    </div>
-                                    <div class="col-12">
-                                        <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn delicious-btn mt-30" type="submit">Post Comment</button>
+                                        <input type="submit" name="submit" value="Post Comment" />
                                     </div>
                                 </div>
                             </form>

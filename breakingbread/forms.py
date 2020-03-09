@@ -26,4 +26,8 @@ class UserProfileForm(forms.ModelForm):
         fields=('usertype','address','picture',)
 
 
-
+class ReviewForm(forms.ModelForm):
+    #username=forms.CharField(max_length=128,required=True) already logged in so we get their username?
+    #rating = forms.IntegerField(default=0), how do we make them rate
+    description = forms.CharField(max_length=500)
+    fields = ('description',)
