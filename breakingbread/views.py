@@ -75,3 +75,6 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect(reverse('breakingbread:index'))
+
+def recipe(request):
+    return render(request, 'breakingbread/receipe-post.html')
