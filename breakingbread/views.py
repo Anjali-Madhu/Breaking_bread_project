@@ -23,7 +23,6 @@ def register(request):
     registered=False
     if request.method=="POST":
         user_form=SignUpForm(request.POST)
-        print('sahil ', user_form)
         profile_form = UserProfileForm(request.POST)
         
         if user_form.is_valid() and profile_form.is_valid():
@@ -44,8 +43,8 @@ def register(request):
                             'registered':registered,
                             'user_form_errors':user_form.errors,
                             'profile_form_errors':profile_form.errors}
+            print('errors_use', user_form.errors)
             return render(request,'breakingbread/register.html',context=context_dict)
-            #print(user_form.errors,profile_form.errors)
     else:
         user_form=SignUpForm()
         profile_form=UserProfileForm()
