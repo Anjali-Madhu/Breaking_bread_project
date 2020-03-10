@@ -1,51 +1,83 @@
 ﻿<!DOCTYPE html>
+{% extends 'breakingbread/base.html' %}
 {% load staticfiles %}
+{% block body_block %}
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-    <!-- Font Icon -->
-    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
-    <!-- Main css -->
-    <link rel="stylesheet" href="{% static 'css/account_style.css' %}">
+    <meta charset="utf-8">
+	<title>Registration</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="{% static 'css/style_register.css' %}"/>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	 <!-- Favicon -->
+	 <link rel="icon" href="{% static 'images/core-img/favicon.ico' %}">
+
+	 <!-- Core Stylesheet -->
+	 <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <style>
+		img {
+			width: 558px;
+		}
+        .errorlist {
+            color:red;
+            font-size: 12px;
+		}
+		.form-group {
+			width:auto;
+			padding:10px;
+		}
+		.form-v6-content .form-detail {
+			padding: 30px 40px;
+			position: relative;
+			width: 100%;
+		}
+		.form-v6-content {
+			height: 559px;
+		}
+		.page-content {
+			background-image: -webkit-linear-gradient( 136deg, #d08f5a 0%, rgb(205, 220, 224) 100%);
+        }
+        
+        .form-detail {
+            padding-top: 150px!important;
+            padding-bottom: 15px!important;
+        }
+
+        .form-row-last {
+            padding:20px!important
+        }
+		
+    </style>
 </head>
-<body>
-    <div class="main">
-
-        <div class="container">
-            <div class="booking-content">
-                <div class="booking-image">
-                    <img class="booking-img" src="{% static 'images/form-img.jpg' %}" alt="Booking Image">
-                </div>
-                <div class="booking-form">
-
-                <form id="login_form" method="post" action="{% url 'breakingbread:login' %}">
-                    {% csrf_token %}
-                     <div class="form-submit" style="padding: 20px;">
-                      Username: <input type="text" name="username" value="" size="50" />
-                      <br />
-                      Password: <input type="password" name="password" value="" size="50" />
-                      <br />
-                      {% if error %}
-                     <f style="color:red"> {{ error }}</f>
-                      {% endif %}
-                      <br />
-                      <br />
-                      <center>  <input type="submit" value="Login" class="submit" id="submit" name="submit" />
-                    </div>
-    
-                </form>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- JS -->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+	<body>
+		<div class="form-v6">
+			<div class="page-content">
+				<div class="form-v6-content">
+					<div class="form-left">
+						<img src="{% static 'images/BB_logo.png' %}" class="w3-round" alt="form">
+					</div>
+					{% if logged_in %} 
+						<strong style="color:gray;">Thank you for registering!</strong>
+					{% else %}
+                    <form class="form-detail" method="post" action="{% url 'breakingbread:login' %}">
+                        {% csrf_token %}
+                        <p><label for="username">Username:</label></p>
+                        <input type="text" name="username" value="" size="50" />
+                        
+                        <p><label for="password">Password:</label></p>
+                        <input type="text" name="password" value="" size="50" />
+                        
+                        <div class="form-row-last">
+                            <input type="submit" name="login" class="register" value="Login">
+                        </div>
+                    </form>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
-
+{% endblock %}

@@ -65,6 +65,10 @@ img {
   height: auto;
   max-width: 100%; }
 
+.w3-round {
+  height: auto;
+  max-width: fit-content;
+}
 /* Spacing */
 .mt-15 {
   margin-top: 15px !important; }

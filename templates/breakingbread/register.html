@@ -1,5 +1,7 @@
 ﻿<!DOCTYPE html>
+{% extends 'breakingbread/base.html' %}
 {% load staticfiles %}
+{% block body_block %}
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -8,15 +10,24 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="stylesheet" href="{% static 'css/style_register.css' %}"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	 <!-- Favicon -->
+	 <link rel="icon" href="{% static 'images/core-img/favicon.ico' %}">
+
+	 <!-- Core Stylesheet -->
+	 <link rel="stylesheet" href="{% static 'style.css' %}">
 
     <style>
+		img {
+			width: 558px;
+		}
         .errorlist {
             color:red;
             font-size: 12px;
 		}
-		.form-control {
+		.form-group {
 			width:auto;
 			display:inline-block;
+			padding:10px;
 		}
 		.form-v6-content .form-detail {
 			overflow: scroll;
@@ -33,35 +44,38 @@
 		
     </style>
 </head>
-
-<body class="form-v6">
-	<div class="page-content">
-		<div class="form-v6-content">
-			<div class="form-left">
-				<img src="{% static 'images/BB_logo.png' %}" alt="form">
+	<body>
+		<div class="form-v6">
+			<div class="page-content">
+				<div class="form-v6-content">
+					<div class="form-left">
+						<img src="{% static 'images/BB_logo.png' %}" class="w3-round" alt="form">
+					</div>
+					{% if registered %} 
+						<strong style="color:gray;">Thank you for registering!</strong>
+						<a href="{% url 'breakingbread:login' %}">Login</a> to continue<br />
+					{% else %}
+						<form class="form-detail" method="post" action="{% url 'breakingbread:register' %}" enctype="multipart/form-data">
+							{% csrf_token %}
+							{{ user_form.as_p }}
+							<p><label for="address">Address:</label></p>
+							{{ profile_form.address }}
+							<div class="form-group">
+								<p><label for="exampleFormControlSelect1" style="color: grey;padding:10px">Type</label></p>
+								{{ profile_form.usertype }}
+							</div>
+							<div class="form-group">
+								<p><label for="exampleFormControlSelect1" style="color: grey;padding:10px">Picture</label></p>
+								{{ profile_form.picture }}
+							</div>
+							<div class="form-row-last">
+								<input type="submit" name="register" class="register" value="Register">
+							</div>
+						</form>
+					{% endif %}
+				</div>
 			</div>
-			{% if registered %} 
-				<strong style="color:gray;">Thank you for registering!</strong>
-				<a href="{% url 'breakingbread:login' %}">Login</a> to continue<br />
-			{% else %}
-				<form class="form-detail" method="post" action="{% url 'breakingbread:register' %}" enctype="multipart/form-data">
-					{% csrf_token %}
-					{{ user_form.as_p }}
-					{{ profile_form.address }}
-					<div class="form-group" style="padding:10px">
-						<label for="exampleFormControlSelect1" style="color: grey;padding:10px">Type</label>
-						{{ profile_form.usertype }}
-					</div>
-					<div class="form-group">
-						<label for="exampleFormControlSelect1" style="color: grey;padding:10px">Picture</label>
-						{{ profile_form.picture }}
-					</div>
-					<div class="form-row-last">
-						<input type="submit" name="register" class="register" value="Register">
-					</div>
-				</form>
-			{% endif %}
 		</div>
-	</div>
-</body>
+	</body>
 </html>
+{% endblock %}
