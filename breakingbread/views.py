@@ -1,10 +1,12 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from breakingbread.forms import *
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from breakingbread.models import *;
+import json;
 
 # Create your views here.
 def index(request):
@@ -97,5 +99,15 @@ def review(request):
         # Will handle the bad form, new form, or no form supplied cases.
         # Render the form with error messages (if any).
     return render(request, 'breakingbread/receipe-post.html', {'form': form})
+
+def cuisine_list(request):
+    cuisine_list=[];
+    #retrieving the cuisine list
+    cuisines = Cuisine.objects.all();
+    for cuisine in cuisines:
+        cuisine_list.append(cuisine.cuisine_type)
+    return JsonResponse({1:cuisine_list})
+    
+    
 
 
