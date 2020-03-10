@@ -24,4 +24,4 @@ urlpatterns = [
     path('',views.index, name='index'),
     path('breakingbread/',include('breakingbread.urls')),
     path('admin/', admin.site.urls),
-]
+] 
