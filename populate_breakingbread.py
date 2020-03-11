@@ -6,13 +6,41 @@ import django
 django.setup()
 from breakingbread.models import *
 import random
+from django.core.files import File
 
-user = UserProfile.objects.all()
 
 
 def populate():
     Cuisine.objects.all().delete()
     Recipe.objects.all().delete()
+    User.objects.all().delete()
+    UserProfile.objects.all().delete()
+    Review.objects.all().delete()
+
+    
+    Users = [ {'username': 'John Doe', 'password':'1234', 'first_name': 'John', 'last_name': 'Doe'},
+             {'username': 'Emma Watson', 'password':'1234', 'first_name': 'Emma', 'last_name': 'Watson'},
+             ]
+    for u in Users:
+        add_users(u)
+    all_users = User.objects.all()
+
+    UsersProfile = [
+        { 'user': all_users[0],
+         'usertype': 0,
+         'address': '61 Kelvinhaugh Street',
+         'picture': 'populate_profile_images/profile1.jpg'
+         },
+         { 'user': all_users[1],
+         'usertype': 1,
+         'address': '11 Buchanan Street',
+         'picture': 'populate_profile_images/profile2.jpg'
+         }
+        ]
+
+    for u in UsersProfile:
+        add_usersProfile(u)
+    all_usersProfile = UserProfile.objects.all()
     
     cuisines = ['Italian',
                 'Indian',
@@ -22,77 +50,146 @@ def populate():
                 'Romanian',
                 'Lebanese',
                 'Mauritian']
+    
     for cuisine in cuisines:
-        c=add_cuisine(cuisine)
-    c= Cuisine.objects.all()
+        add_cuisine(cuisine)
+
+    all_cuisines = Cuisine.objects.all()
     
     Recipes = [
-        {'recipe_id': 1, 'recipe_name': 'Bruschetta', 'username': 'johndoe', 'time_taken': 20,
-         'level': 0, 'ingredients': 'tomato,garlic,bread', 'cooking_type': 1, 'cuisine': c[0],
+        {'recipe_id': 1, 'recipe_name': 'Bruschetta', 'username': all_usersProfile[0], 'time_taken': 20,
+         'level': 0, 'ingredients': 'tomato,garlic,bread', 'cooking_type': 1, 'cuisine': all_cuisines[0],
          'description': 'Mix all :)', 'created': now},
-       {'recipe_id': 2, 'recipe_name': 'Tandoori Chicken', 'username': 'johndoe', 'time_taken': 50,
-         'level': 1, 'ingredients': 'chicken, spices, onion', 'cooking_type': 0, 'cuisine': c[1],
+
+       {'recipe_id': 2, 'recipe_name': 'Tandoori Chicken', 'username': all_usersProfile[1], 'time_taken': 50,
+         'level': 1, 'ingredients': 'chicken, spices, onion', 'cooking_type': 0, 'cuisine': all_cuisines[1],
          'description': 'Cook chicken :)', 'created': now},
     
-        {'recipe_id': 3, 'recipe_name': 'Koshari', 'username': 'johndoe', 'time_taken': 60,
-         'level': 1, 'ingredients': 'pasta, lentils, onions, garlic, vinegar, chickpeas, rice, salsa', 'cooking_type': 1, 'cuisine': c[2],
+        {'recipe_id': 3, 'recipe_name': 'Koshari', 'username': all_usersProfile[0], 'time_taken': 60,
+         'level': 1, 'ingredients': 'pasta, lentils, onions, garlic, vinegar, chickpeas, rice, salsa', 'cooking_type': 1, 'cuisine': all_cuisines[2],
          'description': 'Mix and fry the onions :)', 'created': now},
 
     
-        {'recipe_id': 4, 'recipe_name': 'Black Pudding', 'username': 'johndoe', 'time_taken': 50,
-         'level': 2, 'ingredients': 'blood', 'cooking_type': 0, 'cuisine': c[3],
+        {'recipe_id': 4, 'recipe_name': 'Black Pudding', 'username': all_usersProfile[1], 'time_taken': 50,
+         'level': 2, 'ingredients': 'blood', 'cooking_type': 0, 'cuisine': all_cuisines[3],
          'description': 'bake the blood :)', 'created': now},
 
     
-        {'recipe_id': 5, 'recipe_name': 'Veggie Chow Mein Noodles', 'username': 'johndoe', 'time_taken': 30,
-         'level': 0, 'ingredients': 'Vegetables, Egg Noodles, Soy Sauce', 'cooking_type': 1, 'cuisine': c[4],
+        {'recipe_id': 5, 'recipe_name': 'Veggie Chow Mein Noodles', 'username': all_usersProfile[0], 'time_taken': 30,
+         'level': 0, 'ingredients': 'Vegetables, Egg Noodles, Soy Sauce', 'cooking_type': 1, 'cuisine': all_cuisines[4],
          'description': 'Boil noodles, add veggies, bon apetit :)', 'created': now},
 
     
-        {'recipe_id': 6, 'recipe_name': 'Polenta', 'username': 'johndoe', 'time_taken': 50,
-         'level': 0, 'ingredients': 'cornflower', 'cooking_type': 2, 'cuisine': c[5],
+        {'recipe_id': 6, 'recipe_name': 'Polenta', 'username': all_usersProfile[0], 'time_taken': 50,
+         'level': 0, 'ingredients': 'cornflower', 'cooking_type': 2, 'cuisine': all_cuisines[5],
          'description': 'Cook cornflower :)', 'created': now},
 
     
-        {'recipe_id': 7, 'recipe_name': 'Stuffed Vine Leaves', 'username': 'johndoe', 'time_taken': 120,
-         'level': 2, 'ingredients': 'Vine leaves, salt, rice, veggies, tomato salsa', 'cooking_type': 0, 'cuisine': c[6],
+        {'recipe_id': 7, 'recipe_name': 'Stuffed Vine Leaves', 'username': all_usersProfile[0], 'time_taken': 120,
+         'level': 2, 'ingredients': 'Vine leaves, salt, rice, veggies, tomato salsa', 'cooking_type': 0, 'cuisine': all_cuisines[6],
          'description': 'Stuff the vine leaves :)', 'created': now},
 
     
-        {'recipe_id': 8, 'recipe_name': 'Boulettes', 'username': 'johndoe', 'time_taken': 60,
-         'level': 1, 'ingredients': 'fish, onion, coriander', 'cooking_type': 0, 'cuisine': c[7],
-         'description': 'Mix all and steam the fish :)', 'created': now},]
-
-    Other_Recipes = []
-
-    cuisines = ['Italian',
-                'Egyptian',
-                'Indian',
-                'Scottish',
-                'Chinese',
-                'Romanian',
-                'Lebanese',
-                'Mauritian']
+        {'recipe_id': 8, 'recipe_name': 'Boulettes', 'username': all_usersProfile[1], 'time_taken': 60,
+         'level': 1, 'ingredients': 'fish, onion, coriander', 'cooking_type': 0, 'cuisine': all_cuisines[7],
+         'description': 'Mix all and steam the fish :)', 'created': now},
+    ]
 
     
-    user = UserProfile.objects.all()
-    r = random.randint(0,2)
     for i in Recipes:
-        p= add_recipe(i['recipe_name'],user[r],i['time_taken'],
+        add_recipe(i['recipe_id'], i['recipe_name'], i['username'], i['time_taken'],
                       i['level'],i['ingredients'],i['cooking_type'],
                       i['cuisine'],i['description'])
 
+    all_recipes = Recipe.objects.all()
 
-def add_recipe(recipe_name,username, time_taken,level,ingredients,cooking_type,cuisine,description):
-    p = Recipe.objects.get_or_create(recipe_name=recipe_name,username=user[0],time_taken= time_taken,
-    level= level, ingredients= ingredients, cooking_type= cooking_type, cuisine= cuisine, description= description)[0]
-    p.save()
-    return p
+    Images = [
+         {'image_id': 1,
+          'picture':  'populate_recipe_images/bruschetta.jpg',
+          'recipe_id': all_recipes[0]
+         },
+         {'image_id': 2,
+          'picture':  'populate_recipe_images/tandoori_chicken.jpg',
+          'recipe_id': all_recipes[1]
+         },
+         {'image_id': 3,
+          'picture':  'populate_recipe_images/koshari.jpg',
+          'recipe_id': all_recipes[2]
+         },
+         {'image_id': 4,
+          'picture':  'populate_recipe_images/black_pudding.jpg',
+          'recipe_id': all_recipes[3]
+         },
+         {'image_id': 5,
+          'picture':  'populate_recipe_images/chow_mein.jpg',
+          'recipe_id': all_recipes[4]
+         },
+         {'image_id': 6,
+          'picture':  'populate_recipe_images/polenta.jpg',
+          'recipe_id': all_recipes[5]
+         },
+         {'image_id': 7,
+          'picture':  'populate_recipe_images/stuffed_vine_leaves.jpg',
+          'recipe_id': all_recipes[6]
+         },
+         {'image_id': 8,
+          'picture':  'populate_recipe_images/boulettes.jpg',
+          'recipe_id': all_recipes[5]
+         },
+         ]
+
+    for img in Images:
+        add_image(img['image_id'], img['picture'], img['recipe_id'])
+
+    Reviews = [{'review_id': 1, 'recipe_id': all_recipes[1], 'username': all_usersProfile[1], 'rating': 5, 'description': 'very tasty', 'date': '12/03/2020'},]
+    for rev in Reviews:
+        add_review(rev)
+
+def add_review(rev):
+    review = Review.objects.get_or_create(review_id = rev['review_id'], recipe_id = rev['recipe_id'], username = rev['username'])[0]
+    review.rating = rev['rating']
+    review.description = rev['description']
+    review.date = rev['date']
+    review.save()
+    return review
+
+
+def add_users(u):
+    user = User.objects.get_or_create(username = u['username'], password = u['password'])[0]
+    user.first_name = u['first_name']
+    user.last_name = u['last_name']
+    user.save()
+    return user
+
+def add_usersProfile(u):
+    user = UserProfile.objects.get_or_create(user = u['user'])[0]
+    user.usertype = u['usertype']
+    user.address = u['address']
+    user.picture = u['picture']
+    user.save()
+    return user
+ 
+
+
+def add_recipe(recipe_id, recipe_name,username, time_taken,level,ingredients,cooking_type,cuisine,description):
+    recipe = Recipe.objects.get_or_create(recipe_id = recipe_id, username = username, cuisine = cuisine, time_taken = time_taken, level = level)[0] 
+    recipe.recipe_name=recipe_name
+    recipe.ingredients= ingredients
+    recipe.cooking_type= cooking_type
+    recipe.description= description
+    recipe.save()
+    return recipe
 
 def add_cuisine(cuisine):
-    c=Cuisine.objects.get_or_create(cuisine_type=cuisine)[0]
+    c = Cuisine.objects.get_or_create(cuisine_type=cuisine)[0]
     c.save()
     return c
+
+def add_image(image_id, picture, recipe_id):
+    img = Image.objects.get_or_create(image_id = image_id, recipe_id = recipe_id)[0]
+    img.picture = picture
+    img.save()
+    return img
 
 if __name__=='__main__':
     print('Starting breakingbread population script...')

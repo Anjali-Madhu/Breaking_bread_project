@@ -3,12 +3,12 @@
     "",
     "\\breakingbread",
     "\\breaking_bread_project",
+    "\\media",
     "\\static",
     "\\static\\images",
-    "\\static\\images\\core-img",
     "\\templates",
     "\\templates\\breakingbread"
   ],
-  "SelectedNode": "\\breakingbread\\views.py",
+  "SelectedNode": "\\populate_breakingbread.py",
   "PreviewInSolutionExplorer": false
 }

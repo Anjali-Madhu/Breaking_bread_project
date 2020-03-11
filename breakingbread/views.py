@@ -17,7 +17,7 @@ def index(request):
         username=request.user.username
     else:
         logged_in=False
-    context_dict={"logged_in":logged_in,"username":username}
+    context_dict={"logged_in":logged_in,"username":username, "c":c}
     response = render(request, 'breakingbread/index.html',context=context_dict)
     return response
 

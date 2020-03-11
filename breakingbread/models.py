@@ -55,8 +55,9 @@ class Recipe(models.Model):
         
 class Image(models.Model):
     image_id=models.AutoField(primary_key=True)
-    picture = models.ImageField(blank=False)
+    picture = models.ImageField(upload_to='recipe_images', blank=False)
     recipe_id=models.ForeignKey(Recipe,on_delete=models.CASCADE,blank=False)
+
  #Review table   
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
