@@ -37,8 +37,8 @@ class Recipe(models.Model):
     cuisine = models.ForeignKey(Cuisine,on_delete=models.CASCADE)
     description = models.TextField(max_length=2000)
     created = models.DateTimeField(default=now)
+    #average_rating = models.IntegerField(default=0)
 
-    #average rating
     @property
     def average_rating(self):
         total = 0
@@ -46,9 +46,15 @@ class Recipe(models.Model):
         reviews = Review.objects.filter(recipe_id=self.recipe_id)
         for r in reviews:
             total+=r.rating
-        return total/count
+        #self.average_rating=total/count
+        if count!=0:
+            return (total/count)
+        else:
+            return 0
+    
     def __str__(self):
         return self.recipe_name
+    
         
         
 #Image table  
@@ -68,7 +74,7 @@ class Review(models.Model):
     created = models.DateTimeField(default=now)
     
     def __str__(self):
-        return self.review_id
+        return self.description
     
 #Reports table
 class Report(models.Model):

@@ -12,12 +12,15 @@ import json;
 def index(request):
     logged_in=False
     username=""
+   
+    
+    
     if request.user.is_authenticated:
         logged_in=True
         username=request.user.username
     else:
         logged_in=False
-    context_dict={"logged_in":logged_in,"username":username, "c":c}
+    context_dict={"logged_in":logged_in,"username":username,}
     response = render(request, 'breakingbread/index.html',context=context_dict)
     return response
 
