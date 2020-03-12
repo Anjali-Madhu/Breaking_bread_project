@@ -13,7 +13,7 @@ from django.core.files import File
 def populate():
     Cuisine.objects.all().delete()
     Recipe.objects.all().delete()
-    User.objects.all().delete()
+    #User.objects.all().delete()
     UserProfile.objects.all().delete()
     Review.objects.all().delete()
 
