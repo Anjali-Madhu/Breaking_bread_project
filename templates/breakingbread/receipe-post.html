@@ -175,7 +175,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="section-heading text-left">
-                            <h3>Leave a comment</h3>
+                            <h3>Leave a Comment!</h3>
                         </div>
                     </div>
                 </div>
@@ -183,16 +183,11 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="contact-form-area">
-                            <form id="review_form" method="post" action="/breakingbread/receipe-post.html">
+                            <form id="review_form" method="post" action="{% url 'breakingbread:recipe' %}">
                                 <div class="row">
                                     <div class="col-12">
-                                        <!-- add csrf token -->
-                                         {% for field in form.visible_fields %}
-                                                {{ field.errors }}
-                                                {{ field.help_text }}
-                                                {{ field }}
-                                         {% endfor %}
-                                        <!--<textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Comment"></textarea>-->
+                                         {% csrf_token %}
+                                         <input type = "text" name="message" id="message" class = "form-control" placeholder="Your comment" cols = "20" rows = "10"/>
                                     </div>
                                     <div class="col-12">
                                         <input type="submit" name="submit" value="Post Comment" />

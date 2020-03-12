@@ -81,13 +81,14 @@ def user_logout(request):
 def recipe(request):
     return render(request, 'breakingbread/receipe-post.html')
 
-@login_required
+#@login_required
 def review(request):
     form = ReviewForm()
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
             # Save the new review to the database.
+            print(form.message)
             form.save(commit=True)
             # Now that the category is saved, we could confirm this.
             # For now, just redirect the user back to the index view.
@@ -98,7 +99,7 @@ def review(request):
             print(form.errors)
         # Will handle the bad form, new form, or no form supplied cases.
         # Render the form with error messages (if any).
-    return render(request, 'breakingbread/receipe-post.html', {'form': form})
+    return render(request, '/breakingbread/receipe-post.html', {'form': form})
 
 def cuisine_list(request):
     cuisine_list=[];
