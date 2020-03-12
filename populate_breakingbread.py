@@ -8,7 +8,7 @@ from breakingbread.models import *
 import random
 from django.core.files import File
 
-
+#https://www.bbcgoodfood.com/recipes/ source of recipe descriptions
 
 def populate():
     Cuisine.objects.all().delete()
@@ -58,12 +58,13 @@ def populate():
     
     Recipes = [
         {'recipe_id': 1, 'recipe_name': 'Bruschetta', 'username': all_usersProfile[0], 'time_taken': 20,
-         'level': 0, 'ingredients': 'tomato,garlic,bread', 'cooking_type': 1, 'cuisine': all_cuisines[0],
-         'description': 'Mix all :)', 'created': now},
+         'level': 0, 'ingredients': ['Half small red onion, finely chopped', '8 medium tomatoes (about 500g), coarsely chopped and drained', '2-3 garlic cloves, crushed',' 6-8 leaves of fresh basil finely chopped','30ml balsamic vinegar', '60-80ml extra virgin olive oil', '1 loaf crusty bread'], 'cooking_type': 1, 'cuisine': all_cuisines[0],
+         'description': ['In a large bowl, mix the onions, tomatoes, garlic and basil, taking care not to mash or break up the tomatoes too much.',' Add the balsamic vinegar and extra virgin olive oil.',' Add salt and pepper to taste. Mix again. Cover and chill for at least an hour. This will allow the flavours to soak and blend together',
+                        'Slice the baguette loaf diagonally into 12 thick slices and lightly toast them until they are light brown on both sides. Serve the mixture on the warm slices of bread. If you prefer the mixture at room temperature, remove from the fridge half an hour before serving'], 'created': now},
 
        {'recipe_id': 2, 'recipe_name': 'Tandoori Chicken', 'username': all_usersProfile[1], 'time_taken': 50,
-         'level': 1, 'ingredients': 'chicken, spices, onion', 'cooking_type': 0, 'cuisine': all_cuisines[1],
-         'description': 'Cook chicken :)', 'created': now},
+         'level': 1, 'ingredients':[ 'Juice 2 lemons', '4 tsp paprika', '2 red onions, finely chopped', '16 skinless chicken thighs', 'vegetable oil, for brushing', '300ml Greek yogurt', 'large piece ginger, grated', '4 garlic cloves, crushed' , 'Three quarter tsp garam masala', 'Three quarter tsp ground cumin', 'half tsp chilli powder', 'Quarter tsp turmeric'], 'cooking_type': 0, 'cuisine': all_cuisines[1],
+         'description': ['Mix the lemon juice with the paprika and red onions in a large shallow dish. Slash each chicken thigh three times, then turn them in the juice and set aside for 10 mins.','Mix all of the marinade ingredients together and pour over the chicken. Give everything a good mix, then cover and chill for at least 1 hr. This can be done up to a day in advance.','Heat the grill. Lift the chicken pieces onto a rack over a baking tray. Brush over a little oil and grill for 8 mins on each side or until lightly charred and completely cooked through.'], 'created': now},
     
         {'recipe_id': 3, 'recipe_name': 'Koshari', 'username': all_usersProfile[0], 'time_taken': 60,
          'level': 1, 'ingredients': 'pasta, lentils, onions, garlic, vinegar, chickpeas, rice, salsa', 'cooking_type': 1, 'cuisine': all_cuisines[2],
