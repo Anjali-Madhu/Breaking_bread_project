@@ -3,7 +3,7 @@
 
 {% block body_block %}
    
-
+ <script src="{% static 'js/addons/rating.js' %}"></script>
     <!-- ##### Breadcumb Area Start ##### -->
     <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(img/bg-img/breadcumb3.jpg);">
         <div class="container h-100">
@@ -79,13 +79,40 @@
                     </div>
 
                     <div class="col-12 col-md-4">
-                        <div class="receipe-ratings text-right my-5">
-                            <div class="ratings">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <div class="recipe-ratings text-right my-5">
+                           <div class="ratings">
+<!--                                <i class="fa fa-star" aria-hidden="true"></i>-->
+<!--                                <i class="fa fa-star" aria-hidden="true"></i>-->
+<!--                                <i class="fa fa-star" aria-hidden="true"></i>-->
+<!--                                <i class="fa fa-star" aria-hidden="true"></i>-->
+<!--                                <i class="fa fa-star-o" aria-hidden="true"></i>-->
+                                <span class="rating_stars rating_0">
+                                    <span class='s' data-low='0.5' data-high='1'><i class="fa fa-star-o"></i></span>
+                                  <span class='s' data-low='1.5' data-high='2'><i class="fa fa-star-o"></i></span>
+                                  <span class='s' data-low='2.5' data-high='3'><i class="fa fa-star-o"></i></span>
+                                  <span class='s' data-low='3.5' data-high='4'><i class="fa fa-star-o"></i></span>
+                                  <span class='s' data-low='4.5' data-high='5'><i class="fa fa-star-o"></i></span>
+
+                                  <span class='r r0_5' data-rating='1' data-value='0.5'></span>
+                                  <span class='r r1' data-rating='1' data-value='1'></span>
+                                  <span class='r r1_5' data-rating='15' data-value='1.5'></span>
+                                  <span class='r r2' data-rating='2' data-value='2'></span>
+                                  <span class='r r2_5' data-rating='25' data-value='2.5'></span>
+                                  <span class='r r3' data-rating='3' data-value='3'></span>
+                                  <span class='r r3_5' data-rating='35' data-value='3.5'></span>
+                                  <span class='r r4' data-rating='4' data-value='4'></span>
+                                  <span class='r r4_5' data-rating='45' data-value='4.5'></span>
+                                  <span class='r r5' data-rating='5' data-value='5'></span>
+                                </span>
+
+<div class="values">
+  <div>
+    <label>Rating</label><input type="text" id="rating" value="0" />
+  </div>
+  <div>
+    <label>Rating Value</label><input type="text" name="rating" id="rating_val" value="0" />
+  </div>
+</div>
                             </div>
                             <a href="#" class="btn delicious-btn">For Beginners</a>
                         </div>
@@ -214,7 +241,7 @@
         <div class="insta-feeds d-flex flex-wrap">
             <!-- Single Insta Feeds -->
             <div class="single-insta-feeds">
-                <img src="img/bg-img/insta1.jpg" alt="">
+                <img src="{% static 'images/bg-img/insta1.jpg' %}" alt="">
                 <!-- Icon -->
                 <div class="insta-icon">
                     <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
@@ -223,7 +250,7 @@
 
             <!-- Single Insta Feeds -->
             <div class="single-insta-feeds">
-                <img src="img/bg-img/insta2.jpg" alt="">
+                <img src="{% static 'images/bg-img/insta2.jpg' %}" alt="">
                 <!-- Icon -->
                 <div class="insta-icon">
                     <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
@@ -232,7 +259,7 @@
 
             <!-- Single Insta Feeds -->
             <div class="single-insta-feeds">
-                <img src="img/bg-img/insta3.jpg" alt="">
+                <img src="{% static 'images/bg-img/insta3.jpg' %}" alt="">
                 <!-- Icon -->
                 <div class="insta-icon">
                     <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
@@ -241,7 +268,7 @@
 
             <!-- Single Insta Feeds -->
             <div class="single-insta-feeds">
-                <img src="img/bg-img/insta4.jpg" alt="">
+                <img src="{% static 'images/bg-img/insta4.jpg' %}" alt="">
                 <!-- Icon -->
                 <div class="insta-icon">
                     <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
@@ -250,7 +277,7 @@
 
             <!-- Single Insta Feeds -->
             <div class="single-insta-feeds">
-                <img src="img/bg-img/insta5.jpg" alt="">
+                <img src="{% static 'images/bg-img/insta5.jpg' %}" alt="">
                 <!-- Icon -->
                 <div class="insta-icon">
                     <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
@@ -259,7 +286,7 @@
 
             <!-- Single Insta Feeds -->
             <div class="single-insta-feeds">
-                <img src="img/bg-img/insta6.jpg" alt="">
+                <img src="{% static 'images/bg-img/insta6.jpg' %}" alt="">
                 <!-- Icon -->
                 <div class="insta-icon">
                     <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
@@ -268,7 +295,7 @@
 
             <!-- Single Insta Feeds -->
             <div class="single-insta-feeds">
-                <img src="img/bg-img/insta7.jpg" alt="">
+                <img src="{% static 'images/bg-img/insta7.jpg' %}" alt="">
                 <!-- Icon -->
                 <div class="insta-icon">
                     <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
