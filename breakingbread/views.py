@@ -104,6 +104,8 @@ def review(request):
         # Render the form with error messages (if any).
     return render(request, '/breakingbread/receipe-post.html', {'form': form})
 
+
+    
 def cuisine_list(request):
     cuisine_list=[];
     #retrieving the cuisine list
@@ -111,6 +113,17 @@ def cuisine_list(request):
     for cuisine in cuisines:
         cuisine_list.append(cuisine.cuisine_type)
     return JsonResponse({1:cuisine_list})
+#retrieving search results
+def search(request):
+    cuisine_list = []
+    #retrieving the cuisine list
+    cuisines = Cuisine.objects.all();
+    for cuisine in cuisines:
+        cuisine_list.append(cuisine.cuisine_type)
+    context_dict={}
+    context_dict["cuisines"]= cuisine_list
+    response = render(request, 'breakingbread/search-results.html',context=context_dict)
+    return response
     
     
 

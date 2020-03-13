@@ -1,0 +1,216 @@
+{% extends 'breakingbread/base.html' %}
+{% load staticfiles %}
+{% block body_block %}
+ <!-- ##### Breadcumb Area Start ##### -->
+   
+
+    <div class="receipe-post-area section-padding-80">
+
+        <!-- Receipe Post Search -->
+        <div class="receipe-post-search mb-80">
+            <div class="container">
+                <form action="#" method="post">
+                    
+                         <div class="row justify-content-md-center">
+                            <div class="col-8">
+                                <input type="search" name="search" placeholder="Search Recipes">
+                            </div>
+                             <div class="col-md-auto">
+                                
+                            </div>    
+                            
+                            <div class="col col-lg-2">
+                                <button type="submit" class="btn delicious-btn">Search</button>
+                            </div>
+                            
+                        
+                    </div>
+                    <div class="row justify-content-md-center" style="padding:15px;">
+                        
+                        <div class="col col-lg-2">
+                            <select name="select1" id="cuisine" placeholder="Cuisines">
+                            <option value=0>Choose cuisine</option>
+                            {% for i in cuisines %}
+                                <option value= {{ i }}>{{ i }}</option>
+                            {% endfor %}
+                                
+                            </select>
+                        </div>
+                        <div class="col col-lg-2">
+                            <select name="select1" id="Level" placeholder="Cuisines">
+                            <option value=-1>Choose level</option>
+                            <option value=0>Beginner</option>
+                            <option value=1>Intermediate</option>
+                            <option value=2>Expert</option>
+                                
+                                
+                            </select>
+                        </div>
+                         <div class="col col-lg-2">
+                            <select name="select1" id="category" placeholder="Cuisines">
+                            <option value=0>Choose category</option>
+                            <option value=1>Vegetarian</option>
+                            <option value=2>Vegan</option>
+                            <option value=3>All</option>
+                                
+                                
+                            </select>
+                        </div>
+                         
+                        <div class="col col-lg-2">
+                         
+                        </div>
+                        <br /><br />
+                        </div>
+                    <section class="best-receipe-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>Search Results</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Single Best Receipe Area -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30" >
+                        <img src="{% static 'images/bg-img/r1.jpg' %}" alt="">
+                        <div class="receipe-content" style="">
+                            <a href="receipe-post.html">
+                                <h5>Super easy Sushi Recipe</h5>
+                            </a>
+                            <div class="username">
+                                <h6>by Username</h6>
+                            </div>
+                            <div class="ratings">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Best Receipe Area -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        <img src="{% static 'images/bg-img/r2.jpg' %}"  alt="">
+                        <div class="receipe-content">
+                            <a href="receipe-post.html">
+                                <h5>Homemade Burger</h5>
+                            </a>
+                            <div class="username">
+                                <h6>by Username</h6>
+                            </div>
+                            <div class="ratings">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Best Receipe Area -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        <img src="{% static 'images/bg-img/r3.jpg' %}" alt="">
+                        <div class="receipe-content">
+                            <a href="receipe-post.html">
+                                <h5>Vegan Smoothie</h5>
+                            </a>
+                            <div class="username">
+                                <h6>by Username</h6>
+                            </div>
+                            <div class="ratings">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Best Receipe Area -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        <img src="{% static 'images/bg-img/r4.jpg' %}" alt="">
+                        <div class="receipe-content">
+                            <a href="receipe-post.html">
+                                <h5>Calabasa soup</h5>
+                            </a>
+                            <div class="username">
+                                <h6>by Username</h6>
+                            </div>
+                            <div class="ratings">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Best Receipe Area -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        <img src="{% static 'images/bg-img/r5.jpg' %}" alt="">
+                        <div class="receipe-content">
+                            <a href="receipe-post.html">
+                                <h5>Homemade Breakfast</h5>
+                            </a>
+                            <div class="username">
+                                <h6>by Username</h6>
+                            </div>
+                            <div class="ratings">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Single Best Receipe Area -->
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        <img src="{% static 'images/bg-img/r6.jpg' %}" alt="">
+                        <div class="receipe-content">
+                            <a href="receipe-post.html">
+                                <h5>Healthy Fruit Dessert</h5>
+                            </a>
+                            <div class="username">
+                                <h6>by Username</h6>
+                            </div>
+                            <div class="ratings">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ##### Best Receipe Area End ##### -->
+    
+                </form>
+            </div>
+        </div>
+{% endblock %}
+
