@@ -13,16 +13,25 @@ import math;
 def index(request):
     logged_in=False
     username=""
-   
-    
-    
+  
     if request.user.is_authenticated:
         logged_in=True
         username=request.user.username
     else:
         logged_in=False
-    context_dict={"logged_in":logged_in,"username":username,}
-    response = render(request, 'breakingbread/index.html',context=context_dict)
+
+    recipes = Recipe.objects.all()
+    recipes_images = Image.objects.all()
+
+    
+    best_vegan = list(dict.fromkeys(sorted(recipes_images, key= lambda t: t.recipe_id.average_rating, reverse = True)[0:1]))
+    
+    
+    best_recipes = list(dict.fromkeys(sorted(recipes_images, key= lambda t: t.recipe_id.average_rating, reverse = True)[0:6]))
+    
+
+    context_dict={"logged_in":logged_in, "username":username, "best_recipes": best_recipes}
+    response = render(request, 'breakingbread/index.html', context=context_dict)
     return response
 
 def register(request):
@@ -127,13 +136,13 @@ def search(request):
     recipes_list=[]
     for recipe in recipes:
         #checking if the rating has a decimal part
-        decimal = []
+        decimal = [1]
         if recipe.average_rating == math.floor(recipe.average_rating):
             print(recipe.average_rating,math.floor(recipe.average_rating))
             decimal=[]
         recipe_list={"id":recipe.recipe_id,
                      "name":recipe.recipe_name,
-                     "username":recipe.average_rating,
+                     "username":recipe.username,
                      "rating_ceil":list(range(5-math.ceil(recipe.average_rating))),#to get the number of coloured star in rating
                      "rating_floor":list(range(math.floor(recipe.average_rating))),#to get the number of blank stars in rating
                      "rating_decimal":decimal}

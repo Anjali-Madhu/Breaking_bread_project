@@ -47,8 +47,7 @@ class Recipe(models.Model):
         for r in reviews:
             total+=r.rating
         #self.average_rating=total/count
-        if(self.recipe_id==1):
-            return 3.5
+        
         if count!=0:
             rating = total/count
             if(rating-math.floor(rating)<=(math.floor(rating)+0.5-rating)):
