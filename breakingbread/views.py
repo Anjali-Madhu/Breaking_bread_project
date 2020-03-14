@@ -13,15 +13,21 @@ import math;
 def index(request):
     logged_in=False
     username=""
-   
-    
-    
+  
     if request.user.is_authenticated:
         logged_in=True
         username=request.user.username
     else:
         logged_in=False
-    context_dict={"logged_in":logged_in,"username":username,}
+
+    recipes = Recipe.objects.all()
+    recipes_images = Image.objects.all()
+
+    
+    best_recipes = sorted(recipes_images, key= lambda t: t.recipe_id.average_rating, reverse = True)[0:6]
+
+
+    context_dict={"logged_in":logged_in, "username":username, "best_recipes": best_recipes}
     response = render(request, 'breakingbread/index.html',context=context_dict)
     return response
 
