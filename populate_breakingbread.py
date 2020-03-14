@@ -135,7 +135,7 @@ def populate():
          },
          {'image_id': 8,
           'picture':  'populate_recipe_images/boulettes.jpg',
-          'recipe_id': all_recipes[5]
+          'recipe_id': all_recipes[7]
          },
          ]
 

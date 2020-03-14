@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from breakingbread.models import *;
 import json;
+import math;
 
 # Create your views here.
 def index(request):
@@ -121,6 +122,33 @@ def search(request):
     for cuisine in cuisines:
         cuisine_list.append(cuisine.cuisine_type)
     context_dict={}
+       #retrieving the recipes
+    recipes = Recipe.objects.all();
+    recipes_list=[]
+    for recipe in recipes:
+        recipe_list={"id":recipe.recipe_id,
+                     "name":recipe.recipe_name,
+                     "username":recipe.username,
+                     "rating_ceil":list(range(5-math.ceil(recipe.average_rating))),
+                     "rating_floor":list(range(math.floor(recipe.average_rating))),
+                     "rating_decimal":recipe.average_rating-math.floor(recipe.average_rating)}
+        #retrieving the first image of each recipe
+        images = Image.objects.filter(recipe_id=recipe.recipe_id)
+        for image in images:
+            recipe_list["image"]=image.picture
+            break
+        recipes_list.append(recipe_list)
+    #function to increment the value in last index of rating_floor for sorting
+    def true_floor(x):
+        if x["rating_floor"]!=[]:
+            floor_range = x["rating_floor"]
+            floor = floor_range[-1]+1
+        
+            return floor + x["rating_decimal"]
+        else:
+            return 0;
+    recipes_list.sort(key=lambda x:true_floor(x),reverse=True)   
+    context_dict["recipes"]=recipes_list
     context_dict["cuisines"]= cuisine_list
     response = render(request, 'breakingbread/search-results.html',context=context_dict)
     return response
