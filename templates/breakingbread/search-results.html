@@ -89,18 +89,11 @@
                                 
                             </div>
                             <div class="ratings">
-                            {% if recipe.rating_floor %}
-                            {% for item in recipe.rating_floor %}
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            {% endfor %}
-                            {% endif %}
-                            
-                            {% if recipe.rating_ceil %}
-                            
-                            {% for item in recipe.rating_ceil %}
+                    
                                 <i class="fa fa-star-o" aria-hidden="true"></i>
-                            {% endfor %}
-                            {% endif %}
+                
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            
                             
                             </div>
                         </div>
