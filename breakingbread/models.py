@@ -2,7 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.utils.timezone import now
-
+import math
 
 
 #User table
@@ -47,8 +47,14 @@ class Recipe(models.Model):
         for r in reviews:
             total+=r.rating
         #self.average_rating=total/count
+        
         if count!=0:
-            return (total/count)
+            rating = total/count
+            if(rating-math.floor(rating)<=(math.floor(rating)+0.5-rating)):
+                return math.floor(rating)
+            else:
+                return math.floor(rating)+0.5
+                
         else:
             return 0
     

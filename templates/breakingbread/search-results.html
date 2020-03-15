@@ -79,7 +79,7 @@
                 <!-- Single Best Receipe Area -->
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30" >
-                        <img src="{{ MEDIA_URL }}{{ recipe.image }}" height="50" alt="">
+                        <img src="{{ MEDIA_URL }}{{ recipe.image }}" style="height:250px; width:350px" alt="">
                         <div class="receipe-content" style="">
                             <a href="receipe-post.html">
                                 <h5>{{ recipe.name }}</h5>
@@ -89,18 +89,19 @@
                                 
                             </div>
                             <div class="ratings">
-                            {% if recipe.rating_floor %}
-                            {% for item in recipe.rating_floor %}
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                            {% endfor %}
-                            {% endif %}
-                            
-                            {% if recipe.rating_ceil %}
-                            
-                            {% for item in recipe.rating_ceil %}
-                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                            {% endfor %}
-                            {% endif %}
+                                {% if recipe.rating_ceil %}
+                                {% for item in recipe.rating_ceil %}
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                {% endfor %}
+                                {% endif %}
+                                {% if recipe.rating_decimal %}
+                                    <i class="fa fa-star-half" aria-hidden="true"></i>
+                                {% endif %}
+                                {% if recipe.rating_floor %}
+                                {% for item in recipe.rating_floor %}
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                {% endfor %}
+                                {% endif %}
                             
                             </div>
                         </div>

@@ -135,12 +135,18 @@ def search(request):
     recipes = Recipe.objects.all();
     recipes_list=[]
     for recipe in recipes:
+        #checking if the rating has a decimal part
+        decimal = [1]
+        if recipe.average_rating == math.floor(recipe.average_rating):
+            print(recipe.average_rating,math.floor(recipe.average_rating))
+            decimal=[]
         recipe_list={"id":recipe.recipe_id,
                      "name":recipe.recipe_name,
                      "username":recipe.username,
-                     "rating_ceil":list(range(5-math.ceil(recipe.average_rating))),
-                     "rating_floor":list(range(math.floor(recipe.average_rating))),
-                     "rating_decimal":recipe.average_rating-math.floor(recipe.average_rating)}
+                     "rating_ceil":list(range(5-math.ceil(recipe.average_rating))),#to get the number of coloured star in rating
+                     "rating_floor":list(range(math.floor(recipe.average_rating))),#to get the number of blank stars in rating
+                     "rating_decimal":decimal}
+        print(decimal)
         #retrieving the first image of each recipe
         images = Image.objects.filter(recipe_id=recipe.recipe_id)
         for image in images:
@@ -153,9 +159,10 @@ def search(request):
             floor_range = x["rating_floor"]
             floor = floor_range[-1]+1
         
-            return floor + x["rating_decimal"]
+            return floor + 0.5
         else:
             return 0;
+    #sort the list based on rating
     recipes_list.sort(key=lambda x:true_floor(x),reverse=True)   
     context_dict["recipes"]=recipes_list
     context_dict["cuisines"]= cuisine_list
