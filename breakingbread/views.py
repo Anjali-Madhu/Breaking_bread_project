@@ -20,17 +20,31 @@ def index(request):
     else:
         logged_in=False
 
-    recipes = Recipe.objects.all()
+    
     recipes_images = Image.objects.all()
+    vegan_recipes = []
+    for i in recipes_images:
+        if i.recipe_id.cooking_type == 2:
+            vegan_recipes.append(i)
+    vegetarian_recipes = []
+    for i in recipes_images:
+        if i.recipe_id.cooking_type == 1:
+            vegetarian_recipes.append(i)
+    
+    best_vegan = sorted(vegan_recipes, key= lambda t: t.recipe_id.average_rating, reverse = True)[0:1]
+    best_vegetarian = sorted(vegetarian_recipes, key= lambda t: t.recipe_id.average_rating, reverse = True)[0:1]
+    best_sorted = sorted(recipes_images, key= lambda t: t.recipe_id.average_rating, reverse = True)
 
-    
-    best_vegan = list(dict.fromkeys(sorted(recipes_images, key= lambda t: t.recipe_id.average_rating, reverse = True)[0:1]))
-    
-    
-    best_recipes = list(dict.fromkeys(sorted(recipes_images, key= lambda t: t.recipe_id.average_rating, reverse = True)[0:6]))
-    
-
-    context_dict={"logged_in":logged_in, "username":username, "best_recipes": best_recipes}
+    best_set_id = set()
+    best_set = []
+    for i in best_sorted:
+        if i.recipe_id not in best_set_id:
+           best_set_id.add(i.recipe_id)
+           best_set.append(i)
+  
+    best_recipes_images = best_set[0:6]
+  
+    context_dict={"logged_in":logged_in, "username":username, "best_recipes": best_recipes_images, "best_vegan": best_vegan, "best_vegetarian":best_vegetarian}
     response = render(request, 'breakingbread/index.html', context=context_dict)
     return response
 

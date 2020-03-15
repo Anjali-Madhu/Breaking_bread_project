@@ -53,35 +53,39 @@
         </div>
     </section>
     <!-- ##### Hero Area End ##### -->
-
+    
     <!-- ##### Top Category Area Start ##### -->
     <section class="top-catagory-area section-padding-80-0">
         <div class="container">
             <div class="row">
                 <!-- Top Catagory Area -->
+                {% for vegan in best_vegan %}
                 <div class="col-12 col-lg-6">
                     <div class="single-top-catagory">
-                        <img src="{% static 'images/bg-img/bg2.jpg' %}" alt="">
+                        <img src="{{ MEDIA_URL }}{{ vegan.picture}}" alt="" style="height: 250px; object-fit:cover">
                         <!-- Content -->
                         <div class="top-cta-content">
-                            <h3>Strawberry Cake</h3>
+                            <h3>{{ vegan.recipe_id.recipe_name }} - Best vegan </h3>
                             <h6>Simple &amp; Delicious</h6>
                             <a href="receipe-post.html" class="btn delicious-btn">See Full Recipe</a>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
                 <!-- Top Catagory Area -->
+                {% for vegetarian in best_vegetarian %}
                 <div class="col-12 col-lg-6">
                     <div class="single-top-catagory">
-                        <img src="{% static 'images/bg-img/bg3.jpg' %}" alt="">
+                        <img src="{{ MEDIA_URL }}{{ vegetarian.picture}}" alt="" style="height: 250px; object-fit:cover">
                         <!-- Content -->
                         <div class="top-cta-content">
-                            <h3>Chow Mein Noodles</h3>
+                            <h3>{{ vegetarian.recipe_id.recipe_name }} - Best Vegetarian </h3>
                             <h6>Scrumptious</h6>
                             <a href="receipe-post.html" class="btn delicious-btn">See Full Recipe</a>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </section>
