@@ -182,7 +182,10 @@ def search(request):
     context_dict["cuisines"]= cuisine_list
     response = render(request, 'breakingbread/search-results.html',context=context_dict)
     return response
-    
+
+#user details
+def user_details(request) :
+     return render(request, 'breakingbread/user-details.html')
     
 
 
