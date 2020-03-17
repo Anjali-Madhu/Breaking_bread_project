@@ -106,7 +106,35 @@ def user_logout(request):
     return redirect(reverse('breakingbread:index'))
 
 def recipe(request):
-    return render(request, 'breakingbread/receipe-post.html')
+    recipe_ = Recipe.objects.filter(recipe_id = 1)
+    # decimal = [1]
+    # #print(type(recipe))
+    # if recipe_[0].average_rating == math.floor(recipe_[0].average_rating):
+    #     print(recipe_[0].average_rating, math.floor(recipe_[0].average_rating))
+    #     decimal = []
+    # recipe = {"id": recipe_[0].recipe_id,
+    #                    "name": recipe_[0].recipe_name,
+    #                    "username": recipe_[0].username,
+    #                    "rating_ceil": list(range(5 - math.ceil(recipe_[0].average_rating))),
+    #                    # to get the number of coloured star in rating
+    #                    "rating_floor": list(range(math.floor(recipe_[0].average_rating))),
+    #                    # to get the number of blank stars in rating
+    #                    "rating_decimal": decimal,
+    #                     "time_taken": recipe_[0].time_taken,
+    #                     "level": recipe_[0].level,
+    #                     "ingredients": recipe_[0].ingredients,
+    #                     "cooking_type": recipe_[0].cooking_type,
+    #                     "cuisine": recipe_[0].cuisine,
+    #                     "description": recipe_[0].description,
+    #                     "created": recipe_[0].created,
+    #                     "image": []
+    #           }
+    # print(decimal)
+    # # retrieving the first image of each recipe
+    # images = Image.objects.filter(recipe_id=recipe_[0].recipe_id)
+    # for image in images:
+    #     recipe["image"].append(image.picture)
+    return render(request, 'breakingbread/receipe-post.html', {'recipe':recipe_})
 
 #@login_required
 def review(request):
