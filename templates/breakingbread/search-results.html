@@ -84,13 +84,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    {% if name == 'All' %}
+                    {% if name == 'All' and user == 0 %}
                     <div class="section-heading">
                         <h3>All Recipes</h3>
                     </div>
-                    {% else %}
+                    {% elif name != "All" %}
                     <div class="section-heading">
                         <h3>Search results for "{{ name }}" </h3>
+                    </div>
+                    {% endif %}
+                     {% if user != 0 %}
+                    <div class="section-heading">
+                        <h3>Recipes by  "{{ user }}" </h3>
                     </div>
                     {% endif %}
                 </div>
@@ -105,7 +110,7 @@
                     <div class="single-best-receipe-area mb-30" >
                         <img src="{{ MEDIA_URL }}{{ recipe.image }}" style="height:250px; width:350px" alt="">
                         <div class="receipe-content" style="">
-                            <a href="{% url 'recipe' id=recipe.recipe_id }">
+                            <a href="">
                                 <h5>{{ recipe.name }}</h5>
                             </a>
                             <div class="username">

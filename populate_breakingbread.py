@@ -20,8 +20,8 @@ def populate():
     Review.objects.all().delete()
 
     
-    Users = [ {'username': 'John Doe', 'password':'1234', 'first_name': 'John', 'last_name': 'Doe'},
-             {'username': 'Emma Watson', 'password':'1234', 'first_name': 'Emma', 'last_name': 'Watson'},
+    Users = [ {'username': 'John_Doe', 'password':'1234', 'first_name': 'John', 'last_name': 'Doe'},
+             {'username': 'Emma_Watson', 'password':'1234', 'first_name': 'Emma', 'last_name': 'Watson'},
              ]
     for u in Users:
         add_users(u)

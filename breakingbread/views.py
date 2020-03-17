@@ -105,7 +105,7 @@ def user_logout(request):
     logout(request)
     return redirect(reverse('breakingbread:index'))
 
-def recipe(request):
+def recipe(request,recipe_name_slug):
     return render(request, 'breakingbread/receipe-post.html')
 
 #@login_required
@@ -196,7 +196,7 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
     if userid!="":
         recipe_temp = []
         for i in recipes:
-            u = UserProfile.objects.filter(username=userid)
+            u = User.objects.filter(username=userid)
             if i.username==u:
                 recipe_temp.append(i)
         recipes = recipe_temp.copy()
@@ -213,7 +213,8 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
                      "username":recipe.username,
                      "rating_ceil":list(range(5-math.ceil(recipe.average_rating))),#to get the number of coloured star in rating
                      "rating_floor":list(range(math.floor(recipe.average_rating))),#to get the number of blank stars in rating
-                     "rating_decimal":decimal}
+                     "rating_decimal":decimal,}
+                     #"slug":recipe.slug}
         #print(decimal)
         #retrieving the first image of each recipe
         images = Image.objects.filter(recipe_id=recipe.recipe_id)
@@ -234,6 +235,7 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
     recipes_list.sort(key=lambda x:true_floor(x),reverse=True)   
     context_dict["recipes"]=recipes_list
     context_dict["cuisines"]= cuisine_list
+    
     if name==None:
         name="All"
     context_dict["name"]=name
@@ -242,12 +244,18 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
     context_dict["categories"]=["Vegetarian","Vegan","All"]
     context_dict["level"]=level
     context_dict["levels"]=["Beginner","Intermediate","Expert"]
+    if userid=="":
+        userid = 0
+    context_dict["user"]=userid
     response = render(request, 'breakingbread/search-results.html',context=context_dict)
     return response
 
 #user details
+@login_required
 def user_details(request) :
-     return render(request, 'breakingbread/user-details.html')
+     current_user = request.user
+     context_dict={"user":current_user.username}
+     return render(request, 'breakingbread/user-details.html',context=context_dict)
     
 
 
