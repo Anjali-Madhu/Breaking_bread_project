@@ -84,10 +84,15 @@ def user_login(request):
 
     if request.method == 'POST':
         username = request.POST.get('username')
+        print('username', username)
         password = request.POST.get('password')
+        print('password', password)
         user = authenticate(username=username, password=password)
+        print('user1 ', user)
         if user:
+            print('user2')
             if user.is_active:
+                print('active')
                 login(request, user)
                 return redirect(reverse('breakingbread:index'))
             else:
@@ -105,7 +110,7 @@ def user_logout(request):
     logout(request)
     return redirect(reverse('breakingbread:index'))
 
-def recipe(request):
+def recipe(request,recipe_name_slug):
     return render(request, 'breakingbread/receipe-post.html')
 
 #@login_required
@@ -138,29 +143,84 @@ def cuisine_list(request):
         cuisine_list.append(cuisine.cuisine_type)
     return JsonResponse({1:cuisine_list})
 #retrieving search results
-def search(request):
+def search(request,cuisine="",category="all",level=-1,userid=""):
     cuisine_list = []
     #retrieving the cuisine list
+    
+    
     cuisines = Cuisine.objects.all();
-    for cuisine in cuisines:
-        cuisine_list.append(cuisine.cuisine_type)
+    for c in cuisines:
+        cuisine_list.append(c.cuisine_type)
     context_dict={}
        #retrieving the recipes
-    recipes = Recipe.objects.all();
+    recipes=[]
+    Recipes = Recipe.objects.all();
+    for i in Recipes:
+        recipes.append(i)
+        
+    name="All"
+    
+    if request.method=="POST":
+        
+        name = request.POST.get("search")
+        
+        cuisine=request.POST.get("cuisine")
+        level=request.POST.get("Level")
+        category=request.POST.get("category")
+    if name!="All" and name!="" and name!="" and name!=None:
+        recipes = Recipe.objects.filter(recipe_name__icontains=name)
+        
+    if cuisine in cuisine_list:
+        print("Cuisine : ",cuisine)
+        recipe_temp = []
+        for i in recipes:
+            print(i.cuisine)
+            c = Cuisine.objects.filter(cuisine_type=cuisine)
+            if i.cuisine == c[0]:
+                recipe_temp.append(i)
+        recipes = recipe_temp.copy()
+    
+    
+    categories={"Vegetarian":1,"Vegan":2}
+    levels={"Beginner":0,"Intermediate":1,"Expert":2}    
+    if category in categories.keys():
+        recipe_temp = []
+        for i in recipes:
+            if i.cooking_type == categories[category]:
+                recipe_temp.append(i)
+        recipes = recipe_temp.copy()
+        
+    if level in levels.keys():
+        recipe_temp = []
+        for i in recipes:
+            if i.level == levels[level]:
+                recipe_temp.append(i)
+        recipes =recipe_temp.copy()
+    
+           
+    if userid!="":
+        recipe_temp = []
+        for i in recipes:
+            u = User.objects.filter(username=userid)
+            if i.username==u:
+                recipe_temp.append(i)
+        recipes = recipe_temp.copy()
     recipes_list=[]
     for recipe in recipes:
         #checking if the rating has a decimal part
+        #print(recipe)
         decimal = [1]
         if recipe.average_rating == math.floor(recipe.average_rating):
-            print(recipe.average_rating,math.floor(recipe.average_rating))
+            #print(recipe.average_rating,math.floor(recipe.average_rating))
             decimal=[]
         recipe_list={"id":recipe.recipe_id,
                      "name":recipe.recipe_name,
                      "username":recipe.username,
                      "rating_ceil":list(range(5-math.ceil(recipe.average_rating))),#to get the number of coloured star in rating
                      "rating_floor":list(range(math.floor(recipe.average_rating))),#to get the number of blank stars in rating
-                     "rating_decimal":decimal}
-        print(decimal)
+                     "rating_decimal":decimal,}
+                     #"slug":recipe.slug}
+        #print(decimal)
         #retrieving the first image of each recipe
         images = Image.objects.filter(recipe_id=recipe.recipe_id)
         for image in images:
@@ -180,12 +240,27 @@ def search(request):
     recipes_list.sort(key=lambda x:true_floor(x),reverse=True)   
     context_dict["recipes"]=recipes_list
     context_dict["cuisines"]= cuisine_list
+    
+    if name==None:
+        name="All"
+    context_dict["name"]=name
+    context_dict["cuisine"]=cuisine
+    context_dict["category"]=category
+    context_dict["categories"]=["Vegetarian","Vegan","All"]
+    context_dict["level"]=level
+    context_dict["levels"]=["Beginner","Intermediate","Expert"]
+    if userid=="":
+        userid = 0
+    context_dict["user"]=userid
     response = render(request, 'breakingbread/search-results.html',context=context_dict)
     return response
 
 #user details
+@login_required
 def user_details(request) :
-     return render(request, 'breakingbread/user-details.html')
+     current_user = request.user
+     context_dict={"user":current_user.username}
+     return render(request, 'breakingbread/user-details.html',context=context_dict)
     
 
 

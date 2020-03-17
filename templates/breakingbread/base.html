@@ -25,7 +25,8 @@
         for(i=0;i<res.length;i++){
             var li = document.createElement("li");
             var a = document.createElement("a");
-            a.href="";
+            console.log(res[i])
+            a.href="/breakingbread/browse/cuisine/"+res[i]+"/";
             a.innerHTML=res[i];
             li.appendChild(a);
             ul_list.appendChild(li);
@@ -65,21 +66,7 @@
     </div>
 
     <!-- Search Wrapper -->
-    <div class="search-wrapper">
-        <!-- Close Btn -->
-        <div class="close-btn"><i class="fa fa-times" aria-hidden="true"></i></div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <form action="#" method="post">
-                        <input type="search" name="search" placeholder="Type any keywords...">
-                        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
      <!-- ##### Header Area Start ##### -->
     <header class="header-area">
@@ -154,19 +141,22 @@
                                                 <li class="title menu-selections">Cuisine</li>
                                             </ul>
                                             <ul class="single-mega cn-col-4">
+
                                                 <li class="title menu-selections">Category</li>
-                                                <li><a href="index.html">All</a></li>
-                                                <li><a href="about.html">Vegetarian</a></li>
-                                                <li><a href="blog-post.html">Vegan</a></li>
+                                                <li><a href="{% url 'breakingbread:browse_category' category='All'%}">All</a></li>
+                                                <li><a href="{% url 'breakingbread:browse_category' category='Vegetarian' %}">Vegetarian</a></li>
+                                                <li><a href="{% url 'breakingbread:browse_category' category='Vegan' %}">Vegan</a></li>
+                                                
                                                <!-- <li><a href="receipe-post.html">Recipe Post</a></li>-->
                                                 <!--<li><a href="contact.html">Contact</a></li>-->
                                                 <!--<li><a href="elements.html">Elements</a></li>-->
                                             </ul>
                                             <ul class="single-mega cn-col-4">
                                                 <li class="title menu-selections">Level</li>
-                                                <li><a href="index.html">Beginner</a></li>
-                                                <li><a href="about.html">Intermediate</a></li>
-                                                <li><a href="blog-post.html">Expert</a></li>
+                                                <li><a href="{% url 'breakingbread:browse_level' level='Beginner' %}">Beginner</a></li>
+                                                <li><a href="{% url 'breakingbread:browse_level' level='Intermediate' %}">Intermediate</a></li>
+                                                <li><a href="{% url 'breakingbread:browse_level' level='Expert' %}">Expert</a></li>
+                                                
                                                 
                                             </ul>
                                             <div class="single-mega cn-col-4">
@@ -192,10 +182,7 @@
 
                                 </ul>
 
-                                <!-- Newsletter Form -->
-                                <div class="search-btn">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </div>
+                                
 
 
                             </div>
