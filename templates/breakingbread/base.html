@@ -61,14 +61,12 @@
 
     <!-- Preloader -->
     <div id="preloader">
-    <i class="circle-preloader"></i>
-    <img src="/static/images/core-img/salad.png" alt="">
+        <i class="circle-preloader"></i>
+        <img src="/static/images/core-img/salad.png" alt="">
     </div>
 
     <!-- Search Wrapper -->
-    
-
-     <!-- ##### Header Area Start ##### -->
+    <!-- ##### Header Area Start ##### -->
     <header class="header-area">
 
         <!-- Top Header Area -->
@@ -81,9 +79,9 @@
                             <div id="breakingNewsTicker" class="ticker">
                                 <ul>
                                     {% if logged_in %}
-                                        <li><a href="#">Hello {{ username }}</a></li>
+                                    <li><a href="#">Hello {{ username }}</a></li>
                                     {% else %}
-                                        <li><a href="#">Hello YOU!</a></li>
+                                    <li><a href="#">Hello YOU!</a></li>
                                     {% endif %}
                                     <li><a href="#">Find something DELICIOUS!</a></li>
                                 </ul>
@@ -146,8 +144,8 @@
                                                 <li><a href="{% url 'breakingbread:browse_category' category='All'%}">All</a></li>
                                                 <li><a href="{% url 'breakingbread:browse_category' category='Vegetarian' %}">Vegetarian</a></li>
                                                 <li><a href="{% url 'breakingbread:browse_category' category='Vegan' %}">Vegan</a></li>
-                                                
-                                               <!-- <li><a href="receipe-post.html">Recipe Post</a></li>-->
+
+                                                <!-- <li><a href="receipe-post.html">Recipe Post</a></li>-->
                                                 <!--<li><a href="contact.html">Contact</a></li>-->
                                                 <!--<li><a href="elements.html">Elements</a></li>-->
                                             </ul>
@@ -156,8 +154,8 @@
                                                 <li><a href="{% url 'breakingbread:browse_level' level='Beginner' %}">Beginner</a></li>
                                                 <li><a href="{% url 'breakingbread:browse_level' level='Intermediate' %}">Intermediate</a></li>
                                                 <li><a href="{% url 'breakingbread:browse_level' level='Expert' %}">Expert</a></li>
-                                                
-                                                
+
+
                                             </ul>
                                             <div class="single-mega cn-col-4">
                                                 <div class="receipe-slider owl-carousel">
@@ -168,21 +166,21 @@
                                         </div>
                                     </li>
                                     <li><a href="{% url 'breakingbread:search' %}">Search</a></li>
-                                    
-                                    
+
+
                                     {% if logged_in %}
-                                        <li><a href="{% url 'breakingbread:details' %}">My Details</a></li>
-                                        <li><a href="{% url 'breakingbread:logout' %}">Sign out</a></li>
+                                    <li><a href="{% url 'breakingbread:details' %}">My Details</a></li>
+                                    <li><a href="{% url 'breakingbread:logout' %}">Sign out</a></li>
                                     {% else %}
-                                        <li><a href="{% url 'breakingbread:register' %}">Register</a></li>
+                                    <li><a href="{% url 'breakingbread:register' %}">Register</a></li>
 
-                                        <li><a href="{% url 'breakingbread:login' %}">Log In</a></li>
+                                    <li><a href="{% url 'breakingbread:login' %}">Log In</a></li>
 
-                                     {% endif %}
+                                    {% endif %}
 
                                 </ul>
 
-                                
+
 
 
                             </div>
@@ -197,10 +195,10 @@
 
 
 
-     <div>
-         {% block body_block %}
-         {% endblock %}
-     </div>
+    <div>
+        {% block body_block %}
+        {% endblock %}
+    </div>
     <footer class="footer-area">
         <div class="container h-100">
             <div class="row h-100">
@@ -241,6 +239,8 @@
     <script src="{% static 'js/plugins/plugins.js' %}"></script>
     <!-- Active js -->
     <script src="{% static 'js/active.js' %}"></script>
+
+    <script src="{% static 'js/addons/rating.js' %}"></script>
 </body>
 
 </html>
