@@ -11,5 +11,7 @@ path('login/', views.user_login, name='login'),
 path('logout/', views.user_logout, name='logout'),
 path('cuisine/',views.cuisine_list,name='cuisine'),
 path('search-results/',views.search,name='search'),
-
+path('browse/category/<str:category>/',views.search,name='browse_category'),
+path('browse/level/<str:level>/',views.search,name='browse_level'),
+path('browse/cuisine/<str:cuisine>/',views.search,name='browse_cuisine')
 ]
