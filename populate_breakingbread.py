@@ -92,7 +92,7 @@ def populate():
 
     
         {'recipe_id': 6, 'recipe_name': 'Polenta', 'username': all_usersProfile[0], 'time_taken': 50,
-         'level': 0, 'ingredients': ['175g of quick-cook Polenta','5 tbsp mascarpone'], 'cooking_type': 0, 'cuisine': all_cuisines[5],
+         'level': 0, 'ingredients': ['175g of quick-cook Polenta','5 tbsp vegan mascarpone'], 'cooking_type': 2, 'cuisine': all_cuisines[5],
          'description': 'Cook the polenta according to pack instructions. When the polenta is softened and smooth, stir through the mascarpone ', 'created': now},
 
     
