@@ -37,7 +37,7 @@ class Recipe(models.Model):
     cuisine = models.ForeignKey(Cuisine,on_delete=models.CASCADE)
     description = models.TextField(max_length=2000)
     created = models.DateTimeField(default=now)
-    #average_rating = models.IntegerField(default=0)
+    
 
     @property
     def average_rating(self):

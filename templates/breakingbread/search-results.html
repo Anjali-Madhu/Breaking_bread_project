@@ -9,11 +9,16 @@
         <!-- Receipe Post Search -->
         <div class="receipe-post-search mb-80">
             <div class="container">
-                <form action="#" method="post">
+                <form action="{% url 'breakingbread:search' %}"+ method="post">
                     
                          <div class="row justify-content-md-center">
+                            {% csrf_token %}
                             <div class="col-8">
-                                <input type="search" name="search" placeholder="Search Recipes">
+                                {% if name != "All" %}
+                                <input id="name" type="search" name="search" placeholder="Search Recipes" value={{ name }}>
+                                {% else %}
+                                <input id="name" type="search" name="search" placeholder="Search Recipes">
+                                {% endif %}
                             </div>
                              <div class="col-md-auto">
                                 
@@ -22,36 +27,49 @@
                             <div class="col col-lg-2">
                                 <button type="submit" class="btn delicious-btn">Search</button>
                             </div>
+                        
                             
                         
                     </div>
                     <div class="row justify-content-md-center" style="padding:15px;">
                         
                         <div class="col col-lg-2">
-                            <select name="select1" id="cuisine" placeholder="Cuisines">
-                            <option value=0>Choose cuisine</option>
+                            <select name="cuisine" id="cuisine" placeholder="Cuisines">
+                            <option value="">Choose cuisine</option>
                             {% for i in cuisines %}
+                                {% if cuisine == i %}
+                                <option value= {{ i }} selected>{{ i }}</option>
+                                {% else %}
                                 <option value= {{ i }}>{{ i }}</option>
+                                {% endif %}
                             {% endfor %}
                                 
                             </select>
                         </div>
                         <div class="col col-lg-2">
-                            <select name="select1" id="Level" placeholder="Cuisines">
+                            <select name="Level" id="Level" placeholder="Cuisines">
                             <option value=-1>Choose level</option>
-                            <option value=0>Beginner</option>
-                            <option value=1>Intermediate</option>
-                            <option value=2>Expert</option>
+                            {% for i in levels %}
+                                {% if level == i %}
+                                <option value= {{ i }} selected>{{ i }}</option>
+                                {% else %}
+                                <option value= {{ i }}>{{ i }}</option>
+                                {% endif %}
+                            {% endfor %}
                                 
                                 
                             </select>
                         </div>
                          <div class="col col-lg-2">
-                            <select name="select1" id="category" placeholder="Cuisines">
-                            <option value=0>Choose category</option>
-                            <option value=1>Vegetarian</option>
-                            <option value=2>Vegan</option>
-                            <option value=3>All</option>
+                            <select name="category" id="category" placeholder="Cuisines">
+                            <option value="all">Choose category</option>
+                            {% for i in categories %}
+                                {% if category == i %}
+                                <option value= {{ i }} selected>{{ i }}</option>
+                                {% else %}
+                                <option value= {{ i }}>{{ i }}</option>
+                                {% endif %}
+                            {% endfor %}
                                 
                                 
                             </select>
@@ -66,9 +84,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
+                    {% if name == 'All' and user == 0 %}
                     <div class="section-heading">
-                        <h3>Search Results</h3>
+                        <h3>All Recipes</h3>
                     </div>
+                    {% elif name != "All" %}
+                    <div class="section-heading">
+                        <h3>Search results for "{{ name }}" </h3>
+                    </div>
+                    {% endif %}
+                     {% if user != 0 %}
+                    <div class="section-heading">
+                        <h3>Recipes by  "{{ user }}" </h3>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             <div class="row">
@@ -81,12 +110,11 @@
                     <div class="single-best-receipe-area mb-30" >
                         <img src="{{ MEDIA_URL }}{{ recipe.image }}" style="height:250px; width:350px" alt="">
                         <div class="receipe-content" style="">
-                            <a href="receipe-post.html">
+                            <a href="">
                                 <h5>{{ recipe.name }}</h5>
                             </a>
                             <div class="username">
                                 <h6>by {{ recipe.username }}</h6>
-                                
                             </div>
                             <div class="ratings">
                                 {% if recipe.rating_ceil %}
@@ -112,7 +140,7 @@
             {% endfor %}
              </div>
             {% else %}
-            <strong>No recipes found for your search</search>
+            <strong style="color:black">No recipes found for your search</search>
 
             {% endif %}
             
