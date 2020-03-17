@@ -244,7 +244,10 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
     context_dict["levels"]=["Beginner","Intermediate","Expert"]
     response = render(request, 'breakingbread/search-results.html',context=context_dict)
     return response
-    
+
+#user details
+def user_details(request) :
+     return render(request, 'breakingbread/user-details.html')
     
 
 
