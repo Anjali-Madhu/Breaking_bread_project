@@ -112,16 +112,22 @@ def recipe(request,recipe_id):
                         "username": recipe_to_display[0].username,
                          "time_taken": recipe_to_display[0].time_taken,
                          "level": recipe_to_display[0].level,
-                         "ingredients": recipe_to_display[0].ingredients,
+                         "ingredients": [],
                          "cooking_type": recipe_to_display[0].cooking_type,
                          "cuisine": recipe_to_display[0].cuisine,
-                         "description": recipe_to_display[0].description,
+                         "description": [],
                          "created": recipe_to_display[0].created,
                         "images": []
               }
     images = Image.objects.filter(recipe_id=recipe_id)
     for image in images:
         recipe_["images"].append(image.picture)
+
+    for i in recipe_to_display[0].description.split("?"):
+        recipe_["description"].append(i)
+
+    for i in recipe_to_display[0].ingredients.split("?"):
+        recipe_["ingredients"].append(i)
     return render(request, 'breakingbread/receipe-post.html', context = recipe_)
 
 #@login_required
