@@ -50,12 +50,13 @@
 
         <!-- Receipe Slider -->
         <div class="container">
+             {% if recipe_ %}
+<!--                {% for i in recipe %}-->
             <div class="row">
                 <div class="col-12">
                     <div class="receipe-slider owl-carousel">
-                        <img src="/static/images/bg-img/bg5.jpg" alt="">
-                        <img src="/static/images/bg-img/bg5.jpg" alt="">
-                        <img src="/static/images/bg-img/bg5.jpg" alt="">
+                        for i in recipe_.images:
+                        <img src="{{ MEDIA_URL }}{{ i }}" alt="">
                     </div>
                 </div>
             </div>
@@ -64,15 +65,13 @@
         <!-- Receipe Content Area -->
         <div class="receipe-content-area">
             <div class="container">
-                {% if recipe %}
-                {% for i in recipe %}
                 <div class="row">
                     <div class="col-12 col-md-8">
                         <div class="receipe-headline my-5">
-                            <span>{{ i.created }}</span>
-                            <h5>{{ i.name }}</h5>
+                            <span>{{ recipe_.created }}</span>
+                            <h5>{{ recipe_.name }}</h5>
                             <div class="receipe-duration">
-                                <h6>Cooking time: {{i.time_taken}}</h6>
+                                <h6>Cooking time: {{recipe_.time_taken}}</h6>
                                 <h6>Yields: 2 Servings</h6>
                             </div>
                         </div>
@@ -184,25 +183,26 @@
                 <div class="row">
                     <div class="col-12 col-lg-8">
                         <!-- Single Preparation Step -->
+                        for i in recipe_.description:
                         <div class="single-preparation-step d-flex">
-                            <h4>01.</h4>
-                            <p>{{recipe.description}} </p>
+                            <h4>Step: </h4>
+                            <p>{{i}} </p>
                         </div>
                         <!-- Single Preparation Step -->
-                        <div class="single-preparation-step d-flex">
-                            <h4>02.</h4>
-                            <p> </p>
-                        </div>
+<!--                        <div class="single-preparation-step d-flex">-->
+<!--                            <h4>02.</h4>-->
+<!--                            <p> </p>-->
+<!--                        </div>-->
                         <!-- Single Preparation Step -->
-                        <div class="single-preparation-step d-flex">
-                            <h4>03.</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-                        </div>
-                        <!-- Single Preparation Step -->
-                        <div class="single-preparation-step d-flex">
-                            <h4>04.</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>
-                        </div>
+<!--                        <div class="single-preparation-step d-flex">-->
+<!--                            <h4>03.</h4>-->
+<!--                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>-->
+<!--                        </div>-->
+<!--                        &lt;!&ndash; Single Preparation Step &ndash;&gt;-->
+<!--                        <div class="single-preparation-step d-flex">-->
+<!--                            <h4>04.</h4>-->
+<!--                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. </p>-->
+<!--                        </div>-->
                     </div>
 
                     <!-- Ingredients -->
@@ -261,6 +261,8 @@
                     </div>
                 </div>
                 {% endfor %}
+                {% else %}
+            <strong style="color:black">No recipe found.</strong>
                 {% endif %}
                 <div class="row">
                     <div class="col-12">
