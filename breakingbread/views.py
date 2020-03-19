@@ -55,9 +55,11 @@ def register(request):
         profile_form = UserProfileForm(request.POST)
         
         if user_form.is_valid() and profile_form.is_valid():
+            # print('userform ', user_form)
+            # user = user_form.save()
+            # print('passs', user.password)
+            # user.set_password(user.password)
             user = user_form.save()
-            user.set_password(user.password)
-            user.save()
             profile=profile_form.save(commit=False)
             profile.user = user
             
@@ -84,15 +86,10 @@ def user_login(request):
 
     if request.method == 'POST':
         username = request.POST.get('username')
-        print('username', username)
         password = request.POST.get('password')
-        print('password', password)
         user = authenticate(username=username, password=password)
-        print('user1 ', user)
         if user:
-            print('user2')
             if user.is_active:
-                print('active')
                 login(request, user)
                 return redirect(reverse('breakingbread:index'))
             else:
@@ -258,9 +255,23 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
 #user details
 @login_required
 def user_details(request) :
-     current_user = request.user
-     context_dict={"user":current_user.username}
-     return render(request, 'breakingbread/user-details.html',context=context_dict)
+    context_dict= {}
+    updateSuccess = False
+    if request.method=="POST":
+        request.user.first_name = request.POST.get('firstname')
+        request.user.last_name  = request.POST.get('lastname')
+        request.user.email  = request.POST.get('email')
+        address = request.POST.get('address')
+        request.user.save()
+        UserProfile.objects.filter(user=request.user).update(address=address)
+        updateSuccess = True
+            # profile.picture = request.FILES['picture']
+        # context_dict{"updateSuccess" : updateSuccess}
+
+    current_profile = UserProfile.objects.get(user=request.user)
+    context_dict = {"profile" : current_profile, "updateSuccess" : updateSuccess}
+    #  context_dict={"user":current_user.username}
+    return render(request, 'breakingbread/user-details.html',context=context_dict)
     
 
 

@@ -2,7 +2,10 @@ var fileList = [];
 var step = 1;
 
 function openDialog() {
-    document.getElementById('fileid').click();
+    console.log('opened');
+}
+function readURL(input) {
+    alert('changed');
 }
 function showDetails() {
     $('.myDetails').css('display','block');
@@ -52,4 +55,8 @@ function getDetails() {
     var values = $("input[name='steps[]']")
               .map(function(){return $(this).val();}).get();
     console.log(values);
+}
+function go() {
+    alert('we');
+    // swal("Good job!", "You clicked the button!", "success")
 }
