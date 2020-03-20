@@ -16,5 +16,5 @@ path('browse/category/<str:category>/',views.search,name='browse_category'),
 path('browse/level/<str:level>/',views.search,name='browse_level'),
 path('browse/cuisine/<str:cuisine>/',views.search,name='browse_cuisine'),
 path('my-details/',views.user_details,name="details"),
-path('upload_recipe/', views.UploadRecipe.as_view(), name='upload_recipe'),
+# path('upload_recipe/', views.UploadRecipe.as_view(), name='upload_recipe'),
 ]
