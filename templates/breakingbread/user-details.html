@@ -31,7 +31,51 @@
       .nav-brand img {
         max-width: 180px;
       }
-  </style>
+     /* Preloader */
+      #preloader {
+        background-color: #ffffff;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 5000; 
+      }
+      #preloader img {
+        width: 30px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        z-index: 10; 
+      }
+      #preloader .circle-preloader {
+        display: block;
+        width: 60px;
+        height: 60px;
+        border: 2px solid #ccc;
+        border-bottom-color: #1c8314;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        animation: spin 2s infinite linear;
+      }
+      @-webkit-keyframes spin {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg); } }
+      @keyframes spin {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg); } 
+      }
+    </style>
   
 </head>
   <body>
@@ -40,6 +84,10 @@
         swal("Updated Successfully", "", "success")
       </script>
     {% endif %} -->
+    <!-- <div id="preloader">
+      <i class="circle-preloader"></i>
+      <img src="/static/images/core-img/salad.png" alt="">
+  </div> -->
     <div class="container">
     <div class="row flex-lg-nowrap">
       <div class="col-12 col-lg-auto mb-3" style="width: 240px;">
@@ -82,7 +130,7 @@
                       <div class="col-12 col-sm-auto mb-3">
                         <div class="mx-auto" style="width: 140px;">
                           <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px; background-color: rgb(233, 236, 239);">
-                              <img src="{{ MEDIA_URL }}{{ profile.picture }}" class="profilepic" name="picture" height="140px" width="140px">
+                              <img src="{{ MEDIA_URL }}{{ profile.picture }}" id="profilepic" class="profilepic" name="picture" height="140px" width="140px">
                           </div>
                         </div>
                       </div>
@@ -94,13 +142,13 @@
                           <div class="mt-2">
                             <button class="btn btn-primary" type="button" onclick="openDialog()">
                               <i class="fa fa-fw fa-camera"></i>
-                              <!-- <input id='fileid' type='file' onchange="readURL(this)" hidden/> -->
+                              <input id='fileid' type='file' name="picture" onchange="readURL(event)" hidden/>
                               <span>Change Photo</span>
                             </button>
                           </div>
                         </div>
                         <div class="text-center text-sm-right">
-                          <div class="text-muted"><small>Joined 09 Dec 2017</small></div>
+                          <div class="text-muted"><small>Joined on {{user.date_joined}}</small></div>
                         </div>
                       </div>
                     </div>
@@ -108,7 +156,7 @@
                       <li class="nav-item"><a href="" class="active nav-link" id="formTitle">Personal Details</a></li>
                     </ul>
                     <!-- My Info-->
-                    <div class="tab-content pt-3 info myDetails">
+                    <div class="tab-content pt-3 info myDetails" style="display: none;">
                         <div class="tab-pane active">
                         <form class="form" novalidate="">
                           <div class="row">
@@ -164,8 +212,8 @@
                       </form>
                     </div>
                   </form>
-                  <!-- If a user is logged in, then Django gives us access to the user object.-->
-                  <div class="tab-content pt-3 info uploadNew" style="display: none;">
+                  <!-- Upload Recipe -->
+                  <div class="tab-content pt-3 info uploadNew">
                     <div class="tab-pane active">
                       <form class="form" novalidate="">
                         <div class="row">
@@ -174,24 +222,21 @@
                               <div class="col">
                                 <div class="form-group">
                                   <label>Recipe Name</label>
-                                  <input class="form-control" type="text" name="name" placeholder="John Smith" value="John Smith">
+                                  <input class="form-control" type="text" name="recipeName" id="recipeName">
                                 </div>
                               </div>
                               <div class="col">
                                 <div class="form-group">
-                                  <label for="sel1">Cuisine:</label>
-                                  <select class="form-control" id="sel1">
-                                    <option>Indian</option>
-                                    <option>Indian</option>
-                                    <option>Indian</option>
-                                    <option>Indian</option>
-                                  </select>
+                                  <label for="sel1">Cuisine</label>
+                                  <!-- <select class="form-control" id="sel1"> -->
+                                    <input class="form-control" type="text" name="cuisine" id="cuisine" placeholder="e.g Italian">
+                                  <!-- </select> -->
                                 </div>
                               </div>
                               <div class="col">
                                 <div class="form-group">
-                                  <label for="sel1">Category:</label>
-                                  <select class="form-control" id="sel1">
+                                  <label for="sel1">Category</label>
+                                  <select class="form-control" id="category">
                                     <option>Indian</option>
                                     <option>Indian</option>
                                     <option>Indian</option>
@@ -203,26 +248,26 @@
                             <div class="row">
                               <div class="col">
                                 <div class="form-group">
-                                  <label>Time Taken(min):</label>
-                                  <input class="form-control" type="number" name="time_taken">
+                                  <label>Time Taken(min)</label>
+                                  <input class="form-control" type="number" id="time_taken" name="time_taken">
                                 </div>
                               </div>
                               <div class="col">
                                 <div class="form-group">
-                                  <label for="sel1">Type:</label>
-                                  <select class="form-control" id="sel1">
-                                    <option>Veg</option>
-                                    <option>Veg</option>
-                                    <option>Veg</option>
+                                  <label for="sel1">Type</label>
+                                  <select class="form-control" id="type">
+                                    <option>Non-vegeterian</option>
+                                    <option>Vegeterian</option>
+                                    <option>Vegan</option>
                                   </select>
                                 </div>
                               </div>
                               <div class="col">
                                 <div class="form-group">
-                                  <label for="sel1">Level:</label>
-                                  <select class="form-control" id="sel1">
+                                  <label for="sel1">Level</label>
+                                  <select class="form-control" id="level">
                                     <option>Beginner</option>
-                                    <option>intermediate</option>
+                                    <option>Intermediate</option>
                                     <option>Expert  </option>
                                   </select>
                                 </div>
@@ -231,8 +276,8 @@
                             <div class="row">
                               <div class="col">
                                 <div class="form-group">
-                                  <label>Ingredients(separated by a comma):</label>
-                                  <textarea class="form-control" rows="5" placeholder="Recipe Ingredients"></textarea>
+                                  <label>Ingredients(separated by a comma)</label>
+                                  <textarea class="form-control" id="ingredients" rows="5" placeholder="Recipe Ingredients"></textarea>
                                 </div>
                               </div>
                             </div>
@@ -240,7 +285,7 @@
                               <div class="col">
                                 <div class="form-group">
                                   <div id="stepsRecipe">
-                                    <label>Step 1:</label>
+                                    <label>Step 1</label>
                                     <input class="form-control" type="text" name="steps[]"/>
                                     <!-- <label>Step 2:</label>
                                     <input class="form-control" type="text" name="name" placeholder="John Smith" value="John Smith"> -->
@@ -264,7 +309,7 @@
                         </div>
                         <div class="row">
                           <div class="col d-flex justify-content-end">
-                            <button class="btn btn-primary" type="button" onclick="saveRecipe()">Save Changes</button>
+                            <button class="btn btn-primary" type="button" onclick="saveRecipe()">Upload Recipe</button>
                           </div>
                         </div>
                       </form>

@@ -2,10 +2,17 @@ var fileList = [];
 var step = 1;
 
 function openDialog() {
-    console.log('opened');
+    document.getElementById('fileid').click();
 }
-function readURL(input) {
-    alert('changed');
+function readURL(event) {
+    var selectedFile = event.target.files[0];
+    var reader = new FileReader();
+    var imgtag = document.getElementById("profilepic");
+    // console.log(imgtag);
+    reader.onload = function(event) {
+        imgtag.src = event.target.result;
+    };
+    reader.readAsDataURL(selectedFile);
 }
 function showDetails() {
     $('.myDetails').css('display','block');
@@ -51,12 +58,15 @@ function addAnotherStep() {
     newdiv.innerHTML += " <input class='form-control' type='text' name='steps[]'/>"
     document.getElementById('stepsRecipe').appendChild(newdiv);
 }
-function getDetails() {
-    var values = $("input[name='steps[]']")
+function saveRecipe() {
+    var recipeName =  $('#recipeName').val();
+    var cuisine =  $('#cuisine').val();
+    var time_taken =  $('#time_taken').val();
+    var type =  $('#type').val();
+    var level =  $('#level').val();
+    var ingredients =  $('#ingredients').val();
+    var category =  $('#category').val();
+    var steps = $("input[name='steps[]']")
               .map(function(){return $(this).val();}).get();
-    console.log(values);
-}
-function go() {
-    alert('we');
-    // swal("Good job!", "You clicked the button!", "success")
+    console.log(steps);
 }

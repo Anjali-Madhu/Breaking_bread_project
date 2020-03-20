@@ -6,6 +6,8 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from breakingbread.models import *;
+from django.utils.decorators import method_decorator
+
 import json;
 import math;
 
@@ -107,8 +109,30 @@ def user_logout(request):
     logout(request)
     return redirect(reverse('breakingbread:index'))
 
-def recipe(request,recipe_name_slug):
-    return render(request, 'breakingbread/receipe-post.html')
+def recipe(request,recipe_id):
+    recipe_to_display = Recipe.objects.filter(recipe_id= recipe_id)
+    recipe_ = {"id": recipe_to_display[0].recipe_id,
+                        "name": recipe_to_display[0].recipe_name,
+                        "username": recipe_to_display[0].username,
+                         "time_taken": recipe_to_display[0].time_taken,
+                         "level": recipe_to_display[0].level,
+                         "ingredients": [],
+                         "cooking_type": recipe_to_display[0].cooking_type,
+                         "cuisine": recipe_to_display[0].cuisine,
+                         "description": [],
+                         "created": recipe_to_display[0].created,
+                        "images": []
+              }
+    images = Image.objects.filter(recipe_id=recipe_id)
+    for image in images:
+        recipe_["images"].append(image.picture)
+
+    for i in recipe_to_display[0].description.split("?"):
+        recipe_["description"].append(i)
+
+    for i in recipe_to_display[0].ingredients.split("?"):
+        recipe_["ingredients"].append(i)
+    return render(request, 'breakingbread/receipe-post.html', context = recipe_)
 
 #@login_required
 def review(request):
@@ -215,7 +239,8 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
                      "username":recipe.username,
                      "rating_ceil":list(range(5-math.ceil(recipe.average_rating))),#to get the number of coloured star in rating
                      "rating_floor":list(range(math.floor(recipe.average_rating))),#to get the number of blank stars in rating
-                     "rating_decimal":decimal,}
+                     "rating_decimal":decimal,
+                     "path":"/breakingbread/recipe/"+str(recipe.recipe_id)}
                      #"slug":recipe.slug}
         #print(decimal)
         #retrieving the first image of each recipe
@@ -257,21 +282,28 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
 def user_details(request) :
     context_dict= {}
     updateSuccess = False
+    current_profile = UserProfile.objects.get(user=request.user)
     if request.method=="POST":
         request.user.first_name = request.POST.get('firstname')
         request.user.last_name  = request.POST.get('lastname')
         request.user.email  = request.POST.get('email')
         address = request.POST.get('address')
+        if 'picture' in request.FILES:
+            current_profile.picture = request.FILES['picture']
+            # UserProfile.objects.filter(user=request.user).update(picture=request.FILES['picture'])
+
+        current_profile.address = address
         request.user.save()
-        UserProfile.objects.filter(user=request.user).update(address=address)
+        current_profile.save()
         updateSuccess = True
             # profile.picture = request.FILES['picture']
         # context_dict{"updateSuccess" : updateSuccess}
 
-    current_profile = UserProfile.objects.get(user=request.user)
     context_dict = {"profile" : current_profile, "updateSuccess" : updateSuccess}
     #  context_dict={"user":current_user.username}
     return render(request, 'breakingbread/user-details.html',context=context_dict)
-    
 
-
+# class UploadRecipe(View) :
+#     @method_decorator(login_required)
+#     def get(self, request) :
+#         return HttpResponse('success')
