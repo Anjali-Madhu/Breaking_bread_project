@@ -74,9 +74,6 @@ function saveRecipe() {
     var steps = $("input[name='steps[]']")
               .map(function(){return $(this).val();}).get();
     
-    console.log(level);
-    console.log(type);
-
     var desc = "";
     if(steps.length > 1) {
         for(let i = 0; i < steps.length; i++) {
