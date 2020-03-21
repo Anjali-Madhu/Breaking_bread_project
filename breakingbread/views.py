@@ -8,8 +8,9 @@ from django.contrib.auth.decorators import login_required
 from breakingbread.models import *;
 from django.utils.decorators import method_decorator
 
-import json;
-import math;
+import datetime
+import json
+import math
 
 # Create your views here.
 def index(request):
@@ -303,7 +304,57 @@ def user_details(request) :
     #  context_dict={"user":current_user.username}
     return render(request, 'breakingbread/user-details.html',context=context_dict)
 
-# class UploadRecipe(View) :
-#     @method_decorator(login_required)
-#     def get(self, request) :
-#         return HttpResponse('success')
+@login_required
+def upload_recipe(request) :
+    # for images
+    if request.method == "POST":
+        images = []
+        recipe = Recipe.objects.get(recipe_id=request.POST.get('recipeId'))
+        number = int(request.POST.get('number'))
+        for i in range(number) :
+            imageId = 'image' + str(i)
+            if imageId in request.FILES :
+                image = Image(
+                    picture =  request.FILES[imageId],
+                    recipe_id = recipe
+                )
+                image.save()
+                images.append(image)
+
+        # print('num', request.POST.get('number'))
+        data = {
+            # "images": images,
+            "success" : True,
+        }
+        return JsonResponse(data)
+        print('request.FILES', request.FILES)
+
+    else :
+        #get the fields
+        recipeName = request.GET.get('recipeName', None)
+        cuisine = request.GET.get('cuisine', None)
+        time_taken = request.GET.get('time_taken', None)
+        cooking_type = request.GET.get('type', None)
+        level = request.GET.get('level', None)
+        ingredients = request.GET.get('ingredients', None)
+        # category = request.GET.get('category', None)
+        desc = request.GET.get('desc', None)
+        recipe = Recipe(
+            recipe_name = recipeName,
+            username =  UserProfile.objects.get(user=request.user),
+            time_taken = time_taken,
+            level = level,
+            ingredients = ingredients,
+            cooking_type = cooking_type,
+            cuisine = Cuisine.objects.get(cuisine_type=cuisine),
+            description = desc,
+            created = datetime.datetime.now()
+        )
+
+        recipe.save()
+        data = {
+        #    "recipeId" : recipe.recipe_id,
+            "recipeId" : recipe.recipe_id,
+        }
+
+        return JsonResponse(data)

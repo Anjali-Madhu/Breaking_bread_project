@@ -33,6 +33,8 @@
       }
      /* Preloader */
       #preloader {
+        display: none;
+        opacity: 0.7;
         background-color: #ffffff;
         width: 100%;
         height: 100%;
@@ -79,15 +81,10 @@
   
 </head>
   <body>
-    <!-- {% if updateSuccess %}
-      <script>
-        swal("Updated Successfully", "", "success")
-      </script>
-    {% endif %} -->
-    <!-- <div id="preloader">
+    <div id="preloader">
       <i class="circle-preloader"></i>
       <img src="/static/images/core-img/salad.png" alt="">
-  </div> -->
+    </div>
     <div class="container">
     <div class="row flex-lg-nowrap">
       <div class="col-12 col-lg-auto mb-3" style="width: 240px;">
@@ -156,7 +153,7 @@
                       <li class="nav-item"><a href="" class="active nav-link" id="formTitle">Personal Details</a></li>
                     </ul>
                     <!-- My Info-->
-                    <div class="tab-content pt-3 info myDetails" style="display: none;">
+                    <div class="tab-content pt-3 info myDetails">
                         <div class="tab-pane active">
                         <form class="form" novalidate="">
                           <div class="row">
@@ -212,8 +209,18 @@
                       </form>
                     </div>
                   </form>
+                  <!-- {% if updateSuccess %}
+                    <script>
+                      $("#preloader").css("display", "block");
+                      setTimeout(function(){ 
+                        console.log('inside');
+                        $("#preloader").css("display", "none");
+                        swal("Profile Updated Successfully", "", "success")
+                      }, 3000);
+                    </script>
+                  {% endif %} -->
                   <!-- Upload Recipe -->
-                  <div class="tab-content pt-3 info uploadNew">
+                  <div class="tab-content pt-3 info uploadNew" style="display: none;">
                     <div class="tab-pane active">
                       <form class="form" novalidate="">
                         <div class="row">
@@ -229,8 +236,19 @@
                                 <div class="form-group">
                                   <label for="sel1">Cuisine</label>
                                   <!-- <select class="form-control" id="sel1"> -->
-                                    <input class="form-control" type="text" name="cuisine" id="cuisine" placeholder="e.g Italian">
+                                    <!-- <input class="form-control" type="text" name="cuisine" id="cuisine" placeholder="e.g Italian"> -->
                                   <!-- </select> -->
+                                  <select class="form-control" id="cuisine">
+                                    <option>Italian</option>
+                                    <option>Indian</option>
+                                    <option>Egyptian</option>
+                                    <option>Scottish</option>
+                                    <option>Chinese</option>
+                                    <option>Romanian</option>
+                                    <option>Mauritian</option>
+                                    <option>American</option>
+                                    <option>Lebanese</option>
+                                  </select>
                                 </div>
                               </div>
                               <div class="col">
@@ -249,7 +267,7 @@
                               <div class="col">
                                 <div class="form-group">
                                   <label>Time Taken(min)</label>
-                                  <input class="form-control" type="number" id="time_taken" name="time_taken">
+                                  <input class="form-control" type="number" min="1" id="time_taken" name="time_taken">
                                 </div>
                               </div>
                               <div class="col">
@@ -268,7 +286,7 @@
                                   <select class="form-control" id="level">
                                     <option>Beginner</option>
                                     <option>Intermediate</option>
-                                    <option>Expert  </option>
+                                    <option>Expert</option>
                                   </select>
                                 </div>
                               </div>
@@ -299,8 +317,8 @@
                             <div class="row">
                               <div class="col mb-3">
                                 <div class="form-group">
-                                  <input type="file" name="filefield" id="fileElementId" name="files[]" multiple="multiple"  onchange="javascript:updateList()" />
-                                  <p>Selected files:</p>
+                                  <p>Upload Recipe Pictures</p>
+                                  <input type="file" name="filefield" id="fileElementId" name="files[]" multiple="multiple"  onchange="javascript:addPictures()" />
                                   <div id="fileList"></div>
                                 </div>
                               </div>
@@ -371,10 +389,12 @@
             <div class="card mb-3">
                 <div class="card-body">
                   <div class="px-xl-3">
-                    <button class="btn btn-block btn-secondary">
-                      <i class="fa fa-sign-out"></i>
-                      <span>Logout</span>
-                    </button>
+                    <form action="{% url 'breakingbread:logout' %}" method="get">
+                      <button class="btn btn-block btn-secondary" type="submit">
+                        <i class="fa fa-sign-out"></i>
+                        <span>Logout</span>
+                      </button>
+                    </form>
                   </div>
                 </div>
               </div>
