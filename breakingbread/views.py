@@ -390,3 +390,7 @@ def upload_recipe(request) :
         }
 
         return JsonResponse(data)
+
+
+def about(request):
+    return render(request, 'breakingbread/about.html')
