@@ -2,6 +2,7 @@
 {% extends 'breakingbread/base.html' %}
 {% load staticfiles %}
 {% block body_block %}
+{% load socialaccount %}
 
 <html lang="en">
 <head>
@@ -52,32 +53,41 @@
 		
     </style>
 </head>
-	<body>
-		<div class="form-v6">
-			<div class="page-content">
-				<div class="form-v6-content">
-					<div class="form-left">
-						<img src="{% static 'images/BB_logo.png' %}" class="w3-round" alt="form">
-					</div>
-					{% if logged_in %} 
-						<strong style="color:gray;">Thank you for registering!</strong>
-					{% else %}
-                    <form class="form-detail" method="post" action="{% url 'breakingbread:login' %}">
-                        {% csrf_token %}
-                        <p><label for="username">Username:</label></p>
-                        <input type="text" name="username" value="" size="50" />
-                        
-                        <p><label for="password">Password:</label></p>
-                        <input type="password" name="password" value="" size="50" />
-                        
-                        <div class="form-row-last">
-                            <input type="submit" name="login" class="register" value="Login">
-                        </div>
-                    </form>
-					{% endif %}
-				</div>
-			</div>
-		</div>
-	</body>
+<body>
+    <div class="form-v6">
+        <div class="page-content">
+            <div class="form-v6-content">
+                <div class="form-left">
+                    <img src="{% static 'images/BB_logo.png' %}" class="w3-round" alt="form">
+                </div>
+                {% if logged_in %}
+                <strong style="color:gray;">Thank you for registering!</strong>
+                {% else %}
+                <form class="form-detail" method="post" action="{% url 'breakingbread:login' %}">
+                    {% csrf_token %}
+                    <p><label for="username">Username:</label></p>
+                    <input type="text" name="username" value="" size="50" />
+
+                    <p><label for="password">Password:</label></p>
+                    <input type="password" name="password" value="" size="50" />
+
+                    <div class="form-row-last">
+                        <input type="submit" name="login" class="register" value="Login">
+                    </div>
+
+                    <hr>
+                    <a href="{% provider_login_url 'google' %}"  >Login with Google</a>
+                </form>
+                
+            
+                {% endif %}
+
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+
 </html>
 {% endblock %}
