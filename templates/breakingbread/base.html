@@ -129,9 +129,9 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li class="active"><a href="{% url 'breakingbread:index' %}">Home</a></li>
+                                    <li class="{% if nav_tab == 'home' %}active{% endif %}"><a href="{% url 'breakingbread:index' %}">Home</a></li>
 
-                                    <li>
+                                    <li class="">
                                         <a href="#">Browse</a>
                                         <div class="megamenu">
                                             <ul class="single-mega cn-col-4" id="cuisine">
@@ -164,16 +164,16 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li><a href="{% url 'breakingbread:search' %}">Search</a></li>
+                                    <li class="{% if nav_tab == 'search' %}active{% endif %}"><a href="{% url 'breakingbread:search' %}">Search</a></li>
 
 
                                     {% if logged_in %}
                                     <li><a href="{% url 'breakingbread:details' %}">My Details</a></li>
                                     <li><a href="{% url 'breakingbread:logout' %}">Sign out</a></li>
                                     {% else %}
-                                    <li><a href="{% url 'breakingbread:register' %}">Register</a></li>
+                                    <li class="{% if nav_tab == 'register' %}active{% endif %}"><a href="{% url 'breakingbread:register' %}">Register</a></li>
 
-                                    <li><a href="{% url 'breakingbread:login' %}">Log In</a></li>
+                                    <li class="{% if nav_tab == 'log_in' %}active{% endif %}"><a href="{% url 'breakingbread:login' %}">Log In</a></li>
 
                                     {% endif %}
 

@@ -2,27 +2,7 @@
 {% load staticfiles %}
 {% block body_block %}
 
-  
-  <!-- Rating Stars Box -->
-  <div class='rating-stars text-center'>
-    <ul id='stars'>
-      <li class='star' title='Poor' data-value='1'>
-        <i class='fa fa-star'></i>
-      </li>
-      <li class='star' title='Fair' data-value='2'>
-        <i class='fa fa-star'></i>
-      </li>
-      <li class='star' title='Good' data-value='3'>
-        <i class='fa fa-star'></i>
-      </li>
-      <li class='star' title='Excellent' data-value='4'>
-        <i class='fa fa-star'></i>
-      </li>
-      <li class='star' title='WOW!!!' data-value='5'>
-        <i class='fa fa-star'></i>
-      </li>
-    </ul>
-  </div>
+ 
 
    <!-- ##### Hero Area Start ##### -->
     <section class="hero-area">
@@ -88,7 +68,7 @@
                         <div class="top-cta-content">
                             <h3>{{ vegan.recipe_id.recipe_name }} - Best vegan </h3>
                             <h6>Simple &amp; Delicious</h6>
-                            <a href="receipe-post.html" class="btn delicious-btn">See Full Recipe</a>
+                            <a href="{% url 'breakingbread:recipe' vegan.recipe_id.recipe_id %}" class="btn delicious-btn">See Full Recipe</a>
                         </div>
                     </div>
                 </div>
@@ -102,7 +82,7 @@
                         <div class="top-cta-content">
                             <h3>{{ vegetarian.recipe_id.recipe_name }} - Best Vegetarian </h3>
                             <h6>Scrumptious</h6>
-                            <a href="receipe-post.html" class="btn delicious-btn">See Full Recipe</a>
+                            <a href="{% url 'breakingbread:recipe' vegetarian.recipe_id.recipe_id %}" class="btn delicious-btn">See Full Recipe</a>
                         </div>
                     </div>
                 </div>
@@ -131,7 +111,7 @@
                         <div class="single-best-receipe-area mb-30">
                             <img src="{{ MEDIA_URL }}{{ recipe.picture }}" alt="" style="height:250px; width:350px">
                             <div class="receipe-content" style="">
-                                <a href="receipe-post.html">
+                                <a href="{% url 'breakingbread:recipe' recipe.recipe_id.recipe_id %}">
                                     <h5>{{ recipe.recipe_id.recipe_name }}</h5>
                                 </a>
                                 <div class="username">

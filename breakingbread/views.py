@@ -46,8 +46,9 @@ def index(request):
            best_set.append(i)
   
     best_recipes_images = best_set[0:6]
-  
-    context_dict={"logged_in":logged_in, "username":username, "best_recipes": best_recipes_images, "best_vegan": best_vegan, "best_vegetarian":best_vegetarian}
+    
+    context_dict={"logged_in":logged_in, "username":username, "best_recipes": best_recipes_images,
+                 "best_vegan": best_vegan, "best_vegetarian":best_vegetarian, "nav_tab":"home"}
     response = render(request, 'breakingbread/index.html', context=context_dict)
     return response
 
@@ -82,11 +83,10 @@ def register(request):
     else:
         user_form=SignUpForm()
         profile_form=UserProfileForm()
-    context_dict = {'user_form':user_form,'profile_form':profile_form,'registered':registered}
+    context_dict = {'user_form':user_form,'profile_form':profile_form,'registered':registered, "nav_tab":"register"}
     return render(request,'breakingbread/register.html',context=context_dict)
 
 def user_login(request):
-
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -103,7 +103,7 @@ def user_login(request):
             #return HttpResponse("Incorrect username or password")
             return render(request, 'breakingbread/login.html',context={"error":"Incorrect username or password!"})
     else:
-        return render(request, 'breakingbread/login.html')
+        return render(request, 'breakingbread/login.html', context ={"nav_tab":"log_in"})
     
 @login_required
 def user_logout(request):
@@ -154,8 +154,6 @@ def review(request):
         # Will handle the bad form, new form, or no form supplied cases.
         # Render the form with error messages (if any).
     return render(request, '/breakingbread/receipe-post.html', {'form': form})
-
-
     
 def cuisine_list(request):
     cuisine_list=[];
@@ -164,6 +162,8 @@ def cuisine_list(request):
     for cuisine in cuisines:
         cuisine_list.append(cuisine.cuisine_type)
     return JsonResponse({1:cuisine_list})
+
+
 #retrieving search results
 def search(request,cuisine="",category="all",level=-1,userid=""):
     cuisine_list = []
@@ -275,6 +275,7 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
     if userid=="":
         userid = 0
     context_dict["user"]=userid
+    context_dict["nav_tab"]="search"
     response = render(request, 'breakingbread/search-results.html',context=context_dict)
     return response
 
