@@ -84,14 +84,23 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    {% if name == 'All' and user == 0 %}
+                    {% if name == 'All' and user == 0  and display_name == "" %}
                     <div class="section-heading">
                         <h3>All Recipes</h3>
                     </div>
-                    {% elif name != "All" %}
+                    {% elif display_name != "" %}
+                    <div class="section-heading">
+                        <h3>All {{ display_name }} Recipes</h3>
+                    </div>
+                    {% elif name != "All" and name != "" %}
                     <div class="section-heading">
                         <h3>Search results for "{{ name }}" </h3>
                     </div>
+                    {% elif name == "" %}
+                    <div class="section-heading">
+                        <h3>Search results </h3>
+                    </div>
+                    
                     {% endif %}
                      {% if user != 0 %}
                     <div class="section-heading">
