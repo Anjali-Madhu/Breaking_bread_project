@@ -1,3 +1,5 @@
+var ratingValue;
+
 $(document).ready(function(){
   /* 1. Visualizing things on Hover - See next part for action on click */
   $('#stars li').on('mouseover', function(){
@@ -34,7 +36,7 @@ $(document).ready(function(){
     }
     
     // JUST RESPONSE (Not needed)
-    var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+    ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
     console.log(ratingValue);
     var msg = "";
     if (ratingValue > 1) {
@@ -56,4 +58,24 @@ $(document).ready(function(){
 function responseMessage(msg) {
   $('.success-box').fadeIn(200);  
   $('.success-box div.text-message').html("<span>" + msg + "</span>");
+}
+
+function addReview(recipeId) {
+  var message =  $('#message').val();
+  alert(ratingValue)
+  //  call uploadrecipe url in django
+   $.ajax({
+    url: '/breakingbread/reviews/' + recipeId,
+    data: {
+        'message' : message,
+        'rating' : ratingValue
+    },
+    dataType: 'json',
+    success: function (data) {
+        if(data.success) {
+          location.reload();
+        }
+
+      }
+});
 }

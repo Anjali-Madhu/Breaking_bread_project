@@ -126,7 +126,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="contact-form-area">
-                            <form id="review_form" method="post" action="{% url 'breakingbread:reviews' recipe_id=id %}">
+                            <!-- <form id="review_form" method="post" action="{% url 'breakingbread:reviews' recipe_id=id %}"> -->
                                 <div class="row">
                                     <div class="col-12">
                                          {% csrf_token %}
@@ -134,7 +134,7 @@
                                          <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
                                     </div>
                                     <div class="col-12">
-                                        <button class="btn delicious-btn mt-30" type="submit">Post Comments</button>
+                                        <button class="btn delicious-btn mt-30" onclick="addReview({{id}})">Post Comments</button>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -161,7 +161,7 @@
                           </div>
                           
                           </div>
-                          </form>
+                          <!-- </form> -->
 
                     </div>
                 </div>
@@ -195,7 +195,6 @@
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 {% endfor %}
                                 {% endif %}
-                                
                                 {% if review.rating_ceil %}
                                 {% for item in review.rating_ceil %}
                                     <i class="fa fa-star-o" aria-hidden="true"></i>

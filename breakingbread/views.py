@@ -186,19 +186,28 @@ def recipe(request,recipe_id):
 def review(request,recipe_id):
     form = ReviewForm()
     recipe_page = Recipe.objects.filter(recipe_id= recipe_id)
+    message = request.GET.get('message', None)
+    rating = request.GET.get('rating', None)
+    review = Review(recipe_id=recipe_page[0], username=request.user, description=message, rating=rating)
+    review.save()
+    data = {
+        "success" : True,
+    }
+
+    return JsonResponse(data)
     #reviews =
-    if request.method == 'POST':
-        print("post")       
-        description = request.POST.get("message")
-        rating = request.POST.get("stars")
-        review = Review(recipe_id=recipe_page[0],username=request.user,description=description)
-        review.save()
-        print(description,rating,request.user,recipe_id)
-    #return render(request, 'breakingbread/recipe/'+str(recipe_id), {'form': form})
-        response = recipe(request,recipe_id)
-        return response
-    else:
-        return response
+    # if request.method == 'POST':
+    #     print("post")       
+    #     description = request.POST.get("message")
+    #     rating = request.POST.get("stars")
+    #     review = Review(recipe_id=recipe_page[0],username=request.user,description=description)
+    #     review.save()
+    #     print(description,rating,request.user,recipe_id)
+    # #return render(request, 'breakingbread/recipe/'+str(recipe_id), {'form': form})
+    #     response = recipe(request,recipe_id)
+    #     return response
+    # else:
+    #     return response
     
 def cuisine_list(request):
     #checking if any user has logged in 
