@@ -177,6 +177,14 @@ def populate():
           'picture':  'populate_recipe_images/boulettes.jpg',
           'recipe_id': all_recipes[7]
          },
+        {'image_id': 9,
+         'picture': 'populate_recipe_images/cheeseburger.jpg',
+         'recipe_id': all_recipes[8]
+         },
+        {'image_id': 10,
+         'picture': 'populate_recipe_images/berry_smoothie.jpg',
+         'recipe_id': all_recipes[9]
+         },
          ]
 
     for img in Images:
