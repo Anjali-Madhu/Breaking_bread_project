@@ -49,6 +49,95 @@
 
                     <div class="col-12 col-md-4">
                         <div class="recipe-ratings text-right my-5">
+                            {% if recipe.recipe_id.average_rating == 0 %}
+                                <div class="ratings">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                </div>
+                                {% elif recipe.recipe_id.average_rating == 0.5 %}
+                                <div class="ratings">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half" aria-hidden="true"></i>
+                                </div>
+                                {% elif recipe.recipe_id.average_rating == 1 %}
+                                <div class="ratings">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                {% elif recipe.recipe_id.average_rating == 1.5 %}
+                                <div class="ratings">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                {% elif recipe.recipe_id.average_rating == 2 %}
+                                <div class="ratings">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                {% elif recipe.recipe_id.average_rating == 2.5 %}
+                                <div class="ratings">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                {% elif recipe.recipe_id.average_rating == 3 %}
+                                <div class="ratings">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                {% elif recipe.recipe_id.average_rating == 3.5 %}
+                                <div class="ratings">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star-half" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                {% elif recipe.recipe_id.average_rating == 4 %}
+                                <div class="ratings">
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                {% elif recipe.recipe_id.average_rating == 4.5 %}
+                                <div class="ratings">
+                                    <i class="fa fa-star-half" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                {% elif recipe.recipe_id.average_rating == 5 %}
+                                <div class="ratings">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                {% endif %}
                         </div>
                             {% if level == 0 %}
                             <a href="#" class="btn delicious-btn">For Beginners</a>
@@ -86,11 +175,6 @@
 
                             </div>
                             {% endfor %}
-<!--                            <div class="custom-control custom-checkbox">-->
-<!--                                <input type="checkbox" class="custom-control-input" id="customCheck8">-->
-<!--                                <label class="custom-control-label" for="customCheck8">1 cup fresh blueberries </label>-->
-<!--                            </div>-->
-<!--                        </div>-->
                     </div>
                 </div>
                 <div class="row">
