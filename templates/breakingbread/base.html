@@ -168,9 +168,6 @@
                                             </div>
                                         </div>
                                     </li>
-                                    
-
-
                                     {% if logged_in %}
                                     <li><a href="{% url 'breakingbread:details' %}">My Details</a></li>
                                     <li><a href="{% url 'breakingbread:logout' %}">Sign out</a></li>
@@ -178,14 +175,8 @@
                                     <li class="{% if nav_tab == 'register' %}active{% endif %}"><a href="{% url 'breakingbread:register' %}">Register</a></li>
 
                                     <li class="{% if nav_tab == 'log_in' %}active{% endif %}"><a href="{% url 'breakingbread:login' %}">Log In</a></li>
-
                                     {% endif %}
-
                                 </ul>
-
-
-
-
                             </div>
                             <!-- Nav End -->
                         </div>
@@ -195,9 +186,6 @@
         </div>
     </header>
     <!-- ##### Header Area End ##### -->
-
-
-
     <div>
         {% block body_block %}
         {% endblock %}
@@ -217,7 +205,7 @@
                     </div>
                     <!-- Footer Logo -->
                     <div class="footer-logo">
-                        <a href="index.html"><img src="{% static 'images/core-img/bb_logo.png' %}" alt="" style="width:200px"></a>
+                        <a href="{% url 'breakingbread:index' %}"><img src="{% static 'images/core-img/bb_logo.png' %}" alt="" style="width:200px"></a>
                     </div>
                     <!-- Copywrite -->
                     <p>

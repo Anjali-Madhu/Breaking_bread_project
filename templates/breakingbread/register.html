@@ -41,7 +41,21 @@
 		.page-content {
 			background-image: -webkit-linear-gradient( 136deg, #d08f5a 0%, rgb(205, 220, 224) 100%);
 		}
-		
+		.registered {
+			color: gray;
+			font-size: 20px;
+			display: block;
+			margin-top: 25%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.registered strong{
+			display: grid;
+		}
+		.registered a{
+			text-decoration: underline;
+    		color: red;
+		}
     </style>
 </head>
 	<body>
@@ -52,8 +66,10 @@
 						<img src="{% static 'images/BB_logo.png' %}" class="w3-round" alt="form">
 					</div>
 					{% if registered %} 
-						<strong style="color:gray;">Thank you for registering!</strong>
-						<a href="{% url 'breakingbread:login' %}">Login</a> to continue<br />
+						<div class="registered">
+							<strong>Thank you for registering!</strong>
+							<a href="{% url 'breakingbread:login' %}">Login to continue</a><br />
+						</div>
 					{% else %}
 						<form class="form-detail" method="post" action="{% url 'breakingbread:register' %}" enctype="multipart/form-data">
 							{% csrf_token %}
