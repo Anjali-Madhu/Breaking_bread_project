@@ -18,4 +18,5 @@ path('browse/level/<str:level>/',views.search,name='browse_level'),
 path('browse/cuisine/<str:cuisine>/',views.search,name='browse_cuisine'),
 path('my-details/',views.user_details,name="details"),
 path('uploadrecipe/', views.upload_recipe, name='upload_recipe'),
+path('about/', views.about, name='about'),
 ]

@@ -188,6 +188,14 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
         username=request.user.username
     else:
         logged_in=False
+        
+    display_name = ""
+    if cuisine!="":
+        display_name = cuisine
+    if category!="all":
+        display_name = category
+    if level!=-1:
+        display_name = level
     
     
     cuisines = Cuisine.objects.all();
@@ -298,6 +306,7 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
     context_dict["nav_tab"]="search"
     context_dict["logged_in"]=logged_in
     context_dict["username"]=username
+    context_dict["display_name"]=display_name
     response = render(request, 'breakingbread/search-results.html',context=context_dict)
     return response
 
@@ -381,3 +390,7 @@ def upload_recipe(request) :
         }
 
         return JsonResponse(data)
+
+
+def about(request):
+    return render(request, 'breakingbread/about.html')
