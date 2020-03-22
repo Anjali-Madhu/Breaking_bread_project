@@ -62,7 +62,6 @@ function responseMessage(msg) {
 
 function addReview(recipeId) {
   var message =  $('#message').val();
-  alert(ratingValue)
   //  call uploadrecipe url in django
    $.ajax({
     url: '/breakingbread/reviews/' + recipeId,
