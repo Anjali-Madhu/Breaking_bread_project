@@ -188,7 +188,7 @@ def review(request,recipe_id):
                
         description = request.POST.get("message")
         rating = request.POST.get("stars")
-        review = Review(recipe_id=recipe_page[0],username=request.user,description=description,)
+        review = Review(recipe_id=recipe_page[0],username=request.user,description=description)
         review.save()
         print(description,rating,request.user,recipe_id)
     #return render(request, 'breakingbread/recipe/'+str(recipe_id), {'form': form})
