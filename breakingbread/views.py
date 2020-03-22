@@ -173,20 +173,15 @@ def review(request,recipe_id):
     recipe_page = Recipe.objects.filter(recipe_id= recipe_id)
     #reviews =
     if request.method == 'POST':
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            # Save the new review to the database.
-            print(form.message)
-            form.save()
-            # Now that the category is saved, we could confirm this.
-            # For now, just redirect the user back to the index view.
-        else:
-        # The supplied form contained errors
-        # just print them to the terminal.
-            form = ReviewForm()
-        # Will handle the bad form, new form, or no form supplied cases.
-        # Render the form with error messages (if any).
-    return render(request, 'breakingbread/recipe/'+str(recipe_page.recipe_id), {'form': form})
+               
+        description = request.POST.get("message")
+        rating = request.POST.get("stars")
+        review = Review(recipe_id=recipe_page[0],username=request.user,description=description,)
+        review.save()
+        print(description,rating,request.user,recipe_id)
+    #return render(request, 'breakingbread/recipe/'+str(recipe_id), {'form': form})
+    response = recipe(request,recipe_id)
+    return response
     
 def cuisine_list(request):
     #checking if any user has logged in 

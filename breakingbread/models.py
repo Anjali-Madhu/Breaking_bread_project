@@ -73,7 +73,7 @@ class Image(models.Model):
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
     recipe_id=models.ForeignKey(Recipe,on_delete=models.CASCADE)
-    username=models.ForeignKey(UserProfile,on_delete=models.CASCADE)
+    username=models.ForeignKey(User,on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
     description=models.TextField(max_length=500)
     created = models.DateTimeField(default=now)
@@ -92,7 +92,7 @@ class Report(models.Model):
     post_type=models.IntegerField()
     #if post type = 0 post_id = recipe_id elsepost_id = review_id
     post_id=models.IntegerField()
-    username=models.ForeignKey(UserProfile,on_delete=models.CASCADE)
+    username=models.ForeignKey(User,on_delete=models.CASCADE)
     description = models.TextField(max_length=500)
     #False = assigned, True=resolved
     status=models.BooleanField(default=False)
