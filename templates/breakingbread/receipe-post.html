@@ -49,12 +49,6 @@
                             </div>
                         </div>
                     </div>
-<<<<<<< HEAD
-                     <div class="col-12 col-md-4">
-                        <div class="receipe-ratings text-right my-5">
-                          
-=======
-
                     <div class="col-12 col-md-4">
                         <div class="recipe-ratings text-right my-5">
                             {% if recipe.recipe_id.average_rating == 0 %}
@@ -147,7 +141,6 @@
                                 </div>
                                 {% endif %}
                         </div>
->>>>>>> b0aeb35a3d72f9688eb4059d65847493a2758c68
                             {% if level == 0 %}
                             <a href="#" class="btn delicious-btn">For Beginners</a>
                             {% elif level == 1 %}
@@ -185,18 +178,11 @@
                             {% for i in ingredients %}
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="customCheck{{forloop.counter}}">
-                                <label class="custom-control-label" for="customCheck1">{{ i }}</label>
+                                <label class="custom-control-label" for="customCheck{{forloop.counter}}">{{ i }}</label>
                             </div>
                             {% endfor %}
-<<<<<<< HEAD
-                           
-
-                   
                         </div>
-=======
->>>>>>> b0aeb35a3d72f9688eb4059d65847493a2758c68
                     </div>
-                </div>
                 <div class="row">
                     <div class="col-12">
                         <div class="section-heading text-left">
@@ -221,28 +207,6 @@
                                     </div>
                                 </div>
                             <h4>Rate this recipe!</h4>
-                        
-                        <!-- <div>
-                             <span class="rating_stars rating_0">
-                                    <span class='s' data-low='0.5' data-high='1'><i class="fa fa-star-o"></i></span>
-                                  <span class='s' data-low='1.5' data-high='2'><i class="fa fa-star-o"></i></span>
-                                  <span class='s' data-low='2.5' data-high='3'><i class="fa fa-star-o"></i></span>
-                                  <span class='s' data-low='3.5' data-high='4'><i class="fa fa-star-o"></i></span>
-                                  <span class='s' data-low='4.5' data-high='5'><i class="fa fa-star-o"></i></span>
-
-                                  <span class='r r0_5' data-rating='1' data-value='0.5'></span>
-                                  <span class='r r1' data-rating='1' data-value='1'></span>
-                                  <span class='r r1_5' data-rating='15' data-value='1.5'></span>
-                                  <span class='r r2' data-rating='2' data-value='2'></span>
-                                  <span class='r r2_5' data-rating='25' data-value='2.5'></span>
-                                  <span class='r r3' data-rating='3' data-value='3'></span>
-                                  <span class='r r3_5' data-rating='35' data-value='3.5'></span>
-                                  <span class='r r4' data-rating='4' data-value='4'></span>
-                                  <span class='r r4_5' data-rating='45' data-value='4.5'></span>
-                                  <span class='r r5' data-rating='5' data-value='5'></span>
-                                </span>
-                        </div>
-                        
                           <!-- Rating Stars Box -->
                           <div class='rating-stars text-center'>
                             <ul id='stars'>
