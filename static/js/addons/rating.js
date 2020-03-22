@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  
   /* 1. Visualizing things on Hover - See next part for action on click */
   $('#stars li').on('mouseover', function(){
     var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
@@ -36,12 +35,15 @@ $(document).ready(function(){
     
     // JUST RESPONSE (Not needed)
     var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+    console.log(ratingValue);
     var msg = "";
     if (ratingValue > 1) {
         msg = "Thanks! You rated this " + ratingValue + " stars.";
+        console.log(msg);
     }
     else {
         msg = "We will improve ourselves. You rated this " + ratingValue + " stars.";
+        console.log(msg);
     }
     responseMessage(msg);
     
