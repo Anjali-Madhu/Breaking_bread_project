@@ -29,9 +29,9 @@
 
         <div class="row">
             <div class="col-12">
-                <h6 class="sub-heading pb-5">Donec quis metus ac arcu luctus accumsan. Nunc in justo tincidunt, sodales nunc id, finibus nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce nec ante vitae lacus aliquet vulputate. Donec scelerisque accumsan molestie. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae</h6>
+                <h5 class="sub-heading pb-5">We are a family of friends who is enjoying good food and the story behind each recipe! We are exploring life through taste and we are willing to take y'all food throttles in our journey.</h5>
 
-                <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin malesuada et mauris ut lobortis. Sed eu iaculis sapien, eget luctus quam. Aenean hendrerit varius massa quis laoreet. Donec quis metus ac arcu luctus accumsan. Nunc in justo tincidunt, sodales nunc id, finibus nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+                <p class="text-center">You can choose from a range variety of recipes, try them, comment and rate them or upload a new recipe by yourself. What are you waiting for? You are already here why not taking a chance?</p>
             </div>
         </div>
 
@@ -40,7 +40,7 @@
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="single-cool-fact">
                     <img src="{% static 'images/core-img/salad.png' %}" alt="">
-                    <h3><span class="counter">1287</span></h3>
+                    <h3><span class="counter">{{ nb_recipes }}</span></h3>
                     <h6>Amazing receipies</h6>
                 </div>
             </div>
@@ -49,7 +49,7 @@
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="single-cool-fact">
                     <img src="{% static 'images/core-img/hamburger.png' %} " alt="">
-                    <h3><span class="counter">25</span></h3>
+                    <h3><span class="counter">{{ nb_burgers }}</span></h3>
                     <h6>Burger receipies</h6>
                 </div>
             </div>
@@ -58,7 +58,7 @@
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="single-cool-fact">
                     <img src="{% static 'images/core-img/rib.png' %}" alt="">
-                    <h3><span class="counter">471</span></h3>
+                    <h3><span class="counter">{{ nb_meats }}</span></h3>
                     <h6>Meat receipies</h6>
                 </div>
             </div>
@@ -67,8 +67,8 @@
             <div class="col-12 col-sm-6 col-lg-3">
                 <div class="single-cool-fact">
                     <img src="{% static 'images/core-img/pancake.png' %}" alt="">
-                    <h3><span class="counter">326</span></h3>
-                    <h6>Desert receipies</h6>
+                    <h3><span class="counter">{{ nb_vegans }}</span></h3>
+                    <h6>Vegan receipies</h6>
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@
         <div class="row">
             <div class="col-12">
                 <img class="mb-70" src="{% static 'images/bg-img/about.png' %}" alt="">
-                <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec varius dui. Suspendisse potenti. Vestibulum ac pellentesque tortor. Aenean congue sed metus in iaculis. Cras a tortor enim. Phasellus posuere vestibulum ipsum, eget lobortis purus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin malesuada et mauris ut lobortis. Sed eu iaculis sapien, eget luctus quam. Aenean hendrerit varius massa quis laoreet. Donec quis metus ac arcu luctus accumsan. Nunc in justo tincidunt, sodales nunc id, finibus nibh. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+                <p class="text-center">Leave us a message. We are here for you. Send us your thoughts! You are part of our Family.</p>
             </div>
         </div>
     </div>
@@ -111,7 +111,7 @@
                                 <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
                             </div>
                             <div class="col-12 text-center">
-                                <button class="btn delicious-btn mt-30" type="submit">Send</button>
+                                <button class="btn delicious-btn mt-30" type="submit" disabled>Send</button>
                             </div>
                         </div>
                     </form>

@@ -159,7 +159,7 @@
                                             </ul>
                                             <ul class="single-mega cn-col-4">
                                                 <li class="{% if nav_tab == 'search' %}active{% endif %}"><a href="{% url 'breakingbread:allrecipes' %}">All Recipes</a></li>
-                                             </ul>
+                                            </ul>
                                             <div class="single-mega cn-col-4">
                                                 <div class="receipe-slider owl-carousel">
                                                     <a href="#"><img src="{% static 'images/bg-img/bg1.jpg' %}" alt=""></a>
@@ -168,12 +168,13 @@
                                             </div>
                                         </div>
                                     </li>
+
+                                    <li class="{% if nav_tab == 'about' %}active{% endif %}"><a href="{% url 'breakingbread:about' %}">About</a></li>
                                     {% if logged_in %}
                                     <li><a href="{% url 'breakingbread:details' %}">My Details</a></li>
                                     <li><a href="{% url 'breakingbread:logout' %}">Sign out</a></li>
                                     {% else %}
                                     <li class="{% if nav_tab == 'register' %}active{% endif %}"><a href="{% url 'breakingbread:register' %}">Register</a></li>
-
                                     <li class="{% if nav_tab == 'log_in' %}active{% endif %}"><a href="{% url 'breakingbread:login' %}">Log In</a></li>
                                     {% endif %}
                                 </ul>

@@ -439,4 +439,10 @@ def upload_recipe(request) :
 
 
 def about(request):
-    return render(request, 'breakingbread/about.html')
+    
+    nb_burger_recipes = Recipe.objects.filter(recipe_name__icontains="burger").count()
+    nb_all_recipes = Recipe.objects.all().count()
+    nb_meat_recipes = Recipe.objects.filter(cooking_type = "0").count()
+    nb_vegan_recipes = Recipe.objects.filter(cooking_type = "2").count()
+    context_dict = {"nb_burgers" : nb_burger_recipes, "nb_recipes" : nb_all_recipes, "nb_meats":nb_meat_recipes, "nb_vegans":nb_vegan_recipes, "nav_tab":"about"}
+    return render(request, 'breakingbread/about.html', context = context_dict)
