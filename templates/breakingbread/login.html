@@ -39,7 +39,7 @@
 			height: 559px;
 		}
 		.page-content {
-			background-image: -webkit-linear-gradient( 136deg, #d08f5a 0%, rgb(205, 220, 224) 100%);
+			background-image: -webkit-linear-gradient( 136deg, #18e31cd6 0%, rgb(205, 220, 224) 100%)
         }
         
         .form-detail {
@@ -49,6 +49,11 @@
 
         .form-row-last {
             padding:20px!important
+        }
+        
+        .error {
+            font-size: 18px;
+            color: red;
         }
 		
     </style>
@@ -65,6 +70,11 @@
                 {% else %}
                 <form class="form-detail" method="post" action="{% url 'breakingbread:login' %}">
                     {% csrf_token %}
+                    {% if error %}
+                    <div class="error">
+                        {{error}}
+                    </div>
+                    {% endif %}
                     <p><label for="username">Username:</label></p>
                     <input type="text" name="username" value="" size="50" />
 

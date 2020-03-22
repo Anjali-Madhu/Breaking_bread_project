@@ -96,9 +96,11 @@ def user_login(request):
                 login(request, user)
                 return redirect(reverse('breakingbread:index'))
             else:
+                print('error')
                 return render(request, 'breakingbread/login.html',context={"error":"Your account has been disabled"})
                 #return HttpResponse("Your account is disabled.")
         else:
+            print('invalid')
             #print(f"Invalid login details: {username}, {password}")
             #return HttpResponse("Incorrect username or password")
             return render(request, 'breakingbread/login.html',context={"error":"Incorrect username or password!"})
