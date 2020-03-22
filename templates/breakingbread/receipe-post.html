@@ -10,16 +10,16 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="breadcumb-text text-center">
-                        <h1 style="font-family:Brush Script MT;">{{ name }}</h1>
+                        <h2>{{ name }}</h2>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- ##### Breadcumb Area End ##### -->
+    
 
-    <div class="receipe-post-area section-padding-80">
-        <!-- Receipe Slider -->
+          <!-- Receipe Slider -->
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -33,19 +33,27 @@
         </div>
 
         <!-- Receipe Content Area -->
+             
         <div class="receipe-content-area">
             <div class="container">
+
                 <div class="row">
                     <div class="col-12 col-md-8">
                         <div class="receipe-headline my-5">
                             <span>{{ created }}</span>
-                            <h5>{{ name }}</h5>
+                            <h2>{{ name }}</h2>
                             <div class="receipe-duration">
-                                <h6>Cooking time: {{ time_taken }}</h6>
+                                
+                                <h6>Cook: {{ time_taken }} mins</h6>
                                 <h6>Yields: 2 Servings</h6>
                             </div>
                         </div>
                     </div>
+<<<<<<< HEAD
+                     <div class="col-12 col-md-4">
+                        <div class="receipe-ratings text-right my-5">
+                          
+=======
 
                     <div class="col-12 col-md-4">
                         <div class="recipe-ratings text-right my-5">
@@ -139,6 +147,7 @@
                                 </div>
                                 {% endif %}
                         </div>
+>>>>>>> b0aeb35a3d72f9688eb4059d65847493a2758c68
                             {% if level == 0 %}
                             <a href="#" class="btn delicious-btn">For Beginners</a>
                             {% elif level == 1 %}
@@ -146,19 +155,24 @@
                             {% else %}
                             <a href="#" class="btn delicious-btn">For Experts</a>
                             {% endif %}
+                            
                         </div>
                     </div>
+
+                   
                 </div>
 
-                <div class="row">
-                    <div class="col-12 col-lg-8 col-sm-offset-2">
+                   <div class="row">
+                    <div class="col-12 col-lg-8">
                         <!-- Single Preparation Step -->
                         {% for i in description %}
-                        <div class="single-preparation-step d-flex justify-content-center">
-                                <p>Step {{forloop.counter}}. {{i}}</p>
-
+                        <div class="single-preparation-step d-flex">
+                            <h4>Step {{forloop.counter}}.</h4>
+                            <p> &nbsp;{{ i }}</p>
                         </div>
+                        
                         {% endfor %}
+                        
                     </div>
 
                     <!-- Ingredients -->
@@ -166,15 +180,21 @@
                     <div class="col-12 col-lg-4">
                         <div class="ingredients">
                             <h4>Ingredients</h4>
+
                             <!-- Custom Checkbox -->
-                             {% for i in ingredients %}
+                            {% for i in ingredients %}
                             <div class="custom-control custom-checkbox">
-
                                 <input type="checkbox" class="custom-control-input" id="customCheck{{forloop.counter}}">
-                                <label class="custom-control-label" for="customCheck{{forloop.counter}}">{{i}}</label>
-
+                                <label class="custom-control-label" for="customCheck1">{{ i }}</label>
                             </div>
                             {% endfor %}
+<<<<<<< HEAD
+                           
+
+                   
+                        </div>
+=======
+>>>>>>> b0aeb35a3d72f9688eb4059d65847493a2758c68
                     </div>
                 </div>
                 <div class="row">
@@ -184,6 +204,7 @@
                         </div>
                     </div>
                 </div>
+                
 
                 <div class="row">
                     <div class="col-12">
@@ -192,17 +213,15 @@
                                 <div class="row">
                                     <div class="col-12">
                                          {% csrf_token %}
-                                         <input type = "text" name="message" id="message" class = "form-control" placeholder="Your comment" cols = "20" rows = "10"/>
+                                         
+                                         <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
                                     </div>
                                     <div class="col-12">
-                                        <input type="submit" name="submit" value="Post Comment" />
+                                        <button class="btn delicious-btn mt-30" type="submit">Post Comments</button>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
-                        <div>
                             <h4>Rate this recipe!</h4>
-                        </div>
+                        
                         <!-- <div>
                              <span class="rating_stars rating_0">
                                     <span class='s' data-low='0.5' data-high='1'><i class="fa fa-star-o"></i></span>
@@ -223,7 +242,7 @@
                                   <span class='r r5' data-rating='5' data-value='5'></span>
                                 </span>
                         </div>
-                        -->
+                        
                           <!-- Rating Stars Box -->
                           <div class='rating-stars text-center'>
                             <ul id='stars'>
@@ -244,6 +263,7 @@
                               </li>
                             </ul>
                           </div>
+                          </form>
                     </div>
                 </div>
             </div>

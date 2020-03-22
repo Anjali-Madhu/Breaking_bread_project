@@ -60,7 +60,7 @@ def populate():
     all_cuisines = Cuisine.objects.all()
     
     Recipes = [
-        {'recipe_id': 1, 'recipe_name': 'Bruschetta', 'username': all_usersProfile[0], 'time_taken': 20,
+        {'recipe_id': 1, 'recipe_name': 'Bruschetta', 'username': all_users[0], 'time_taken': 20,
          'level': 0, 'ingredients': 'Half small red onion, finely chopped?8 medium tomatoes (about 500g), coarsely chopped and drained?2-3 garlic cloves, crushed? 6-8 leaves of fresh basil finely chopped?30ml balsamic vinegar?60-80ml extra virgin olive oil?1 loaf crusty bread', 'cooking_type': 1, 'cuisine': all_cuisines[0],
          'description': 'In a large bowl, mix the onions, tomatoes, garlic and basil, taking care not to mash or break up the tomatoes too much.? Add the balsamic vinegar and extra virgin olive oil.? Add salt and pepper to taste. Mix again. Cover and chill for at least an hour. This will allow the flavours to soak and blend together?Slice the baguette loaf diagonally into 12 thick slices and lightly toast them until they are light brown on both sides. Serve the mixture on the warm slices of bread. If you prefer the mixture at room temperature, remove from the fridge half an hour before serving', 'created': now},
 
@@ -68,33 +68,33 @@ def populate():
          'level': 1, 'ingredients':'Juice 2 lemons?4 tsp paprika?2 red onions, finely chopped?16 skinless chicken thighs?vegetable oil, for brushing?300ml Greek yogurt?large piece ginger, grated?4 garlic cloves, crushed?Three quarter tsp garam masala?Three quarter tsp ground cumin?half tsp chilli powder?Quarter tsp turmeric', 'cooking_type': 0, 'cuisine': all_cuisines[1],
          'description': 'Mix the lemon juice with the paprika and red onions in a large shallow dish.? Slash each chicken thigh three times, then turn them in the juice and set aside for 10 mins.?Mix all of the marinade ingredients together and pour over the chicken.?Give everything a good mix, then cover and chill for at least 1 hr. This can be done up to a day in advance.?Heat the grill. Lift the chicken pieces onto a rack over a baking tray.?Brush over a little oil and grill for 8 mins on each side or until lightly charred and completely cooked through.', 'created': now},
     
-        {'recipe_id': 3, 'recipe_name': 'Koshari', 'username': all_usersProfile[0], 'time_taken': 60,
+        {'recipe_id': 3, 'recipe_name': 'Koshari', 'username': all_users[0], 'time_taken': 60,
          'level': 1, 'ingredients': '120g dried brown lentils?120g white long grain rice?2 small celeriac?2 garlic bulb, split across the middle?150ml rapeseed oil?Rapeseed oil or extra virgin olive oil?4 onions?120g macaroni?2 tbsp pine nuts?1 tsp cumin seeds?Coriander seeds?400ml vegetable stock?1 lemon, zested and juiced', 'cooking_type': 1, 'cuisine': all_cuisines[2],
          'description': 'Heat oven to 180C/160C fan/gas 4. Rinse the lentils and rice together under cold water until the water runs clear. Soak them in water for 30 mins, then drain. Meanwhile, toss the celeriac and garlic halves in 4 tbsp of the rapeseed oil and season. Cover with foil and roast for 20 mins, tossing occasionally. Remove the foil '
                          'and return to the oven for 10 mins until soft and caramelised.?Heat 4 tbsp of the oil over a medium heat, season and fry the onions for about 12 mins until starting to caramelise. In the meantime, cook the macaroni until al dente, then drain. Tip into the onions along with the pine nuts, fry until the nuts and pasta are starting to brown, then remove from the heat.?Heat the remaining 2 tbsp oil in a heavy-bottomed frying pan and add the ground cinnamon, cumin and coriander seeds. Stir until they sizzle, then add the lentils and rice. Stir-fry for 1 min, then add the stock and cranberries.'
                         ' Cook for about 25 mins, stirring occasionally, until the stock is absorbed and the cranberries have swelled up.?Tip the lentil mixture into the onion mixture along with the celeriac, and heat over a medium heat to warm it all through. Squeeze the roasted garlic cloves out of their skins and mash with the lemon zest and juice, then stir into the rice.?In a separate container, stir the harissa into the yogurt. To serve, divide the koshari between bowls and top with the spiced yogurt and coriander.', 'created': now},
 
     
-        {'recipe_id': 4, 'recipe_name': 'Black Pudding', 'username': all_usersProfile[1], 'time_taken': 50,
+        {'recipe_id': 4, 'recipe_name': 'Black Pudding', 'username': all_users[1], 'time_taken': 50,
          'level': 2, 'ingredients': '4 cups fresh pig"s blood?2 1/2 teaspoons salt?1 1/2 cups steel-cut (pinhead) oatmeal?2 cups finely diced pork fat (or beef suet), finely chopped?'
             '1 large yellow onion, finely chopped?1 cup milk?1 1/2 teaspoons freshly ground black pepper?1 teaspoon ground allspice', 'cooking_type': 0, 'cuisine': all_cuisines[3],
          'description': 'Preheat the oven to 325°F and grease 2 glass loaf pans. (If you don"t have glass loaf pans, line metal loaf pans with parchment to keep the blood sausage from reacting with the metal and creating an off-flavor.) Stir 1 teaspoon of salt into the blood.?'
                         'Bring 2 1/2 cups water to a boil and stir in the oats. Simmer, stirring occasionally, for 15 minutes, until just tender, not mushy.?Pour the blood through a fine sieve into a large bowl to remove any lumps. Stir in the fat, onion, milk, pepper, allspice and remaining 1 1/2 teaspoons salt. Add the oatmeal and mix to combine. Divide the mixture between the loaf pans, cover with foil, and bake for 1 hour, until firm. Cool completely. '
                         'Seal in plastic wrap and wither freeze for extended use or store in the refrigerator for up to a week.?To serve, cut a slice about 1/2-inch thick off the loaf. Fry in butter or oil until the edges are slightly crisped and browned.','created': now},
 
-        {'recipe_id': 5, 'recipe_name': 'Veggie Chow Mein Noodles', 'username': all_usersProfile[0], 'time_taken': 30,
+        {'recipe_id': 5, 'recipe_name': 'Veggie Chow Mein Noodles', 'username': all_users[0], 'time_taken': 30,
          'level': 0, 'ingredients': 'Vegetables, Egg Noodles, Soy Sauce', 'cooking_type': 1, 'cuisine': all_cuisines[4],
          'description': ['Cook 225g egg noodles in a large pan of boiling water for 3-5 mins, then drain and put them in '
                         'cold water. Drain thoroughly, toss them with 1 tbsp sesame oil and set aside.','Add the noodles, 2 tsp light soy sauce, 2 tsp dark soy sauce,1 tbsp Shaohsing rice wine or dry sherry,'
                         ' ½ tsp white pepper, ½ tsp golden caster sugar, 2 finely chopped spring onions and 1 tsp salt.','Stir-fry for about 2 mins and then transfer to a plate.'], 'created': now},
 
     
-        {'recipe_id': 6, 'recipe_name': 'Polenta', 'username': all_usersProfile[0], 'time_taken': 50,
+        {'recipe_id': 6, 'recipe_name': 'Polenta', 'username': all_users[0], 'time_taken': 50,
          'level': 0, 'ingredients': '175g of quick-cook Polenta?5 tbsp vegan mascarpone', 'cooking_type': 2, 'cuisine': all_cuisines[5],
          'description': 'Cook the polenta according to pack instructions. When the polenta is softened and smooth, stir through the mascarpone ', 'created': now},
 
     
-        {'recipe_id': 7, 'recipe_name': 'Stuffed Vine Leaves', 'username': all_usersProfile[0], 'time_taken': 120,
+        {'recipe_id': 7, 'recipe_name': 'Stuffed Vine Leaves', 'username': all_users[0], 'time_taken': 120,
          'level': 2, 'ingredients': '2 tbsp olive oil 450g minced beef 1/2 onion, finely diced 100g rice 2 cloves garlic, finely chopped,'
                                      '20g freshly chopped parsley leaves?10g freshly chopped dill,1 tsp salt?1 tsp freshly ground black pepper?5g dried oregano.'
                                      '1 jar grape leaves?Water?30g butter', 'cooking_type': 0, 'cuisine': all_cuisines[6],
@@ -106,7 +106,7 @@ def populate():
                          'Cover with foil and bake 1 hour or until the water has been absorbed by the grape leaves.', 'created': now},
 
     
-        {'recipe_id': 8, 'recipe_name': 'Boulettes', 'username': all_usersProfile[1], 'time_taken': 60,
+        {'recipe_id': 8, 'recipe_name': 'Boulettes', 'username': all_users[1], 'time_taken': 60,
          'level': 1, 'ingredients': '1 (16 ounce) package cooked and peeled whole crawfish tails?1/2 cup chopped onion?1/4 cup chopped green bell pepper?1/4 cup chopped celery?'
                                      '1 1/2 teaspoons minced garlic?5 slices stale white bread, torn into pieces?1 egg?1 teaspoon salt?1/2 teaspoon black pepper?2 teaspoons Cajun seasoning?2 tablespoons chopped fresh parsley?'
                                      '3 tablespoons thinly sliced green onions? 2 quarts vegetable oil for frying?1 1/2 cups dry bread crumbs?1 tablespoon Cajun seasoning', 'cooking_type': 0, 'cuisine': all_cuisines[7],
@@ -115,7 +115,7 @@ def populate():
                         'Whisk the bread crumbs and 1 tablespoon of Cajun seasoning together in a bowl; set aside. ?Form the crawfish mixture into 1 tablespoon-size balls and roll in the bread crumbs. Cook in batches in the hot oil until the balls turn golden brown and '
                          'begin to float, about 4 minutes. Drain on a paper towel-lined plate and serve hot.', 'created': now},
 
-        {'recipe_id': 9, 'recipe_name': 'Cheeseburger', 'username': all_usersProfile[0], 'time_taken': 60,
+        {'recipe_id': 9, 'recipe_name': 'Cheeseburger', 'username': all_users[0], 'time_taken': 60,
          'level': 1, 'ingredients': '1kg minced beef?'
                                      '300g breadcrumbs?'
                                      '140g extra-mature or mature cheddar, grated?4 tbsp Worcestershire sauce?'
@@ -126,7 +126,7 @@ def populate():
              'stop the burgers sticking together, then wrap well. Defrost overnight in the fridge before cooking.?To cook the burgers, heat grill to high. Grill burgers for 6-8 mins on each side until cooked through. Meanwhile, warm as many buns as you need in a foil-covered tray below the grilling burgers.'
             'Let everyone assemble their own, served with their favourite accompaniments.','created': now},
 
-        {'recipe_id': 10, 'recipe_name': 'Summer Smoothie', 'username': all_usersProfile[0], 'time_taken': 30,
+        {'recipe_id': 10, 'recipe_name': 'Summer Smoothie', 'username': all_users[0], 'time_taken': 30,
          'level': 0, 'ingredients': '1 sliced banana fresh or frozen?150 grams (1 cup) mango chunks fresh or frozen?80 grams (1/2 cup) pineapple chunks fresh or frozen?'
 '120 ml (1/2 cup) coconut water?120 grams (1 cup) frozen raspberries?1 teaspoon honey or agave more to taste?60 ml (1/4 cup) coconut water?Garnish (optional) : pineapple wedges',
          'cooking_type': 0, 'cuisine': all_cuisines[8], 'description':
