@@ -378,7 +378,7 @@ def upload_recipe(request) :
         desc = request.GET.get('desc', None)
         recipe = Recipe(
             recipe_name = recipeName,
-            username =  UserProfile.objects.get(user=request.user),
+            username =  request.user,
             time_taken = time_taken,
             level = level,
             ingredients = ingredients,

@@ -80,7 +80,7 @@ function saveRecipe() {
             if(i == 0)  
                 desc = steps[i];
             else 
-                desc += "$" + steps[i]
+                desc += "?" + steps[i]
         }
     }
     //call uploadrecipe url in django
@@ -128,10 +128,14 @@ function saveRecipe() {
                 data: formdata,
                 dataType: 'json',
                 success: function (data) {
-                    console.log('data', data);
                     if(data.success) {
                         $("#preloader").css("display", "none");
-                        swal("Recipe uploaded successfully", "", "success")
+                        swal("Recipe uploaded successfully", "", "success").then((goToRecipe) => {
+                            if(goToRecipe) {
+                                window.location.href = '/breakingbread/recipe/' + responseId;
+                            }
+                        });
+                    
                     }
                 }
             });

@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <!--  This file has been downloaded from https://bootdey.com  -->
     <!--  All snippets are MIT license https://bootdey.com/license -->
-    <title>Bootdey.com</title>
+    <title>Breaking Bread - Cooking Simplified</title>
+    <link rel="icon" href="{% static 'images/core-img/favicon.ico' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <link href="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
@@ -209,7 +210,7 @@
                       </form>
                     </div>
                   </form>
-                  <!-- {% if updateSuccess %}
+                  {% if updateSuccess %}
                     <script>
                       $("#preloader").css("display", "block");
                       setTimeout(function(){ 
@@ -218,7 +219,7 @@
                         swal("Profile Updated Successfully", "", "success")
                       }, 3000);
                     </script>
-                  {% endif %} -->
+                  {% endif %}
                   <!-- Upload Recipe -->
                   <div class="tab-content pt-3 info uploadNew" style="display: none;">
                     <div class="tab-pane active">

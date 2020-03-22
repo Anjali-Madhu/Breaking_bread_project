@@ -38,7 +38,6 @@ class Recipe(models.Model):
     description = models.TextField(max_length=2000)
     created = models.DateTimeField(default=now)
     
-
     @property
     def average_rating(self):
         total = 0
