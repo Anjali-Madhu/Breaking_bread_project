@@ -250,15 +250,20 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
            
     if userid!="":
         recipe_temp = []
-        for i in recipes:
-            u = User.objects.filter(username=userid)
-            if i.username==u:
-                recipe_temp.append(i)
-        recipes = recipe_temp.copy()
+        u = User.objects.filter(username=userid)
+        for j in u:
+            print("j :",j)
+            
+            recipes=Recipe.objects.filter(username=j)
+            
+            
+            
+            
     recipes_list=[]
     for recipe in recipes:
         #checking if the rating has a decimal part
-        #print(recipe)
+        print(recipe)
+        
         decimal = [1]
         if recipe.average_rating == math.floor(recipe.average_rating):
             #print(recipe.average_rating,math.floor(recipe.average_rating))

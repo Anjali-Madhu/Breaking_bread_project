@@ -25,7 +25,7 @@ class Cuisine(models.Model):
 class Recipe(models.Model):
     recipe_id=models.AutoField(primary_key=True)
     recipe_name=models.CharField(max_length=128)
-    username = models.ForeignKey(UserProfile,on_delete=models.CASCADE)
+    username = models.ForeignKey(User,on_delete=models.CASCADE)
     #time taken in minutes
     time_taken = models.IntegerField()
     #level = 0 for beginner,1 for intermediate, 2 for expert
