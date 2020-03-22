@@ -132,8 +132,8 @@
                                 <ul>
                                     <li class="{% if nav_tab == 'home' %}active{% endif %}"><a href="{% url 'breakingbread:index' %}">Home</a></li>
 
-                                    <li class="">
-                                        <a href="#">Browse</a>
+                                    <li class="{% if nav_tab == 'search' %}active{% endif %}">
+                                        <a href="{% url 'breakingbread:search' %}">Browse</a>
                                         <div class="megamenu">
                                             <ul class="single-mega cn-col-4" id="cuisine">
                                                 <li class="title menu-selections">Cuisine</li>
