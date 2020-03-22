@@ -56,7 +56,7 @@
                     <div class="col-12 col-md-4">
                         <div class="recipe-ratings text-right my-5">
                              <div class="ratings">
-                                   {% if rating_ceil %}
+                                {% if rating_floor %}
                                 {% for item in rating_floor %}
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 {% endfor %}
@@ -64,7 +64,7 @@
                                 {% if rating_decimal %}
                                     <i class="fa fa-star-half" aria-hidden="true"></i>
                                 {% endif %}
-                                {% if rating_floor %}
+                                {% if rating_ceil %}
                                 {% for item in rating_ceil %}
                                     <i class="fa fa-star-o" aria-hidden="true"></i>
                                 {% endfor %}
