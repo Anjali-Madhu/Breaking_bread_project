@@ -77,9 +77,13 @@ class Review(models.Model):
     rating = models.IntegerField(default=0)
     description=models.TextField(max_length=500)
     created = models.DateTimeField(default=now)
+    active = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['created']
     
     def __str__(self):
-        return self.description
+        return 'Comment {} by {}'.format(self.description, self.username)
     
 #Reports table
 class Report(models.Model):

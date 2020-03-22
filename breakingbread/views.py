@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse,JsonResponse
 from breakingbread.forms import *
 from django.shortcuts import redirect
@@ -110,6 +110,16 @@ def user_logout(request):
     logout(request)
     return redirect(reverse('breakingbread:index'))
 
+#function to increment the value in last index of rating_floor for sorting
+def true_floor(x):
+    if x["rating_floor"]!=[]:
+        floor_range = x["rating_floor"]
+        floor = floor_range[-1]+1
+        
+        return floor + 0.5
+    else:
+        return 0;
+
 def recipe(request,recipe_id):
     logged_in=False
     username=""
@@ -119,7 +129,15 @@ def recipe(request,recipe_id):
         username=request.user.username
     else:
         logged_in=False
+        
+    
     recipe_to_display = Recipe.objects.filter(recipe_id= recipe_id)
+    
+    #rating     
+    decimal = [1]
+    if recipe_to_display[0].average_rating == math.floor(recipe_to_display[0].average_rating):
+        #print(recipe.average_rating,math.floor(recipe.average_rating))
+        decimal=[]
     recipe_ = {"id": recipe_to_display[0].recipe_id,
                         "name": recipe_to_display[0].recipe_name,
                         "user": recipe_to_display[0].username,
@@ -130,7 +148,10 @@ def recipe(request,recipe_id):
                          "cuisine": recipe_to_display[0].cuisine,
                          "description": [],
                          "created": recipe_to_display[0].created,
-                        "images": []
+                        "images": [],
+                        "rating_ceil":list(range(5-math.ceil(recipe_to_display[0].average_rating))),#to get the number of coloured star in rating
+                     "rating_floor":list(range(math.floor(recipe_to_display[0].average_rating))),#to get the number of blank stars in rating
+                     "rating_decimal":decimal,
               }
     recipe_["logged_in"]=logged_in
     recipe_["username"]=username
@@ -143,27 +164,29 @@ def recipe(request,recipe_id):
 
     for i in recipe_to_display[0].ingredients.split("?"):
         recipe_["ingredients"].append(i)
+
     return render(request, 'breakingbread/receipe-post.html', context = recipe_)
 
-#@login_required
-def review(request):
+@login_required
+def review(request,recipe_id):
     form = ReviewForm()
+    recipe_page = Recipe.objects.filter(recipe_id= recipe_id)
+    #reviews =
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
             # Save the new review to the database.
             print(form.message)
-            form.save(commit=True)
+            form.save()
             # Now that the category is saved, we could confirm this.
             # For now, just redirect the user back to the index view.
-            return redirect(reverse('breakingbread:recipe'))
         else:
         # The supplied form contained errors
         # just print them to the terminal.
-            print(form.errors)
+            form = ReviewForm()
         # Will handle the bad form, new form, or no form supplied cases.
         # Render the form with error messages (if any).
-    return render(request, '/breakingbread/receipe-post.html', {'form': form})
+    return render(request, 'breakingbread/recipe/'+str(recipe_page.recipe_id), {'form': form})
     
 def cuisine_list(request):
     #checking if any user has logged in 
@@ -283,15 +306,7 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
             recipe_list["image"]=image.picture
             break
         recipes_list.append(recipe_list)
-    #function to increment the value in last index of rating_floor for sorting
-    def true_floor(x):
-        if x["rating_floor"]!=[]:
-            floor_range = x["rating_floor"]
-            floor = floor_range[-1]+1
-        
-            return floor + 0.5
-        else:
-            return 0;
+
     #sort the list based on rating
     recipes_list.sort(key=lambda x:true_floor(x),reverse=True)   
     context_dict["recipes"]=recipes_list
