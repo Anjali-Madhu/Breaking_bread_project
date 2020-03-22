@@ -10,7 +10,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="breadcumb-text text-center">
-                        <h4>{{ name }}</h4>
+                        <h1 style="font-family:Brush Script MT;">{{ name }}</h1>
                     </div>
                 </div>
             </div>
@@ -75,49 +75,11 @@
                              {% for i in ingredients %}
                             <div class="custom-control custom-checkbox">
 
-                                <input type="checkbox" class="custom-control-input">
-                                <label class="custom-control-label">{{i}}</label>
+                                <input type="checkbox" class="custom-control-input" id="customCheck{{forloop.counter}}">
+                                <label class="custom-control-label" for="customCheck{{forloop.counter}}">{{i}}</label>
 
                             </div>
                             {% endfor %}
-
-<!--                            &lt;!&ndash; Custom Checkbox &ndash;&gt;-->
-<!--                            <div class="custom-control custom-checkbox">-->
-<!--                                <input type="checkbox" class="custom-control-input" id="customCheck2">-->
-<!--                                <label class="custom-control-label" for="customCheck2">2 large eggs</label>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Custom Checkbox &ndash;&gt;-->
-<!--                            <div class="custom-control custom-checkbox">-->
-<!--                                <input type="checkbox" class="custom-control-input" id="customCheck3">-->
-<!--                                <label class="custom-control-label" for="customCheck3">2 yogurt containers granulated sugar</label>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Custom Checkbox &ndash;&gt;-->
-<!--                            <div class="custom-control custom-checkbox">-->
-<!--                                <input type="checkbox" class="custom-control-input" id="customCheck4">-->
-<!--                                <label class="custom-control-label" for="customCheck4">1 vanilla or plain yogurt, 170g container</label>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Custom Checkbox &ndash;&gt;-->
-<!--                            <div class="custom-control custom-checkbox">-->
-<!--                                <input type="checkbox" class="custom-control-input" id="customCheck5">-->
-<!--                                <label class="custom-control-label" for="customCheck5">2 yogurt containers unbleached white flour</label>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Custom Checkbox &ndash;&gt;-->
-<!--                            <div class="custom-control custom-checkbox">-->
-<!--                                <input type="checkbox" class="custom-control-input" id="customCheck6">-->
-<!--                                <label class="custom-control-label" for="customCheck6">1.5 yogurt containers milk</label>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Custom Checkbox &ndash;&gt;-->
-<!--                            <div class="custom-control custom-checkbox">-->
-<!--                                <input type="checkbox" class="custom-control-input" id="customCheck7">-->
-<!--                                <label class="custom-control-label" for="customCheck7">1/4 tsp cinnamon</label>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Custom Checkbox &ndash;&gt;-->
 <!--                            <div class="custom-control custom-checkbox">-->
 <!--                                <input type="checkbox" class="custom-control-input" id="customCheck8">-->
 <!--                                <label class="custom-control-label" for="customCheck8">1 cup fresh blueberries </label>-->
