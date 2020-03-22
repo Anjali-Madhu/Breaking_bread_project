@@ -56,7 +56,7 @@
                     <div class="col-12 col-md-4">
                         <div class="recipe-ratings text-right my-5">
                              <div class="ratings">
-                                   {% if rating_ceil %}
+                                {% if rating_floor %}
                                 {% for item in rating_floor %}
                                     <i class="fa fa-star" aria-hidden="true"></i>
                                 {% endfor %}
@@ -64,13 +64,13 @@
                                 {% if rating_decimal %}
                                     <i class="fa fa-star-half" aria-hidden="true"></i>
                                 {% endif %}
-                                {% if rating_floor %}
+                                {% if rating_ceil %}
                                 {% for item in rating_ceil %}
                                     <i class="fa fa-star-o" aria-hidden="true"></i>
                                 {% endfor %}
                                 {% endif %}
                             </div>
-                        <
+                        
                             {% if level == 0 %}
                             <a href="#" class="btn delicious-btn">For Beginners</a>
                             {% elif level == 1 %}
@@ -124,7 +124,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="contact-form-area">
-                            <form id="review_form" method="post" action="{{ recipe.path }}">
+                            <form id="review_form" method="post" action="{% url 'breakingbread:reviews' recipe_id='5' %}">
                                 <div class="row">
                                     <div class="col-12">
                                          {% csrf_token %}
@@ -139,7 +139,7 @@
                             <h4>Rate this recipe!</h4>
                           <!-- Rating Stars Box -->
                           <div class='rating-stars text-center'>
-                            <ul id='stars'>
+                            <ul id='stars' name="stars">
                               <li class='star' title='Poor' data-value='1'>
                                 <i class='fa fa-star'></i>
                               </li>
@@ -157,8 +157,23 @@
                               </li>
                             </ul>
                           </div>
+                          <div class="col-12">
+                         <div class="comments" style="padding: 10px;">
+                          <p class="font-weight-bold">
+                            good
+                        <span class=" text-muted font-weight-normal">
+                              12 April2019
+                        </span>
+                        
+                          </p>
+                          </div>
+                          <div class="col-12">
+                      5 star
+                        </div>
+                        </div>
                           </div>
                           </form>
+
                     </div>
                 </div>
             </div>

@@ -192,13 +192,13 @@ def populate():
     for img in Images:
         add_image(img['image_id'], img['picture'], img['recipe_id'])
 
-    Reviews = [{'review_id': 1, 'recipe_id': all_recipes[0], 'username': all_usersProfile[1],
+    Reviews = [{'review_id': 1, 'recipe_id': all_recipes[0], 'username': selected_users[1],
               'rating': 3, 'description': 'very tasty',   'date': '12/03/2020'},
-               {'review_id': 2, 'recipe_id': all_recipes[1], 'username': all_usersProfile[1],
+               {'review_id': 2, 'recipe_id': all_recipes[1], 'username': selected_users[1],
               'rating': 5, 'description': 'a very tasty recipe ',   'date': '12/03/2020'},
-              {'review_id': 3, 'recipe_id': all_recipes[2], 'username': all_usersProfile[0],
+              {'review_id': 3, 'recipe_id': all_recipes[2], 'username': selected_users[0],
               'rating': 5, 'description': 'very tasty',   'date': '12/03/2020'},
-               {'review_id': 4, 'recipe_id': all_recipes[3], 'username': all_usersProfile[1],
+               {'review_id': 4, 'recipe_id': all_recipes[3], 'username': selected_users[1],
               'rating': 2, 'description': 'interesting taste',   'date': '12/03/2020'},
                ]
     
