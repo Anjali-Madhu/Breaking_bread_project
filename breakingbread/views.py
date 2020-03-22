@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse,JsonResponse
 from breakingbread.forms import *
 from django.shortcuts import redirect
@@ -145,25 +145,26 @@ def recipe(request,recipe_id):
         recipe_["ingredients"].append(i)
     return render(request, 'breakingbread/receipe-post.html', context = recipe_)
 
-#@login_required
-def review(request):
+@login_required
+def review(request,recipe_id):
     form = ReviewForm()
+    recipe_page = Recipe.objects.filter(recipe_id= recipe_id)
+    #reviews =
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
             # Save the new review to the database.
             print(form.message)
-            form.save(commit=True)
+            form.save()
             # Now that the category is saved, we could confirm this.
             # For now, just redirect the user back to the index view.
-            return redirect(reverse('breakingbread:recipe'))
         else:
         # The supplied form contained errors
         # just print them to the terminal.
-            print(form.errors)
+            form = ReviewForm()
         # Will handle the bad form, new form, or no form supplied cases.
         # Render the form with error messages (if any).
-    return render(request, '/breakingbread/receipe-post.html', {'form': form})
+    return render(request, 'breakingbread/recipe/'+str(recipe_page.recipe_id), {'form': form})
     
 def cuisine_list(request):
     #checking if any user has logged in 
