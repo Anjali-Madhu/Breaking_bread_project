@@ -3,6 +3,10 @@
 
 {% block body_block %}
    
+<div class="top-header-area">
+            <div class="container h-100">
+                <div class="row h-100 align-items-center justify-content-between">
+   
  <script src="{% static 'js/addons/rating.js' %}"></script>
     <!-- ##### Breadcumb Area Start ##### -->
     <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/images/bg-img/breadcumb3.jpg);">
@@ -18,10 +22,10 @@
     </div>
     <!-- ##### Breadcumb Area End ##### -->
     
-
+    <div class="receipe-post-area section-padding-80">
           <!-- Receipe Slider -->
-        <div class="container">
-            <div class="row">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="receipe-slider owl-carousel">
                         {% for i in images %}
@@ -155,17 +159,15 @@
                    
                 </div>
 
-                   <div class="row">
+                    <div class="row">
                     <div class="col-12 col-lg-8">
+                    {% for i in description %}
                         <!-- Single Preparation Step -->
-                        {% for i in description %}
                         <div class="single-preparation-step d-flex">
-                            <h4>Step {{forloop.counter}}.</h4>
-                            <p> &nbsp;{{ i }}</p>
+                            <h4>Step {{forloop.counter}}. &nbsp;</h4>
+                            <p>{{ i }}</p>
                         </div>
-                        
-                        {% endfor %}
-                        
+                      {% endfor %} 
                     </div>
 
                     <!-- Ingredients -->
@@ -182,6 +184,7 @@
                             </div>
                             {% endfor %}
                         </div>
+                    </div>
                     </div>
                 <div class="row">
                     <div class="col-12">
@@ -206,6 +209,7 @@
                                         <button class="btn delicious-btn mt-30" type="submit">Post Comments</button>
                                     </div>
                                 </div>
+                                <div class="col-12">
                             <h4>Rate this recipe!</h4>
                           <!-- Rating Stars Box -->
                           <div class='rating-stars text-center'>
@@ -227,12 +231,13 @@
                               </li>
                             </ul>
                           </div>
+                          </div>
                           </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    
 
     <!-- ##### Follow Us Instagram Area Start ##### -->
     <div class="follow-us-instagram">
