@@ -10,7 +10,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="breadcumb-text text-center">
-                        <h4>{{ name }}</h4>
+                        <h1 style="font-family:Brush Script MT;">{{ name }}</h1>
                     </div>
                 </div>
             </div>
@@ -49,118 +49,29 @@
 
                     <div class="col-12 col-md-4">
                         <div class="recipe-ratings text-right my-5">
-
-<!--                                <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                {% if recipe.recipe_id.average_rating == 0 %}-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                </div>-->
-<!--                                {% elif recipe.recipe_id.average_rating == 0.5 %}-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-half" aria-hidden="true"></i>-->
-<!--                                </div>-->
-<!--                                {% elif recipe.recipe_id.average_rating == 1 %}-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                </div>-->
-<!--                                {% elif recipe.recipe_id.average_rating == 1.5 %}-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-half" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                </div>-->
-<!--                                {% elif recipe.recipe_id.average_rating == 2 %}-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                </div>-->
-<!--                                {% elif recipe.recipe_id.average_rating == 2.5 %}-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-half" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                </div>-->
-<!--                                {% elif recipe.recipe_id.average_rating == 3 %}-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                </div>-->
-<!--                                {% elif recipe.recipe_id.average_rating == 3.5 %}-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star-half" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                </div>-->
-<!--                                {% elif recipe.recipe_id.average_rating == 4 %}-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="fa fa-star-o" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                </div>-->
-<!--                                {% elif recipe.recipe_id.average_rating == 4.5 %}-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="fa fa-star-half" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                </div>-->
-<!--                                {% elif recipe.recipe_id.average_rating == 5 %}-->
-<!--                                <div class="ratings">-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                    <i class="fa fa-star" aria-hidden="true"></i>-->
-<!--                                </div>-->
-<!--                                {% endif %}-->
-                            </div>
+                        </div>
+                            {% if level == 0 %}
                             <a href="#" class="btn delicious-btn">For Beginners</a>
+                            {% elif level == 1 %}
+                             <a href="#" class="btn delicious-btn">For Intermediates</a>
+                            {% else %}
+                            <a href="#" class="btn delicious-btn">For Experts</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                {% for i in description %}
-                <div class="row">
-                    <div class="col-12 col-lg-8">
-                        <!-- Single Preparation Step -->
-                        <div class="single-preparation-step d-flex">
 
-                            <h4>Step: </h4>
-                            <p>{{i}} </p>
+                <div class="row">
+                    <div class="col-12 col-lg-8 col-sm-offset-2">
+                        <!-- Single Preparation Step -->
+                        {% for i in description %}
+                        <div class="single-preparation-step d-flex justify-content-center">
+                                <p>Step {{forloop.counter}}. {{i}}</p>
 
                         </div>
+                        {% endfor %}
                     </div>
-                {% endfor %}
+
                     <!-- Ingredients -->
 
                     <div class="col-12 col-lg-4">
@@ -170,49 +81,11 @@
                              {% for i in ingredients %}
                             <div class="custom-control custom-checkbox">
 
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">{{i}}</label>
+                                <input type="checkbox" class="custom-control-input" id="customCheck{{forloop.counter}}">
+                                <label class="custom-control-label" for="customCheck{{forloop.counter}}">{{i}}</label>
 
                             </div>
                             {% endfor %}
-
-<!--                            &lt;!&ndash; Custom Checkbox &ndash;&gt;-->
-<!--                            <div class="custom-control custom-checkbox">-->
-<!--                                <input type="checkbox" class="custom-control-input" id="customCheck2">-->
-<!--                                <label class="custom-control-label" for="customCheck2">2 large eggs</label>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Custom Checkbox &ndash;&gt;-->
-<!--                            <div class="custom-control custom-checkbox">-->
-<!--                                <input type="checkbox" class="custom-control-input" id="customCheck3">-->
-<!--                                <label class="custom-control-label" for="customCheck3">2 yogurt containers granulated sugar</label>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Custom Checkbox &ndash;&gt;-->
-<!--                            <div class="custom-control custom-checkbox">-->
-<!--                                <input type="checkbox" class="custom-control-input" id="customCheck4">-->
-<!--                                <label class="custom-control-label" for="customCheck4">1 vanilla or plain yogurt, 170g container</label>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Custom Checkbox &ndash;&gt;-->
-<!--                            <div class="custom-control custom-checkbox">-->
-<!--                                <input type="checkbox" class="custom-control-input" id="customCheck5">-->
-<!--                                <label class="custom-control-label" for="customCheck5">2 yogurt containers unbleached white flour</label>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Custom Checkbox &ndash;&gt;-->
-<!--                            <div class="custom-control custom-checkbox">-->
-<!--                                <input type="checkbox" class="custom-control-input" id="customCheck6">-->
-<!--                                <label class="custom-control-label" for="customCheck6">1.5 yogurt containers milk</label>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Custom Checkbox &ndash;&gt;-->
-<!--                            <div class="custom-control custom-checkbox">-->
-<!--                                <input type="checkbox" class="custom-control-input" id="customCheck7">-->
-<!--                                <label class="custom-control-label" for="customCheck7">1/4 tsp cinnamon</label>-->
-<!--                            </div>-->
-
-<!--                            &lt;!&ndash; Custom Checkbox &ndash;&gt;-->
 <!--                            <div class="custom-control custom-checkbox">-->
 <!--                                <input type="checkbox" class="custom-control-input" id="customCheck8">-->
 <!--                                <label class="custom-control-label" for="customCheck8">1 cup fresh blueberries </label>-->

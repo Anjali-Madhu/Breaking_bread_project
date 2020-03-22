@@ -40,7 +40,8 @@
             
             if(this.readyState==4 && this.status==200){
                 res = JSON.parse(this.response) ;
-                create_list(res[1]);
+                create_list(res["cuisines"]);
+                
             }
             else{
                 console.log(this.readyState);
@@ -131,8 +132,8 @@
                                 <ul>
                                     <li class="{% if nav_tab == 'home' %}active{% endif %}"><a href="{% url 'breakingbread:index' %}">Home</a></li>
 
-                                    <li class="">
-                                        <a href="#">Browse</a>
+                                    <li class="{% if nav_tab == 'search' %}active{% endif %}">
+                                        <a href="{% url 'breakingbread:search' %}">Browse</a>
                                         <div class="megamenu">
                                             <ul class="single-mega cn-col-4" id="cuisine">
                                                 <li class="title menu-selections">Cuisine</li>
@@ -156,6 +157,9 @@
 
 
                                             </ul>
+                                            <ul class="single-mega cn-col-4">
+                                                <li class="{% if nav_tab == 'search' %}active{% endif %}"><a href="{% url 'breakingbread:allrecipes' %}">All Recipes</a></li>
+                                             </ul>
                                             <div class="single-mega cn-col-4">
                                                 <div class="receipe-slider owl-carousel">
                                                     <a href="#"><img src="{% static 'images/bg-img/bg1.jpg' %}" alt=""></a>
@@ -164,7 +168,7 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li class="{% if nav_tab == 'search' %}active{% endif %}"><a href="{% url 'breakingbread:search' %}">Search</a></li>
+                                    
 
 
                                     {% if logged_in %}

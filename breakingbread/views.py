@@ -111,10 +111,18 @@ def user_logout(request):
     return redirect(reverse('breakingbread:index'))
 
 def recipe(request,recipe_id):
+    logged_in=False
+    username=""
+  
+    if request.user.is_authenticated:
+        logged_in=True
+        username=request.user.username
+    else:
+        logged_in=False
     recipe_to_display = Recipe.objects.filter(recipe_id= recipe_id)
     recipe_ = {"id": recipe_to_display[0].recipe_id,
                         "name": recipe_to_display[0].recipe_name,
-                        "username": recipe_to_display[0].username,
+                        "user": recipe_to_display[0].username,
                          "time_taken": recipe_to_display[0].time_taken,
                          "level": recipe_to_display[0].level,
                          "ingredients": [],
@@ -124,6 +132,8 @@ def recipe(request,recipe_id):
                          "created": recipe_to_display[0].created,
                         "images": []
               }
+    recipe_["logged_in"]=logged_in
+    recipe_["username"]=username
     images = Image.objects.filter(recipe_id=recipe_id)
     for image in images:
         recipe_["images"].append(image.picture)
@@ -156,18 +166,36 @@ def review(request):
     return render(request, '/breakingbread/receipe-post.html', {'form': form})
     
 def cuisine_list(request):
+    #checking if any user has logged in 
+    
     cuisine_list=[];
     #retrieving the cuisine list
     cuisines = Cuisine.objects.all();
     for cuisine in cuisines:
         cuisine_list.append(cuisine.cuisine_type)
-    return JsonResponse({1:cuisine_list})
+    return JsonResponse({"cuisines":cuisine_list})
 
 
 #retrieving search results
 def search(request,cuisine="",category="all",level=-1,userid=""):
     cuisine_list = []
     #retrieving the cuisine list
+    logged_in=False
+    username=""
+  
+    if request.user.is_authenticated:
+        logged_in=True
+        username=request.user.username
+    else:
+        logged_in=False
+        
+    display_name = ""
+    if cuisine!="":
+        display_name = cuisine
+    if category!="all":
+        display_name = category
+    if level!=-1:
+        display_name = level
     
     
     cuisines = Cuisine.objects.all();
@@ -276,6 +304,9 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
         userid = 0
     context_dict["user"]=userid
     context_dict["nav_tab"]="search"
+    context_dict["logged_in"]=logged_in
+    context_dict["username"]=username
+    context_dict["display_name"]=display_name
     response = render(request, 'breakingbread/search-results.html',context=context_dict)
     return response
 
@@ -359,3 +390,7 @@ def upload_recipe(request) :
         }
 
         return JsonResponse(data)
+
+
+def about(request):
+    return render(request, 'breakingbread/about.html')
