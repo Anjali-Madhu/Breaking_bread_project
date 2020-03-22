@@ -21,6 +21,9 @@
         margin-top:20px;
         background:#f8f8f8
       }
+      .px-2 {
+        color:#28a745;
+      }
 
       /* .profilepic {
         border-radius: 50%;
@@ -107,7 +110,7 @@
             <div class="card-body">
               <h6 class="card-title">Back to Breaking Bread!</h6>
               <div class="px-xl-3">
-                <button class="btn btn-block btn-primary" onclick="navigateToHomePage()">
+                <button class="btn btn-block btn-success" onclick="navigateToHomePage()">
                   <i class="fa fa-home"></i>
                   <span>Home</span>
                 </button>
@@ -138,7 +141,7 @@
                           <p class="mb-0">{{ user.username }}</p>
                           <div class="text-muted"><small>Last seen 2 hours ago</small></div>
                           <div class="mt-2">
-                            <button class="btn btn-primary" type="button" onclick="openDialog()">
+                            <button class="btn btn-success" type="button" onclick="openDialog()">
                               <i class="fa fa-fw fa-camera"></i>
                               <input id='fileid' type='file' name="picture" onchange="readURL(event)" hidden/>
                               <span>Change Photo</span>
@@ -201,7 +204,7 @@
                           </div>
                           <div class="row">
                             <div class="col d-flex justify-content-end">
-                              <button class="btn btn-primary" type="submit">Update Profile</button>
+                              <button class="btn btn-success" type="submit">Update Profile</button>
                             </div>
                           </div>
                         </form>
@@ -328,7 +331,7 @@
                         </div>
                         <div class="row">
                           <div class="col d-flex justify-content-end">
-                            <button class="btn btn-primary" type="button" onclick="saveRecipe()">Upload Recipe</button>
+                            <button class="btn btn-success" type="button" onclick="saveRecipe()">Upload Recipe</button>
                           </div>
                         </div>
                       </form>
@@ -404,7 +407,7 @@
               <div class="card-body">
                 <h6 class="card-title font-weight-bold">Support</h6>
                 <p class="card-text">Get fast, free help from our friendly assistants.</p>
-                <button type="button" class="btn btn-primary">Contact Us</button>
+                <button type="button" class="btn btn-success">Contact Us</button>
               </div>
             </div>
           </div>
