@@ -335,7 +335,24 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
 def user_details(request) :
     context_dict= {}
     updateSuccess = False
-    current_profile = UserProfile.objects.get(user=request.user)
+    current_profile = []
+    
+    try:
+       current_profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        new_profile = { 'user': request.user,
+                'usertype': 0,
+                'address': '',
+                'picture': ''
+                }
+        user = UserProfile.objects.get_or_create(user = new_profile['user'])[0]
+        user.usertype = new_profile['usertype']
+        user.address = new_profile['address']
+        user.picture = new_profile['picture']
+        user.save()
+        current_profile = UserProfile.objects.get(user=request.user)
+
+
     if request.method=="POST":
         request.user.first_name = request.POST.get('firstname')
         request.user.last_name  = request.POST.get('lastname')

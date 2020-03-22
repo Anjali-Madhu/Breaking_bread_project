@@ -2,6 +2,7 @@
 {% extends 'breakingbread/base.html' %}
 {% load staticfiles %}
 {% block body_block %}
+{% load socialaccount %}
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -71,23 +72,26 @@
 							<a href="{% url 'breakingbread:login' %}">Login to continue</a><br />
 						</div>
 					{% else %}
-						<form class="form-detail" method="post" action="{% url 'breakingbread:register' %}" enctype="multipart/form-data">
-							{% csrf_token %}
-							{{ user_form.as_p }}
-							<p><label for="address">Address:</label></p>
-							{{ profile_form.address }}
-							<div class="form-group">
-								<p><label for="exampleFormControlSelect1" style="color: grey;padding:10px">Type</label></p>
-								{{ profile_form.usertype }}
-							</div>
-							<div class="form-group">
-								<p><label for="exampleFormControlSelect1" style="color: grey;padding:10px">Picture</label></p>
-								{{ profile_form.picture }}
-							</div>
-							<div class="form-row-last">
-								<input type="submit" name="register" class="register" value="Register">
-							</div>
-						</form>
+                        <form class="form-detail" method="post" action="{% url 'breakingbread:register' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ user_form.as_p }}
+                            <p><label for="address">Address:</label></p>
+                            {{ profile_form.address }}
+                            <div class="form-group">
+                                <p><label for="exampleFormControlSelect1" style="color: grey;padding:10px">Type</label></p>
+                                {{ profile_form.usertype }}
+                            </div>
+                            <div class="form-group">
+                                <p><label for="exampleFormControlSelect1" style="color: grey;padding:10px">Picture</label></p>
+                                {{ profile_form.picture }}
+                            </div>
+                            <div class="form-row-last">
+                                <input type="submit" name="register" class="register" value="Register">
+                            </div>
+                            <hr>
+                            <a href="{% provider_login_url 'google' %}">Continue with Google</a>
+                        </form>
+                       
 					{% endif %}
 				</div>
 			</div>
