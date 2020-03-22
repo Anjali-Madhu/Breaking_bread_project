@@ -164,6 +164,18 @@ def recipe(request,recipe_id):
 
     for i in recipe_to_display[0].ingredients.split("?"):
         recipe_["ingredients"].append(i)
+        
+    reviews = Review.objects.filter(recipe_id = recipe_to_display[0])
+    review_list = []
+    for r in reviews:
+        review = {"description":r.description,
+                  "created":r.created,
+                  "username":r.username,
+                  "rating_ceil":list(range(5-r.rating)),
+                  "rating_floor":list(range(r.rating))
+                }
+        review_list.append(review)
+    recipe_["reviews"] = review_list
 
     return render(request, 'breakingbread/receipe-post.html', context = recipe_)
 
