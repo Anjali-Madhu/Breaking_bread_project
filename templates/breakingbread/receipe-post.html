@@ -114,55 +114,7 @@
                         </div>
                     </div>
                     </div>
-                   
-                 <div class="row">
-                    <div class="col-12">
-                        <div class="section-heading text-left"> 
-                            <h3>Comments</h3>
-                            </div>
-                        </div>
-                    </div>
-                    {% if reviews %}
-                                {% for review in reviews %}
-                <div class="section-heading text-left"> 
-                <div class="row">
-                <div class="col-12">
-                <div class="contact-form-area">
-                
-                                
-                              
-                                    
-                                         <div class="row">
-                                         <div class="col-12">
-                                         <p  class="form-control" id="message" cols="30" rows="10">{{ review.description }}<p>
-                                         </div>
-                                         </div>
-                                    </div>
-                                <div class="col-12">
-                            
-                          <!-- Rating Stars Box -->
-                               <div class="ratings">
-                                {% if review.rating_floor %}
-                                {% for item in review.rating_floor %}
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                {% endfor %}
-                                {% endif %}
-                                
-                                {% if review.rating_ceil %}
-                                {% for item in review.rating_ceil %}
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                {% endfor %}
-                                {% endif %}
-                                </div>
-                                <h6>By {{ review.username }}</h6><h6> posted on {{ review.created }}</h6>
-                                </div>
-                                {% endfor %}
-                                {% endif %}
-                </div>
-                </div>
-                </div>
-                </div>
-                <div class="row">
+                  <div class="row">
                     <div class="col-12">
                         <div class="section-heading text-left">
                             <h3>Leave a Comment!</h3>
@@ -213,7 +165,55 @@
 
                     </div>
                 </div>
-            </div>
+            </div>  
+                 <div class="row">
+                    <div class="col-12">
+                        <div class="section-heading text-left"> 
+                            <h3>Comments</h3>
+                            </div>
+                        </div>
+                    </div>
+                    {% if reviews %}
+                                {% for review in reviews %}
+                <div class="section-heading text-left"> 
+                <div class="row">
+                <div class="col-12">
+                <div class="contact-form-area">
+                
+                                
+                              
+                                    
+                                         <div class="row">
+                                         <div class="col-12">
+                                         <p  class="form-control" id="message" cols="30" rows="10">{{ review.description }}<p>
+                                         </div>
+                                         </div>
+                                    </div>
+                                <div class="col-12">
+                            
+                          <!-- Rating Stars Box -->
+                               <div class="ratings">
+                                {% if review.rating_floor %}
+                                {% for item in review.rating_floor %}
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                {% endfor %}
+                                {% endif %}
+                                
+                                {% if review.rating_ceil %}
+                                {% for item in review.rating_ceil %}
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                {% endfor %}
+                                {% endif %}
+                                </div>
+                                <h6>By {{ review.username }}</h6><h6> posted on {{ review.created }}</h6>
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                </div>
+                </div>
+                </div>
+                </div>
+               
         </div>
                 </div>
             </div>
