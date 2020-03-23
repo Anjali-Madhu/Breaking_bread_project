@@ -84,9 +84,11 @@
                     <div class="form-row-last">
                         <input type="submit" name="login" class="register" value="Login">
                     </div>
+                    <h5 style="display:inline">Don't have an account?</h5>
+                    <a href="{% url 'breakingbread:register' %}" style="text-decoration:underline;"> Sign Up Here</a>
 
                     <hr>
-                    <a href="{% provider_login_url 'google' %}"  >Login with Google</a>
+                    <a href="{% provider_login_url 'google' %} " style="text-decoration:underline;">Login with Google</a>
                 </form>
                 {% endif %}
             </div>
