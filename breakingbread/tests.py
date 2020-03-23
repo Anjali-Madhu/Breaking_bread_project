@@ -9,11 +9,19 @@ from django.utils.timezone import now
 class RecipeMethodTests(TestCase):
     def test_ensure_recipe_levels_between_boundaries(self):
         """
-        Ensures the number of reviews are positive or zero.
+        Ensures the levels of recipes valid
         """
-        #recipe = Recipe(recipe_id = 1, username="John", recipe_name='test', time_taken = 12, cuisine="romanian", level = -1, ingredients="lala",cooking_type = 0, description="")
-       #recipe.save()
-       # self.assertEqual((recipe.level >= 0 and recipe.level <= 2  ), True)
+        for u in Users:
+            add_users(u)
+        selected_users = User.objects.filter( Q(username = "JohnDoe") | Q(username = "EmmaWatson") )
+
+        for cuisine in cuisines:
+            add_cuisine(cuisine)
+        all_cuisines = Cuisine.objects.all()
+
+        recipe = Recipe(recipe_id = 1, username=selected_users[0], recipe_name='test', time_taken = 12, cuisine=all_cuisines[0], level = -1, ingredients="lala", cooking_type = 0, description="")
+        recipe.save()
+        self.assertEqual((recipe.level >= 0 and recipe.level <= 2  ), True)
 
 
 class SearchViewTests(TestCase):
