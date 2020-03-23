@@ -39,9 +39,9 @@ class Recipe(models.Model):
     created = models.DateTimeField(default=now)
     
     def save(self, *args, **kwargs):
-        if self.level < 0 or self.level > 2:
+        if self.level < 0 or self.level > 2: # correcting the values in case are outside the boundaries
             self.level = 0
-        if self.cooking_type < 0 or self.cooking_type > 2:
+        if self.cooking_type < 0 or self.cooking_type > 2: # correcting the values in case are outside the boundaries
             self.cooking_type = 0
         super(Recipe, self).save(*args, **kwargs)
        

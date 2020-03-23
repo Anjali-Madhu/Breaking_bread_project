@@ -9,302 +9,305 @@
  sign up and then leave a comment on the recipe.
  -->
 <div class="top-header-area">
-            <div class="container h-100">
-                <div class="row h-100 align-items-center justify-content-between">
-   
- <script src="{% static 'js/addons/rating.js' %}"></script>
- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-between">
 
-    <!-- ##### Breadcumb Area Start ##### -->
-    <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/images/bg-img/breadcumb3.jpg);">
-        <div class="container h-100">
-            <div class="row h-100 align-items-center">
-                <div class="col-12">
-                    <div class="breadcumb-text text-center">
-                        <h2>{{ name }}</h2>
+            <script src="{% static 'js/addons/rating.js' %}"></script>
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+            <!-- ##### Breadcumb Area Start ##### -->
+            <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/images/bg-img/breadcumb3.jpg);">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-12">
+                            <div class="breadcumb-text text-center">
+                                <h2>{{ name }}</h2>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- ##### Breadcumb Area End ##### -->
-    
-    <div class="receipe-post-area section-padding-80">
-          <!-- Receipe Slider -->
-        <div class="container h-100">
-            <div class="row h-100 align-items-center">
-                <div class="col-12">
-                    <div class="receipe-slider owl-carousel">
-                        {% for i in images %}
-                        <img src="{{ MEDIA_URL }}{{ i }}" alt="">
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        </div>
+            <!-- ##### Breadcumb Area End ##### -->
 
-        <!-- Receipe Content Area: retrieved from recipe view in views.py -->
-             
-        <div class="receipe-content-area">
-            <div class="container">
-
-                <div class="row">
-                    <div class="col-12 col-md-8">
-                        <div class="receipe-headline my-5">
-                            <span>{{ created }}</span>
-                            <h2>{{ name }}</h2>
-                            <div class="receipe-duration">
-                                
-                                <h6>Cook: {{ time_taken }} mins</h6>
-                                <h6>Yields: 2 Servings</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-4">
-                        <div class="recipe-ratings text-right my-5">
-                             <div class="ratings">
-                                {% if rating_floor %}
-                                {% for item in rating_floor %}
-                                    <i class="fa fa-star" aria-hidden="true"></i>
+            <div class="receipe-post-area section-padding-80">
+                <!-- Receipe Slider -->
+                <div class="container h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-12">
+                            <div class="receipe-slider owl-carousel">
+                                {% for i in images %}
+                                <img src="{{ MEDIA_URL }}{{ i }}" alt="">
                                 {% endfor %}
-                                {% endif %}
-                                {% if rating_decimal %}
-                                    <i class="fa fa-star-half" aria-hidden="true"></i>
-                                {% endif %}
-                                {% if rating_ceil %}
-                                {% for item in rating_ceil %}
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Receipe Content Area: retrieved from recipe view in views.py -->
+
+                <div class="receipe-content-area">
+                    <div class="container">
+
+                        <div class="row">
+                            <div class="col-12 col-md-8">
+                                <div class="receipe-headline my-5">
+                                    <span>{{ created }}</span>
+                                    <h2>{{ name }}</h2>
+                                    <div class="receipe-duration">
+
+                                        <h6>Cook: {{ time_taken }} mins</h6>
+                                        <h6>Yields: 2 Servings</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="recipe-ratings text-right my-5">
+                                    <div class="ratings">
+                                        {% if rating_floor %}
+                                        {% for item in rating_floor %}
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        {% endfor %}
+                                        {% endif %}
+                                        {% if rating_decimal %}
+                                        <i class="fa fa-star-half" aria-hidden="true"></i>
+                                        {% endif %}
+                                        {% if rating_ceil %}
+                                        {% for item in rating_ceil %}
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+
+                                    {% if level == 0 %}
+                                    <a href="#" class="btn delicious-btn">For Beginners</a>
+                                    {% elif level == 1 %}
+                                    <a href="#" class="btn delicious-btn">For Intermediates</a>
+                                    {% else %}
+                                    <a href="#" class="btn delicious-btn">For Experts</a>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-8">
+                                {% for i in description %}
+                                <!-- Single Preparation Step -->
+                                <div class="single-preparation-step d-flex">
+                                    <h4>Step {{forloop.counter}}. &nbsp;</h4>
+                                    <p>{{ i }}</p>
+                                </div>
                                 {% endfor %}
-                                {% endif %}
                             </div>
 
-                            {% if level == 0 %}
-                            <a href="#" class="btn delicious-btn">For Beginners</a>
-                            {% elif level == 1 %}
-                             <a href="#" class="btn delicious-btn">For Intermediates</a>
-                            {% else %}
-                            <a href="#" class="btn delicious-btn">For Experts</a>
-                            {% endif %}
-                            
-                        </div>
-                    </div>
+                            <!-- Ingredients -->
 
-                   
-                </div>
+                            <div class="col-12 col-lg-4">
+                                <div class="ingredients">
+                                    <h4>Ingredients</h4>
 
-                    <div class="row">
-                    <div class="col-12 col-lg-8">
-                    {% for i in description %}
-                        <!-- Single Preparation Step -->
-                        <div class="single-preparation-step d-flex">
-                            <h4>Step {{forloop.counter}}. &nbsp;</h4>
-                            <p>{{ i }}</p>
-                        </div>
-                      {% endfor %} 
-                    </div>
-
-                    <!-- Ingredients -->
-
-                    <div class="col-12 col-lg-4">
-                        <div class="ingredients">
-                            <h4>Ingredients</h4>
-
-                            <!-- Custom Checkbox -->
-                            {% for i in ingredients %}
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="customCheck{{forloop.counter}}">
-                                <label class="custom-control-label" for="customCheck{{forloop.counter}}">{{ i }}</label>
+                                    <!-- Custom Checkbox -->
+                                    {% for i in ingredients %}
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="customCheck{{forloop.counter}}">
+                                        <label class="custom-control-label" for="customCheck{{forloop.counter}}">{{ i }}</label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
                             </div>
-                            {% endfor %}
                         </div>
-                    </div>
-                    </div>
-                  <div class="row">
-                    <div class="col-12">
-                        <div class="section-heading text-left">
-                            <h3>Leave a Comment!</h3>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="section-heading text-left">
+                                    <h3>Leave a Comment!</h3>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                
 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="contact-form-area">
-                            <!-- <form id="review_form" method="post" action="{% url 'breakingbread:reviews' recipe_id=id %}"> -->
-                                <div class="row">
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="contact-form-area">
+                                    <!-- <form id="review_form" method="post" action="{% url 'breakingbread:reviews' recipe_id=id %}"> -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            {% csrf_token %}
+
+                                            <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+                                        </div>
+
+                                    </div>
                                     <div class="col-12">
-                                         {% csrf_token %}
-                                         
-                                         <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+                                        <h4>Rate this recipe!</h4>
+                                        <!-- Rating Stars Box -->
+                                        <div class='rating-stars text-center'>
+                                            <ul id='stars' name="stars">
+                                                <li class='star' title='Poor' data-value='1'>
+                                                    <i class='fa fa-star'></i>
+                                                </li>
+                                                <li class='star' title='Fair' data-value='2'>
+                                                    <i class='fa fa-star'></i>
+                                                </li>
+                                                <li class='star' title='Good' data-value='3'>
+                                                    <i class='fa fa-star'></i>
+                                                </li>
+                                                <li class='star' title='Excellent' data-value='4'>
+                                                    <i class='fa fa-star'></i>
+                                                </li>
+                                                <li class='star' title='WOW!!!' data-value='5'>
+                                                    <i class='fa fa-star'></i>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        {% if logged_in %}
+                                        <div class="col-12">
+                                            <button class="btn delicious-btn mt-30" onclick="addReview({{id}})">Post Comments</button>
+                                        </div>
+                                        {% else %}
+                                        <div style="padding: 10px;">
+                                            <a href="{% url 'breakingbread:login' %}?next={{ request.path }}" style="text-decoration:underline;font-size: 17px;color: darkgreen;">Login here to post comments and ratings</a>
+                                            <div class="col-12">
+                                                <button class="btn delicious-btn mt-30" disabled>Post Comments</button>
+                                            </div>
+                                        </div>
+                                        {% endif %}
                                     </div>
-                                    
-                                </div>
-                                <div class="col-12">
-                            <h4>Rate this recipe!</h4>
-                          <!-- Rating Stars Box -->
-                          <div class='rating-stars text-center'>
-                            <ul id='stars' name="stars">
-                              <li class='star' title='Poor' data-value='1'>
-                                <i class='fa fa-star'></i>
-                              </li>
-                              <li class='star' title='Fair' data-value='2'>
-                                <i class='fa fa-star'></i>
-                              </li>
-                              <li class='star' title='Good' data-value='3'>
-                                <i class='fa fa-star'></i>
-                              </li>
-                              <li class='star' title='Excellent' data-value='4'>
-                                <i class='fa fa-star'></i>
-                              </li>
-                              <li class='star' title='WOW!!!' data-value='5'>
-                                <i class='fa fa-star'></i>
-                              </li>
-                            </ul>
-                          </div>
-                            {% if logged_in %}
-                                <div class="col-12">
-                                    <button class="btn delicious-btn mt-30" onclick="addReview({{id}})">Post Comments</button>
-                                </div>
-                            {% else %}
-                                <div style="padding: 10px;">
-                                    <a href="{% url 'breakingbread:login' %}?next={{ request.path }}" style="text-decoration:underline;font-size: 17px;color: darkgreen;">Login here to post comments and ratings</a>
-                                    <div class="col-12">    
-                                        <button class="btn delicious-btn mt-30" disabled>Post Comments</button>
-                                    </div>
-                                </div>
-                            {% endif %}  
-                          </div>
-                          <!-- </form> -->
+                                    <!-- </form> -->
 
-                    </div>
-                </div>
-            </div>  
-                 <div class="row">
-                    <div class="col-12">
-                        <div class="section-heading text-left"> 
-                            <h3>Comments</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="section-heading text-left">
+                                    <h3>Comments</h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% if reviews %}
+                        {% for review in reviews %}
+                        <div class="section-heading text-left">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="contact-form-area">
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <p class="form-control" id="message" cols="30" rows="10">{{ review.description }}<p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+
+                                        <!-- Rating Stars Box: retrieved from views.py -->
+                                        <div class="ratings">
+                                            {% if review.rating_floor %}
+                                            {% for item in review.rating_floor %}
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            {% endfor %}
+                                            {% endif %}
+                                            {% if review.rating_ceil %}
+                                            {% for item in review.rating_ceil %}
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                        <h6>By {{ review.username }}</h6><h6> posted on {{ review.created }}</h6>
+                                    </div>
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
-                    {% if reviews %}
-                                {% for review in reviews %}
-                <div class="section-heading text-left"> 
+
+                </div>
+            </div>
+        </div>
+
+        <!--## Delete Recipe ##-->
+        <form action="{% url 'breakingbread:delete_recipe' id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Delete recipe">
+        </form>
+
+        <!-- ##### Follow Us Instagram Area Start ##### -->
+        <div class="follow-us-instagram">
+            <div class="container">
                 <div class="row">
-                <div class="col-12">
-                <div class="contact-form-area">
-
-                                         <div class="row">
-                                         <div class="col-12">
-                                         <p  class="form-control" id="message" cols="30" rows="10">{{ review.description }}<p>
-                                         </div>
-                                         </div>
-                                    </div>
-                                <div class="col-12">
-                            
-                          <!-- Rating Stars Box: retrieved from views.py -->
-                               <div class="ratings">
-                                {% if review.rating_floor %}
-                                {% for item in review.rating_floor %}
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                {% endfor %}
-                                {% endif %}
-                                {% if review.rating_ceil %}
-                                {% for item in review.rating_ceil %}
-                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                {% endfor %}
-                                {% endif %}
-                                </div>
-                                <h6>By {{ review.username }}</h6><h6> posted on {{ review.created }}</h6>
-                                </div>
-                                {% endfor %}
-                                {% endif %}
-                </div>
-                </div>
-                </div>
-                </div>
-               
-        </div>
+                    <div class="col-12">
+                        <h5>Follow Us on Instagram</h5>
+                    </div>
                 </div>
             </div>
-        
-    
-
-    <!-- ##### Follow Us Instagram Area Start ##### -->
-    <div class="follow-us-instagram">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h5>Follow Us on Instagram</h5>
+            <!-- Instagram Feeds -->
+            <div class="insta-feeds d-flex flex-wrap">
+                <!-- Single Insta Feeds -->
+                <div class="single-insta-feeds">
+                    <img src="{% static 'images/bg-img/insta1.jpg' %}" alt="">
+                    <!-- Icon -->
+                    <div class="insta-icon">
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <!-- Instagram Feeds -->
-        <div class="insta-feeds d-flex flex-wrap">
-            <!-- Single Insta Feeds -->
-            <div class="single-insta-feeds">
-                <img src="{% static 'images/bg-img/insta1.jpg' %}" alt="">
-                <!-- Icon -->
-                <div class="insta-icon">
-                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-                </div>
-            </div>
 
-            <!-- Single Insta Feeds -->
-            <div class="single-insta-feeds">
-                <img src="{% static 'images/bg-img/insta2.jpg' %}" alt="">
-                <!-- Icon -->
-                <div class="insta-icon">
-                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <!-- Single Insta Feeds -->
+                <div class="single-insta-feeds">
+                    <img src="{% static 'images/bg-img/insta2.jpg' %}" alt="">
+                    <!-- Icon -->
+                    <div class="insta-icon">
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Single Insta Feeds -->
-            <div class="single-insta-feeds">
-                <img src="{% static 'images/bg-img/insta3.jpg' %}" alt="">
-                <!-- Icon -->
-                <div class="insta-icon">
-                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <!-- Single Insta Feeds -->
+                <div class="single-insta-feeds">
+                    <img src="{% static 'images/bg-img/insta3.jpg' %}" alt="">
+                    <!-- Icon -->
+                    <div class="insta-icon">
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Single Insta Feeds -->
-            <div class="single-insta-feeds">
-                <img src="{% static 'images/bg-img/insta4.jpg' %}" alt="">
-                <!-- Icon -->
-                <div class="insta-icon">
-                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <!-- Single Insta Feeds -->
+                <div class="single-insta-feeds">
+                    <img src="{% static 'images/bg-img/insta4.jpg' %}" alt="">
+                    <!-- Icon -->
+                    <div class="insta-icon">
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Single Insta Feeds -->
-            <div class="single-insta-feeds">
-                <img src="{% static 'images/bg-img/insta5.jpg' %}" alt="">
-                <!-- Icon -->
-                <div class="insta-icon">
-                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <!-- Single Insta Feeds -->
+                <div class="single-insta-feeds">
+                    <img src="{% static 'images/bg-img/insta5.jpg' %}" alt="">
+                    <!-- Icon -->
+                    <div class="insta-icon">
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Single Insta Feeds -->
-            <div class="single-insta-feeds">
-                <img src="{% static 'images/bg-img/insta6.jpg' %}" alt="">
-                <!-- Icon -->
-                <div class="insta-icon">
-                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <!-- Single Insta Feeds -->
+                <div class="single-insta-feeds">
+                    <img src="{% static 'images/bg-img/insta6.jpg' %}" alt="">
+                    <!-- Icon -->
+                    <div class="insta-icon">
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Single Insta Feeds -->
-            <div class="single-insta-feeds">
-                <img src="{% static 'images/bg-img/insta7.jpg' %}" alt="">
-                <!-- Icon -->
-                <div class="insta-icon">
-                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                <!-- Single Insta Feeds -->
+                <div class="single-insta-feeds">
+                    <img src="{% static 'images/bg-img/insta7.jpg' %}" alt="">
+                    <!-- Icon -->
+                    <div class="insta-icon">
+                        <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- ##### Follow Us Instagram Area End ##### -->
-
-{% endblock %}
+        <!-- ##### Follow Us Instagram Area End ##### -->
+        {% endblock %}
