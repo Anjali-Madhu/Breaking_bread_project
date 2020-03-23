@@ -81,11 +81,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    {% if name == 'All' and user == 0  and display_name == "" %}
+                    {% if name == 'All' and user == 0  and display_name == "" or display_name == "All" %}
                     <div class="section-heading">
                         <h3>All Recipes</h3>
                     </div>
-                    {% elif display_name != "" %}
+                    {% elif display_name != ""  %}
                     <div class="section-heading">
                         <h3>All {{ display_name }} Recipes</h3>
                     </div>
