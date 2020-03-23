@@ -23,6 +23,21 @@ class RecipeMethodTests(TestCase):
         recipe.save()
         self.assertEqual((recipe.level >= 0 and recipe.level <= 2  ), True)
 
+    def test_ensure_recipe_cooking_type_between_boundaries(self):
+        """
+        Ensures the cooking type of recipes valid
+        """
+        for u in Users:
+            add_users(u)
+        selected_users = User.objects.filter( Q(username = "JohnDoe") | Q(username = "EmmaWatson") )
+
+        for cuisine in cuisines:
+            add_cuisine(cuisine)
+        all_cuisines = Cuisine.objects.all()
+
+        recipe = Recipe(recipe_id = 1, username=selected_users[0], recipe_name='test', time_taken = 12, cuisine=all_cuisines[0], level = 1, ingredients="lala", cooking_type = 5, description="")
+        recipe.save()
+        self.assertEqual((recipe.level >= 0 and recipe.level <= 2  ), True)
 
 class SearchViewTests(TestCase):
     def test_search_view_with_no_recipes(self):

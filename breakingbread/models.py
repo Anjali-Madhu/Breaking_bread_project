@@ -38,6 +38,14 @@ class Recipe(models.Model):
     description = models.TextField(max_length=2000)
     created = models.DateTimeField(default=now)
     
+    def save(self, *args, **kwargs):
+        if self.level < 0 or self.level > 2:
+            self.level = 0
+        if self.cooking_type < 0 or self.cooking_type > 2:
+            self.cooking_type = 0
+        super(Recipe, self).save(*args, **kwargs)
+       
+
     @property
     def average_rating(self):
         total = 0

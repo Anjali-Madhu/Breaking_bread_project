@@ -14,21 +14,25 @@ from django.db.models import Q
 # Smoothie: https://aseasyasapplepie.com/tropical-raspberry-swirl-smoothie/
 # Boulettes: https://www.allrecipes.com/recipe/197908/crawfish-boulettes/
 def populate():
+    # Delete all the data from database except the admin
     Cuisine.objects.all().delete()
     Recipe.objects.all().delete()
     User.objects.filter(~Q(username="admin")).delete()
     UserProfile.objects.all().delete()
     Review.objects.all().delete()
 
-    
+    # Create users
     Users = [ {'username': 'JohnDoe', 'password':'JohnDoe123', 'first_name': 'John', 'last_name': 'Doe'},
              {'username': 'EmmaWatson', 'password':'EmmaWatson123', 'first_name': 'Emma', 'last_name': 'Watson'},
              ]
+
+    # Add users to db
     for u in Users:
         add_users(u)
     all_users = User.objects.all()
-    selected_users = User.objects.filter( Q(username = "JohnDoe") | Q(username = "EmmaWatson") )
+    selected_users = User.objects.filter( Q(username = "JohnDoe") | Q(username = "EmmaWatson") ) # get only the users that we want to use
 
+    # Create users profile
     UsersProfile = [
         { 'user': selected_users[0],
          'usertype': 0,
@@ -42,9 +46,10 @@ def populate():
          }
         ]
 
+    # Add users profile to db
     for u in UsersProfile:
         add_usersProfile(u)
-    all_usersProfile = UserProfile.objects.all()
+    all_usersProfile = UserProfile.objects.all() # get all user profiles
     
     cuisines = ['Italian',
                 'Indian',
@@ -55,12 +60,13 @@ def populate():
                 'Lebanese',
                 'Mauritian',
                 'American']
-    
+
+    # Add cuisines to db
     for cuisine in cuisines:
         add_cuisine(cuisine)
-
-    all_cuisines = Cuisine.objects.all()
+    all_cuisines = Cuisine.objects.all() # get all cuisines
     
+    # Define recipes
     Recipes = [
         {'recipe_id': 1, 'recipe_name': 'Bruschetta', 'username': selected_users[0], 'time_taken': 20,
          'level': 0, 'ingredients': 'Half small red onion, finely chopped?8 medium tomatoes (about 500g), coarsely chopped and drained?2-3 garlic cloves, crushed? 6-8 leaves of fresh basil finely chopped?30ml balsamic vinegar?60-80ml extra virgin olive oil?1 loaf crusty bread', 'cooking_type': 1, 'cuisine': all_cuisines[0],
@@ -136,16 +142,17 @@ def populate():
              'In the same blender (no need to wash it), puree the frozen raspberries, honey and coconut water until smooth. Add more coconut water if needed?'
              'Divide the raspberry smoothie between two glasses. Now pour the tropical smoothie on top and swirl gently with a long spoon.'
              'Garnish with pineapple wedges and serve.', 'created': now}
-    ]
+        ]
 
-    
+    # Add recipes to the db
     for i in Recipes:
         add_recipe(i['recipe_id'], i['recipe_name'], i['username'], i['time_taken'],
                       i['level'],i['ingredients'],i['cooking_type'],
                       i['cuisine'],i['description'])
 
-    all_recipes = Recipe.objects.all()
+    all_recipes = Recipe.objects.all() # get all recipes
 
+    # Define images
     Images = [
          {'image_id': 1,
           'picture':  'populate_recipe_images/bruschetta.jpg',
@@ -189,9 +196,11 @@ def populate():
          },
          ]
 
+    # Add images to db
     for img in Images:
         add_image(img['image_id'], img['picture'], img['recipe_id'])
 
+    # Define reviews
     Reviews = [{'review_id': 1, 'recipe_id': all_recipes[0], 'username': selected_users[1],
               'rating': 3, 'description': 'very tasty',   'date': '12/03/2020'},
                {'review_id': 2, 'recipe_id': all_recipes[1], 'username': selected_users[1],
@@ -201,10 +210,11 @@ def populate():
                {'review_id': 4, 'recipe_id': all_recipes[3], 'username': selected_users[1],
               'rating': 2, 'description': 'interesting taste',   'date': '12/03/2020'},
                ]
-    
+    # Add reviews to db
     for rev in Reviews:
         add_review(rev)
 
+# HELPER METHODS 
 def add_review(rev):
     review = Review.objects.get_or_create(review_id = rev['review_id'], recipe_id = rev['recipe_id'], username = rev['username'])[0]
     review.rating = rev['rating']
@@ -212,7 +222,6 @@ def add_review(rev):
     review.date = rev['date']
     review.save()
     return review
-
 
 def add_users(u):
     user = User.objects.get_or_create(username = u['username'], password = u['password'])[0]
@@ -229,8 +238,6 @@ def add_usersProfile(u):
     user.save()
     return user
  
-
-
 def add_recipe(recipe_id, recipe_name,username, time_taken,level,ingredients,cooking_type,cuisine,description):
     recipe = Recipe.objects.get_or_create(recipe_id = recipe_id, username = username, cuisine = cuisine, time_taken = time_taken, level = level)[0] 
     recipe.recipe_name=recipe_name
@@ -251,6 +258,7 @@ def add_image(image_id, picture, recipe_id):
     img.save()
     return img
 
+# Calling the script
 if __name__=='__main__':
     print('Starting breakingbread population script...')
     populate()
