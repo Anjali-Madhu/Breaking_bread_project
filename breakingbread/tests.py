@@ -7,53 +7,60 @@ from django.db.models import Q
 from django.utils.timezone import now
 
 class RecipeMethodTests(TestCase):
+
     def test_ensure_recipe_levels_between_boundaries(self):
         """
         Ensures the levels of recipes valid
         """
-        for u in Users:
+        # Add users to local db
+        for u in Users: 
             add_users(u)
-        selected_users = User.objects.filter( Q(username = "JohnDoe") | Q(username = "EmmaWatson") )
+        selected_users = User.objects.filter( Q(username = "JohnDoe") | Q(username = "EmmaWatson") ) # get only the users that we want to use
 
+        # Add cuisines to local db
         for cuisine in cuisines:
             add_cuisine(cuisine)
         all_cuisines = Cuisine.objects.all()
 
+        # Create a Recipe
         recipe = Recipe(recipe_id = 1, username=selected_users[0], recipe_name='test', time_taken = 12, cuisine=all_cuisines[0], level = -1, ingredients="lala", cooking_type = 0, description="")
         recipe.save()
-        self.assertEqual((recipe.level >= 0 and recipe.level <= 2  ), True)
+        self.assertEqual((recipe.level >= 0 and recipe.level <= 2  ), True) # Validate the tests if 0 <= level <= 2
 
     def test_ensure_recipe_cooking_type_between_boundaries(self):
         """
         Ensures the cooking type of recipes valid
         """
+        # Add users to local sdb
         for u in Users:
             add_users(u)
         selected_users = User.objects.filter( Q(username = "JohnDoe") | Q(username = "EmmaWatson") )
 
+        # Add cuisines to local db
         for cuisine in cuisines:
             add_cuisine(cuisine)
         all_cuisines = Cuisine.objects.all()
 
+        # Create a Recipe
         recipe = Recipe(recipe_id = 1, username=selected_users[0], recipe_name='test', time_taken = 12, cuisine=all_cuisines[0], level = 1, ingredients="lala", cooking_type = 5, description="")
         recipe.save()
-        self.assertEqual((recipe.level >= 0 and recipe.level <= 2  ), True)
+        self.assertEqual((recipe.cooking_type >= 0 and recipe.cooking_type <= 2  ), True) # Validate the tests if 0 <= cooking_type <= 2
 
 class SearchViewTests(TestCase):
     def test_search_view_with_no_recipes(self):
         """
         If no recipes exist, the appropriate message should be displayed.
         """
-        response = self.client.get(reverse('breakingbread:search'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'No recipes found for your search')
-        self.assertQuerysetEqual(response.context['recipes'], [])
-
+        response = self.client.get(reverse('breakingbread:search'))  # Get response from search template
+        self.assertEqual(response.status_code, 200) # Check the response was successful
+        self.assertContains(response, 'No recipes found for your search') # Check the response contains the sentence mentioned
+        self.assertQuerysetEqual(response.context['recipes'], []) # Check the list of recipes is empty
 
     def test_search_view_with_recipes(self):
         """
         Checks whether recipes are displayed correctly when present.
         """
+        # Add users to db
         for u in Users:
             add_users(u)
 
@@ -63,6 +70,7 @@ class SearchViewTests(TestCase):
             add_cuisine(cuisine)
         all_cuisines = Cuisine.objects.all()
 
+        # Define recipes
         Recipes = [
         {'recipe_id': 1, 'recipe_name': 'Bruschetta', 'username': selected_users[0], 'time_taken': 20,
          'level': 0, 'ingredients': 'Half small red onion, finely chopped?8 medium tomatoes (about 500g), coarsely chopped and drained?2-3 garlic cloves, crushed? 6-8 leaves of fresh basil finely chopped?30ml balsamic vinegar?60-80ml extra virgin olive oil?1 loaf crusty bread', 'cooking_type': 1, 'cuisine': all_cuisines[0],
@@ -79,15 +87,16 @@ class SearchViewTests(TestCase):
                         ' Cook for about 25 mins, stirring occasionally, until the stock is absorbed and the cranberries have swelled up.?Tip the lentil mixture into the onion mixture along with the celeriac, and heat over a medium heat to warm it all through. Squeeze the roasted garlic cloves out of their skins and mash with the lemon zest and juice, then stir into the rice.?In a separate container, stir the harissa into the yogurt. To serve, divide the koshari between bowls and top with the spiced yogurt and coriander.', 'created': now},
         ]
 
+        # Add recipes to db
         for i in Recipes:
             add_recipe(i['recipe_id'], i['recipe_name'], i['username'], i['time_taken'], i['level'],i['ingredients'],i['cooking_type'], i['cuisine'],i['description'])
     
-        response = self.client.get(reverse('breakingbread:search'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Bruschetta")
+        response = self.client.get(reverse('breakingbread:search')) # get response from search page
+        self.assertEqual(response.status_code, 200) # Check the response was successful
+        self.assertContains(response, "Bruschetta") # Check the response contains the recipes
         self.assertContains(response, "Tandoori Chicken")
         self.assertContains(response, "Koshari")
-        num_recipes = len(response.context['recipes'])
+        num_recipes = len(response.context['recipes']) # Check the list of recipes
         self.assertEquals(num_recipes, 3)
 
 
