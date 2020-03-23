@@ -157,10 +157,18 @@
                               </li>
                             </ul>
                           </div>
-                          <div class="col-12">
-                                        <button class="btn delicious-btn mt-30" onclick="addReview({{id}})">Post Comments</button>
+                            {% if logged_in %}
+                                <div class="col-12">
+                                    <button class="btn delicious-btn mt-30" onclick="addReview({{id}})">Post Comments</button>
+                                </div>
+                            {% else %}
+                                <div style="padding: 10px;">
+                                    <a href="{% url 'breakingbread:login' %}?next={{ request.path }}" style="text-decoration:underline;font-size: 17px;color: darkgreen;">Login here to post comments and ratings</a>
+                                    <div class="col-12">    
+                                        <button class="btn delicious-btn mt-30" disabled>Post Comments</button>
                                     </div>
-                          
+                                </div>
+                            {% endif %}  
                           </div>
                           <!-- </form> -->
 
