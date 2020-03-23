@@ -188,7 +188,7 @@ def recipe(request,recipe_id):
     return render(request, 'breakingbread/receipe-post.html', context = recipe_)
 
 @login_required
-def review(request,recipe_id):
+def review(request, recipe_id):
     form = ReviewForm()
     recipe_page = Recipe.objects.filter(recipe_id= recipe_id)
     message = request.GET.get('message', None)
@@ -456,10 +456,21 @@ def upload_recipe(request) :
 
 
 def about(request):
-    
     nb_burger_recipes = Recipe.objects.filter(recipe_name__icontains="burger").count()
     nb_all_recipes = Recipe.objects.all().count()
     nb_meat_recipes = Recipe.objects.filter(cooking_type = "0").count()
     nb_vegan_recipes = Recipe.objects.filter(cooking_type = "2").count()
     context_dict = {"nb_burgers" : nb_burger_recipes, "nb_recipes" : nb_all_recipes, "nb_meats":nb_meat_recipes, "nb_vegans":nb_vegan_recipes, "nav_tab":"about"}
     return render(request, 'breakingbread/about.html', context = context_dict)
+
+
+def delete_recipe(request, recipe_id):
+    recipe = Recipe.objects.get(recipe_id=recipe_id)  # Get your current recipe
+
+    if request.method == 'POST':         # If method is POST,
+        recipe.delete()                     # delete the recipe
+        return redirect('/')             # Finally, redirect
+
+    return render(request, '/')
+    # If method is not POST, render the default template.
+   
