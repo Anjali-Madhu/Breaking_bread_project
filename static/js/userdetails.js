@@ -59,87 +59,112 @@ function addAnotherStep() {
     document.getElementById('stepsRecipe').appendChild(newdiv);
 }
 function saveRecipe() {
-    $("#preloader").css("display", "block");
     var responseId;
     var levelType = {'Beginner':0, 'Intermediate':1, 'Expert':2}
     var cookingType = {'Non-Vegetarian':0, 'Vegetarian':1, 'Vegan':2}
-    
+
     var recipeName =  $('#recipeName').val();
     var cuisine =  $('#cuisine').val();
     var time_taken =  $('#time_taken').val();
     var type = cookingType[$('#type').val()];
     var level = levelType[$('#level').val()];
-    var ingredients =  $('#ingredients').val();
+    var ingredients =  $('#ingredients').val().replace(/,/g, '?').replace(/\n|\r/g, ""); //replace all comma by '?'
+    console.log(ingredients);
     var category =  $('#category').val();
     var steps = $("input[name='steps[]']")
-              .map(function(){return $(this).val();}).get();
-    
-    var desc = "";
-    if(steps.length > 1) {
-        for(let i = 0; i < steps.length; i++) {
-            if(i == 0)  
-                desc = steps[i];
-            else 
-                desc += "?" + steps[i]
-        }
-    }
-    //call uploadrecipe url in django
-    $.ajax({
-        url: '/breakingbread/uploadrecipe',
+            .map(function(){return $(this).val();}).get();
 
-        data: {
-            'recipeName' : recipeName,
-            'cuisine' : cuisine,
-            'time_taken' : time_taken,
-            'type' : type,
-            'level' : level,
-            'ingredients' : ingredients,
-            'category' : category,
-            'desc' : desc,
-        },
-        dataType: 'json',
-        success: function (data) {
-            responseId = data.recipeId;
-        }
-    });
-    //upload image
-    setTimeout(function(){
-        if(responseId && responseId != undefined) {
-            console.log('responId', responseId);
-            var formdata = new FormData();
-            formdata.append('number', fileList.length);
-            formdata.append('recipeId', responseId);
-            for(let i = 0; i < fileList.length; i++) {
-                let title = 'image' + i;
-                formdata.append(title, fileList[i]);
+    var msg = "";
+    if(fileList.length == 0) {
+        msg += 'Please upload at least one photo of the recipe.' + '\n'
+        // alert('Please upload at least one photo of the recipe');
+    }
+    if(recipeName == "") {
+        msg += 'Please enter the recipe name.' + '\n'
+        // alert('Please enter the recipe name');
+    }
+    if(ingredients == "") {
+        msg += 'Please enter the ingredients for this recipe.' + '\n'
+        // alert('Please enter the ingredients for this recipe');
+    }
+    if(time_taken == "") {
+        msg += 'Please enter the time taken for this recipe.' + '\n'
+        // alert('Please enter the time taken for this recipe');
+    }
+    if(steps.length == 1) {
+        msg += 'Please enter the steps for this recipe.' + '\n'
+    }
+    if(msg == "") {
+        $("#preloader").css("display", "block");        
+        var desc = "";
+        if(steps.length > 1) {
+            for(let i = 0; i < steps.length; i++) {
+                if(i == 0)  
+                    desc = steps[i];
+                else 
+                    desc += "?" + steps[i]
             }
-            var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-            $.ajax({
-                beforeSend: function(request) {
-                    request.setRequestHeader("X-CSRFToken", csrftoken);
-                }, 
-                url: '/breakingbread/uploadrecipe/',
-                type: 'POST',
-                data: formdata,
-                async: true,
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: formdata,
-                dataType: 'json',
-                success: function (data) {
-                    if(data.success) {
-                        $("#preloader").css("display", "none");
-                        swal("Recipe uploaded successfully", "", "success").then((goToRecipe) => {
-                            if(goToRecipe) {
-                                window.location.href = '/breakingbread/recipe/' + responseId;
-                            }
-                        });
-                    
-                    }
-                }
-            });
         }
-    }, 3500);
-    
+        //call uploadrecipe url in django
+        $.ajax({
+            url: '/breakingbread/uploadrecipe',
+
+            data: {
+                'recipeName' : recipeName,
+                'cuisine' : cuisine,
+                'time_taken' : time_taken,
+                'type' : type,
+                'level' : level,
+                'ingredients' : ingredients,
+                'category' : category,
+                'desc' : desc,
+            },
+            dataType: 'json',
+            success: function (data) {
+                responseId = data.recipeId;
+            }
+        });
+        // //upload image
+        setTimeout(function(){
+            if(responseId && responseId != undefined) {
+                console.log('responId', responseId);
+                var formdata = new FormData();
+                formdata.append('number', fileList.length);
+                formdata.append('recipeId', responseId);
+                for(let i = 0; i < fileList.length; i++) {
+                    let title = 'image' + i;
+                    formdata.append(title, fileList[i]);
+                }
+                var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                $.ajax({
+                    beforeSend: function(request) {
+                        request.setRequestHeader("X-CSRFToken", csrftoken);
+                    }, 
+                    url: '/breakingbread/uploadrecipe/',
+                    type: 'POST',
+                    data: formdata,
+                    async: true,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    data: formdata,
+                    dataType: 'json',
+                    success: function (data) {
+                        if(data.success) {
+                            $("#preloader").css("display", "none");
+                            swal("Recipe uploaded successfully", "", "success").then((goToRecipe) => {
+                                if(goToRecipe) {
+                                    window.location.href = '/breakingbread/recipe/' + responseId;
+                                }
+                            });
+                        
+                        }
+                    }
+                });
+            }
+        }, 3500);
+    }
+    else {
+        alert(msg);
+    }
 }

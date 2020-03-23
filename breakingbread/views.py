@@ -91,7 +91,6 @@ def user_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         next = request.POST.get('next', None)
-        print('nextt', next)
         user = authenticate(username=username, password=password)
         if user:
             if user.is_active:
@@ -438,9 +437,9 @@ def upload_recipe(request) :
             recipe_name = recipeName,
             username =  request.user,
             time_taken = time_taken,
-            level = level,
+            level = int(level),
             ingredients = ingredients,
-            cooking_type = cooking_type,
+            cooking_type = int(cooking_type),
             cuisine = Cuisine.objects.get(cuisine_type=cuisine),
             description = desc,
             created = datetime.datetime.now()
