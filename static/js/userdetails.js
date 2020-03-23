@@ -62,7 +62,7 @@ function saveRecipe() {
     $("#preloader").css("display", "block");
     var responseId;
     var levelType = {'Beginner':0, 'Intermediate':1, 'Expert':2}
-    var cookingType = {'Non-vegeterian':0, 'Vegeterian':1, 'Vegan':2}
+    var cookingType = {'Non-Vegetarian':0, 'Vegetarian':1, 'Vegan':2}
     
     var recipeName =  $('#recipeName').val();
     var cuisine =  $('#cuisine').val();
