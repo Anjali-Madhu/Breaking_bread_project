@@ -79,6 +79,13 @@
                         {{error}}
                     </div>
                     {% endif %}
+
+                    {% if request.GET.next %}
+                        <div style="display: none;">
+                            <input type="hidden" name="next" value="{{request.GET.next}}"/>
+                        </div>
+                    {% endif %}
+                    
                     <p><label for="username">Username:</label></p>
                     <input type="text" name="username" value="" size="50" />
 
@@ -90,7 +97,6 @@
                     </div>
                     <h5 style="display:inline">Don't have an account?</h5>
                     <a href="{% url 'breakingbread:register' %}" style="text-decoration:underline;"> Sign Up Here</a>
-
                     <hr>
                     <a href="{% provider_login_url 'google' %} " style="text-decoration:underline;">Login with Google</a>
                 </form>
