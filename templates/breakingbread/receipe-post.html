@@ -2,7 +2,12 @@
 {% load staticfiles %}
 
 {% block body_block %}
-   
+
+<!-- This HTML page is responsible for displaying the recipe requested on the search page. It displays the recipe name, images, average rating,
+ level of expertise required for it, cooking time, and the steps. It also gives the registered user the ability to comment and rate the recipe. It also displays all the comments
+ of the recipe. If the user is not logged in and presses the "Post Comment" button, they are redirected to the login page, where they can login or
+ sign up and then leave a comment on the recipe.
+ -->
 <div class="top-header-area">
             <div class="container h-100">
                 <div class="row h-100 align-items-center justify-content-between">
@@ -38,7 +43,7 @@
             </div>
         </div>
 
-        <!-- Receipe Content Area -->
+        <!-- Receipe Content Area: retrieved from recipe view in views.py -->
              
         <div class="receipe-content-area">
             <div class="container">
@@ -189,7 +194,7 @@
                                     </div>
                                 <div class="col-12">
                             
-                          <!-- Rating Stars Box -->
+                          <!-- Rating Stars Box: retrieved from views.py -->
                                <div class="ratings">
                                 {% if review.rating_floor %}
                                 {% for item in review.rating_floor %}

@@ -2,7 +2,8 @@
 {% load staticfiles %}
 {% block body_block %}
 
- 
+ <!-- This is the homepage of Breaking Bread, displaying examples of the available recipes, and the different navigation options
+ to the user.-->
 
    <!-- ##### Hero Area Start ##### -->
     <section class="hero-area">
@@ -55,7 +56,9 @@
     </section>
     <!-- ##### Hero Area End ##### -->
     
-    <!-- ##### Top Category Area Start ##### -->
+    <!-- ##### Top Category Area Start: iterating over the best_vegan recipes retrieved from views.py and displaying their name &
+     image.
+     ##### -->
     <section class="top-catagory-area section-padding-80-0">
         <div class="container">
             <div class="row">
@@ -92,7 +95,7 @@
     </section>
     <!-- ##### Top Catagory Area End ##### -->
  
-    <!-- ##### Best Receipe Area Start ##### -->
+    <!-- ##### Best Recipe Area Start: iterating over the best recipes retrieved from views.py, and displaying its name, image, and average rating  ##### -->
     <section class="best-receipe-area">
         <div class="container">
             <div class="row">
@@ -252,7 +255,7 @@
                     </div>
                 </div>
 
-                <!-- Newsletter -->
+                <!-- Newsletter: only for demonstration purposes but is not implemented. -->
                 <div class="col-12 col-lg-4">
                     <div class="newsletter-area">
                         <h4>Subscribe to our Newsletter!</h4>

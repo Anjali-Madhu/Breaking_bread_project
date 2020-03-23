@@ -9,8 +9,8 @@ import math
 class UserProfile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     #usertype = 0 for normal users,1 for chefs and -1 for admin
-    
-    usertype=models.IntegerField(default=0) 
+    usertype=models.IntegerField(default=0)
+    #user address
     address=models.CharField(max_length=300,blank=True)
     address_hidden = models.BooleanField(default=False)
     picture=models.ImageField(upload_to='profile_images',blank=True)
@@ -62,8 +62,7 @@ class Recipe(models.Model):
     
         
         
-#Image table  
-        
+#Image table   
 class Image(models.Model):
     image_id=models.AutoField(primary_key=True)
     picture = models.ImageField(upload_to='recipe_images', blank=False)
