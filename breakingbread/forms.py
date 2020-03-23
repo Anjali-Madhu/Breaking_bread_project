@@ -3,8 +3,10 @@ from breakingbread.models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+#different types of users
 user_types=[(0,'Regular'),(1,'Chef'),(2,'Restaurant')]
 
+#form for registeration
 class SignUpForm(UserCreationForm):
     username=forms.CharField(max_length=128,required=True, widget=forms.TextInput())
     first_name=forms.CharField(max_length=30,required=True,widget=forms.TextInput())
@@ -15,12 +17,12 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username','first_name','last_name', 'email', 'password1','password2')
-        
+ 
+#form for registeration("usertype, address, profile picture fields)       
 class UserProfileForm(forms.ModelForm):
     
     usertype=forms.CharField(label="User Type  ",widget=forms.Select(choices=user_types),)
     usertype.widget.attrs.update({'class':'form-control'})
-
     address = forms.CharField(max_length=100,widget=forms.TextInput())
     
     class Meta:
@@ -28,12 +30,8 @@ class UserProfileForm(forms.ModelForm):
         fields=('usertype','address','picture',)
 
 
-class ReviewForm(forms.ModelForm):
-    #rating = forms.IntegerField(default=0)
-    description = forms.CharField(max_length=500)
-    class Meta:
-        model=Review
-        fields=('description',)
+
+
 
 
 

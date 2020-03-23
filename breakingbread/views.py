@@ -7,24 +7,32 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from breakingbread.models import *;
 from django.utils.decorators import method_decorator
-
 import datetime
 import json
 import math
 
 # Create your views here.
-def index(request):
+
+#method to check if any user has logged in 
+def check_logged_in(request):
     logged_in=False
     username=""
-  
     if request.user.is_authenticated:
         logged_in=True
         username=request.user.username
     else:
         logged_in=False
+    return (username,logged_in)
 
-    
+#Homepage
+def index(request):
+    #checking if any user has logged in
+    username,logged_in = check_logged_in(request)
+
+    #retrieving all recipe images
     recipes_images = Image.objects.all()
+    
+    #filtering out the vegan recipe images and vegetarian recipe images
     vegan_recipes = []
     for i in recipes_images:
         if i.recipe_id.cooking_type == 2:
@@ -34,10 +42,12 @@ def index(request):
         if i.recipe_id.cooking_type == 1:
             vegetarian_recipes.append(i)
     
+    #sorting the images from highest ratings to lowest ratings of their corresponding recipes
     best_vegan = sorted(vegan_recipes, key= lambda t: t.recipe_id.average_rating, reverse = True)[0:1]
     best_vegetarian = sorted(vegetarian_recipes, key= lambda t: t.recipe_id.average_rating, reverse = True)[0:1]
     best_sorted = sorted(recipes_images, key= lambda t: t.recipe_id.average_rating, reverse = True)
 
+    #adding the first image of every recipe to best_set
     best_set_id = set()
     best_set = []
     for i in best_sorted:
@@ -45,34 +55,39 @@ def index(request):
            best_set_id.add(i.recipe_id)
            best_set.append(i)
   
+    #contains the first images of top 5 recipes
     best_recipes_images = best_set[0:6]
     
     context_dict={"logged_in":logged_in, "username":username, "best_recipes": best_recipes_images,
                  "best_vegan": best_vegan, "best_vegetarian":best_vegetarian, "nav_tab":"home"}
+    #rendering the index template and sending context_dict to the template
     response = render(request, 'breakingbread/index.html', context=context_dict)
     return response
 
+#view for sign up page
 def register(request):
     registered=False
+    
+    #retrieving the inputs from the page
     if request.method=="POST":
         user_form=SignUpForm(request.POST)
         profile_form = UserProfileForm(request.POST)
-        
+       
+        #checking if the inputs are valid
         if user_form.is_valid() and profile_form.is_valid():
-            # print('userform ', user_form)
-            # user = user_form.save()
-            # print('passs', user.password)
-            # user.set_password(user.password)
+           #if the inputs are valid, saving the details in the database
             user = user_form.save()
             profile=profile_form.save(commit=False)
             profile.user = user
-            
+            #checking if the user has uploaded a profile picture
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
 
             profile.save()
+            #setting registered = True since registeration is successful
             registered=True
         else:
+            #sending the error messages along with form if registeration is unseccessful
             context_dict = {'user_form':user_form,
                             'profile_form':profile_form,
                             'registered':registered,
@@ -81,13 +96,16 @@ def register(request):
             print('errors_use', user_form.errors)
             return render(request,'breakingbread/register.html',context=context_dict)
     else:
+        #sending the empty form if request is not a POST
         user_form=SignUpForm()
         profile_form=UserProfileForm()
     context_dict = {'user_form':user_form,'profile_form':profile_form,'registered':registered, "nav_tab":"register"}
     return render(request,'breakingbread/register.html',context=context_dict)
 
+#login view
 def user_login(request):
     if request.method == 'POST':
+        #if method is POST, retrieving the username and password
         username = request.POST.get('username')
         password = request.POST.get('password')
         next = request.POST.get('next', None)
@@ -102,48 +120,34 @@ def user_login(request):
             else:
                 print('error')
                 return render(request, 'breakingbread/login.html',context={"error":"Your account has been disabled"})
-                #return HttpResponse("Your account is disabled.")
+               
         else:
             print('invalid')
-            #print(f"Invalid login details: {username}, {password}")
-            #return HttpResponse("Incorrect username or password")
             return render(request, 'breakingbread/login.html',context={"error":"Incorrect username or password!"})
     else:
         return render(request, 'breakingbread/login.html', context ={"nav_tab":"log_in"})
     
+#view for log out
 @login_required
 def user_logout(request):
     logout(request)
     return redirect(reverse('breakingbread:index'))
 
-#function to increment the value in last index of rating_floor for sorting
-def true_floor(x):
-    if x["rating_floor"]!=[]:
-        floor_range = x["rating_floor"]
-        floor = floor_range[-1]+1
-        
-        return floor + 0.5
-    else:
-        return 0;
 
+#view for recipe-post
 def recipe(request,recipe_id):
-    logged_in=False
-    username=""
-  
-    if request.user.is_authenticated:
-        logged_in=True
-        username=request.user.username
-    else:
-        logged_in=False
-        
     
+    #check if any user has logged in
+    username,logged_in =check_logged_in(request)
+    #retrieving the recipe details from the database     
     recipe_to_display = Recipe.objects.filter(recipe_id= recipe_id)
     
-    #rating     
+    #checking if the average rating is  a whole number or a decimal
+    #used for displaying ratings in stars in the format    
     decimal = [1]
     if recipe_to_display[0].average_rating == math.floor(recipe_to_display[0].average_rating):
-        #print(recipe.average_rating,math.floor(recipe.average_rating))
         decimal=[]
+    #adding all the recipe attributes to the context dictionary(i.e recipe_)
     recipe_ = {"id": recipe_to_display[0].recipe_id,
                         "name": recipe_to_display[0].recipe_name,
                         "user": recipe_to_display[0].username,
@@ -161,16 +165,21 @@ def recipe(request,recipe_id):
               }
     recipe_["logged_in"]=logged_in
     recipe_["username"]=username
+    
+    #retrieving all the images of the recipe
     images = Image.objects.filter(recipe_id=recipe_id)
     for image in images:
         recipe_["images"].append(image.picture)
-
+    
+    #different steps in descriptions in the database are seperated by a "?", therefore splitting them into a list
     for i in recipe_to_display[0].description.split("?"):
         recipe_["description"].append(i)
 
+    #different ingredients are seperated by "?" in the database, therefore splitting them into a list
     for i in recipe_to_display[0].ingredients.split("?"):
         recipe_["ingredients"].append(i)
         
+    #retrieving all the reviews/comments of the recipe
     reviews = Review.objects.filter(recipe_id = recipe_to_display[0])
     review_list = []
     for r in reviews:
@@ -181,15 +190,19 @@ def recipe(request,recipe_id):
                   "rating_floor":list(range(r.rating))
                 }
         review_list.append(review)
+        #reversing the order so that the latest review comes first
         review_list.reverse()
     recipe_["reviews"] = review_list
 
     return render(request, 'breakingbread/receipe-post.html', context = recipe_)
 
+#method for adding a new comment/review to database
 @login_required
 def review(request, recipe_id):
-    form = ReviewForm()
+    
+    #retrieving the recipe object for which the review has been posted
     recipe_page = Recipe.objects.filter(recipe_id= recipe_id)
+    #retrieving the inputs and inserting the details in the database
     message = request.GET.get('message', None)
     rating = request.GET.get('rating', None)
     review = Review(recipe_id=recipe_page[0], username=request.user, description=message, rating=rating)
@@ -197,24 +210,12 @@ def review(request, recipe_id):
     data = {
         "success" : True,
     }
-
+    #sending response to javascript
     return JsonResponse(data)
-    #reviews =
-    # if request.method == 'POST':
-    #     print("post")       
-    #     description = request.POST.get("message")
-    #     rating = request.POST.get("stars")
-    #     review = Review(recipe_id=recipe_page[0],username=request.user,description=description)
-    #     review.save()
-    #     print(description,rating,request.user,recipe_id)
-    # #return render(request, 'breakingbread/recipe/'+str(recipe_id), {'form': form})
-    #     response = recipe(request,recipe_id)
-    #     return response
-    # else:
-    #     return response
-    
+
+#method to retrieve all cuisine objects and send it to base html    
 def cuisine_list(request):
-    #checking if any user has logged in 
+    
     
     cuisine_list=[];
     #retrieving the cuisine list
@@ -224,19 +225,26 @@ def cuisine_list(request):
     return JsonResponse({"cuisines":cuisine_list})
 
 
-#retrieving search results
+#function to increment the value in last index of rating_floor and retuen the real average rating for recipe for sorting purposes
+#used in search method
+    
+def true_floor(x):
+    if x["rating_floor"]!=[]:
+        floor_range = x["rating_floor"]
+        floor = floor_range[-1]+1
+        
+        return floor + 0.5
+    else:
+        return 0;
+
+
+#view for browse and search results
 def search(request,cuisine="",category="all",level=-1,userid=""):
     cuisine_list = []
-    #retrieving the cuisine list
-    logged_in=False
-    username=""
-  
-    if request.user.is_authenticated:
-        logged_in=True
-        username=request.user.username
-    else:
-        logged_in=False
-        
+    #checking if any user has logged in
+    username,logged_in = check_logged_in(request)
+    
+    # name to be displayed  in the template in case the user has browsed any section  
     display_name = ""
     if cuisine!="":
         display_name = cuisine
@@ -245,12 +253,14 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
     if level!=-1:
         display_name = level
     
-    
+    #retrieving all cuisine objects
     cuisines = Cuisine.objects.all();
     for c in cuisines:
         cuisine_list.append(c.cuisine_type)
+    
     context_dict={}
-       #retrieving the recipes
+    
+    #retrieving the recipes
     recipes=[]
     Recipes = Recipe.objects.all();
     for i in Recipes:
@@ -259,17 +269,20 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
     name="All"
     
     if request.method=="POST":
-        
+        #input given in search bar
         name = request.POST.get("search")
-        
+        #cuisine selected by user
         cuisine=request.POST.get("cuisine")
+        #level selected by user
         level=request.POST.get("Level")
+        #category seleted by user
         category=request.POST.get("category")
     if name!="All" and name!="" and name!="" and name!=None:
+        #if search bar is not empty retrieve the recipes which contains the keyword
         recipes = Recipe.objects.filter(recipe_name__icontains=name)
         
     if cuisine in cuisine_list:
-        print("Cuisine : ",cuisine)
+        #filtering the recipe list based on cuisine
         recipe_temp = []
         for i in recipes:
             print(i.cuisine)
@@ -282,6 +295,7 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
     categories={"Vegetarian":1,"Vegan":2}
     levels={"Beginner":0,"Intermediate":1,"Expert":2}    
     if category in categories.keys():
+        #filtering the recipes based on category/cooking_type
         recipe_temp = []
         for i in recipes:
             if i.cooking_type == categories[category]:
@@ -289,6 +303,7 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
         recipes = recipe_temp.copy()
         
     if level in levels.keys():
+        #filtering the recipes based on level
         recipe_temp = []
         for i in recipes:
             if i.level == levels[level]:
@@ -297,6 +312,7 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
     
            
     if userid!="":
+        #filtering the recipe based on userid
         recipe_temp = []
         u = User.objects.filter(username=userid)
         for j in u:
@@ -310,11 +326,11 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
     recipes_list=[]
     for recipe in recipes:
         #checking if the rating has a decimal part
-        print(recipe)
+        #used for displaying rating in stars
         
         decimal = [1]
         if recipe.average_rating == math.floor(recipe.average_rating):
-            #print(recipe.average_rating,math.floor(recipe.average_rating))
+            
             decimal=[]
         recipe_list={"id":recipe.recipe_id,
                      "name":recipe.recipe_name,
@@ -323,8 +339,8 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
                      "rating_floor":list(range(math.floor(recipe.average_rating))),#to get the number of blank stars in rating
                      "rating_decimal":decimal,
                      "path":"/breakingbread/recipe/"+str(recipe.recipe_id)}
-                     #"slug":recipe.slug}
-        #print(decimal)
+                     
+        
         #retrieving the first image of each recipe
         images = Image.objects.filter(recipe_id=recipe.recipe_id)
         for image in images:
@@ -361,9 +377,11 @@ def user_details(request) :
     context_dict= {}
     updateSuccess = False
     current_profile = []
-    
+    # check if logged in user has an entry in UserProfile table
+    # users logged in through google would have an entry only in User model and not UserProfile model
     try:
        current_profile = UserProfile.objects.get(user=request.user)
+     #insert a new entry in UserProfile, in case the user does not have one
     except UserProfile.DoesNotExist:
         new_profile = { 'user': request.user,
                 'usertype': 0,
@@ -377,7 +395,7 @@ def user_details(request) :
         user.save()
         current_profile = UserProfile.objects.get(user=request.user)
 
-
+    #updating the userprofile details in the database 
     if request.method=="POST":
         request.user.first_name = request.POST.get('firstname')
         request.user.last_name  = request.POST.get('lastname')
@@ -385,22 +403,23 @@ def user_details(request) :
         address = request.POST.get('address')
         if 'picture' in request.FILES:
             current_profile.picture = request.FILES['picture']
-            # UserProfile.objects.filter(user=request.user).update(picture=request.FILES['picture'])
+            
 
         current_profile.address = address
         request.user.save()
         current_profile.save()
         updateSuccess = True
-            # profile.picture = request.FILES['picture']
-        # context_dict{"updateSuccess" : updateSuccess}
+            
 
     context_dict = {"profile" : current_profile, "updateSuccess" : updateSuccess}
-    #  context_dict={"user":current_user.username}
+    
     return render(request, 'breakingbread/user-details.html',context=context_dict)
 
+#view for uploading new recipe
 @login_required
 def upload_recipe(request) :
     # for images
+    
     if request.method == "POST":
         images = []
         recipe = Recipe.objects.get(recipe_id=request.POST.get('recipeId'))
@@ -415,9 +434,9 @@ def upload_recipe(request) :
                 image.save()
                 images.append(image)
 
-        # print('num', request.POST.get('number'))
+        
         data = {
-            # "images": images,
+            
             "success" : True,
         }
         return JsonResponse(data)
@@ -453,8 +472,9 @@ def upload_recipe(request) :
 
         return JsonResponse(data)
 
-
+#about page
 def about(request):
+    #retrieving the different types of recipes
     nb_burger_recipes = Recipe.objects.filter(recipe_name__icontains="burger").count()
     nb_all_recipes = Recipe.objects.all().count()
     nb_meat_recipes = Recipe.objects.filter(cooking_type = "0").count()
@@ -462,7 +482,7 @@ def about(request):
     context_dict = {"nb_burgers" : nb_burger_recipes, "nb_recipes" : nb_all_recipes, "nb_meats":nb_meat_recipes, "nb_vegans":nb_vegan_recipes, "nav_tab":"about"}
     return render(request, 'breakingbread/about.html', context = context_dict)
 
-
+#delete recipe
 def delete_recipe(request, recipe_id):
     recipe = Recipe.objects.get(recipe_id=recipe_id)  # Get your current recipe
 

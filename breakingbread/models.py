@@ -45,7 +45,7 @@ class Recipe(models.Model):
             self.cooking_type = 0
         super(Recipe, self).save(*args, **kwargs)
        
-
+    #calculating average rating ofthe recipes based on the reviews
     @property
     def average_rating(self):
         total = 0
@@ -53,7 +53,7 @@ class Recipe(models.Model):
         reviews = Review.objects.filter(recipe_id=self.recipe_id)
         for r in reviews:
             total+=r.rating
-        #self.average_rating=total/count
+        
         
         if count!=0:
             rating = total/count
