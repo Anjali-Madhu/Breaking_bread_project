@@ -131,7 +131,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="contact-form-area">
-                                    <!-- <form id="review_form" method="post" action="{% url 'breakingbread:reviews' recipe_id=id %}"> -->
+                                    
                                     <div class="row">
                                         <div class="col-12">
                                             {% csrf_token %}
@@ -229,10 +229,13 @@
         </div>
 
         <!--## Delete Recipe ##-->
+        <h6></h6>
+        {% if username == user  %}
         <form action="{% url 'breakingbread:delete_recipe' id %}" method="post">
             {% csrf_token %}
-            <input type="submit" value="Delete recipe">
+            <input class="btn delicious-btn mt-30" type="submit" value="Delete recipe"></input>
         </form>
+        {% endif %}
 
         <!-- ##### Follow Us Instagram Area Start ##### -->
         <div class="follow-us-instagram">

@@ -150,7 +150,7 @@ def recipe(request,recipe_id):
     #adding all the recipe attributes to the context dictionary(i.e recipe_)
     recipe_ = {"id": recipe_to_display[0].recipe_id,
                         "name": recipe_to_display[0].recipe_name,
-                        "user": recipe_to_display[0].username,
+                        "user": recipe_to_display[0].username.username,
                          "time_taken": recipe_to_display[0].time_taken,
                          "level": recipe_to_display[0].level,
                          "ingredients": [],
@@ -247,16 +247,16 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
     # name to be displayed  in the template in case the user has browsed any section  
     display_name = ""
     if cuisine!="":
-        display_name = cuisine
+        display_name = cuisine.title()
     if category!="all":
-        display_name = category
+        display_name = category.title()
     if level!=-1:
-        display_name = level
+        display_name = level.title()
     
     #retrieving all cuisine objects
     cuisines = Cuisine.objects.all();
     for c in cuisines:
-        cuisine_list.append(c.cuisine_type)
+        cuisine_list.append(c.cuisine_type.lower())
     
     context_dict={}
     
@@ -281,19 +281,19 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
         #if search bar is not empty retrieve the recipes which contains the keyword
         recipes = Recipe.objects.filter(recipe_name__icontains=name)
         
-    if cuisine in cuisine_list:
+    if cuisine.lower() in cuisine_list:
         #filtering the recipe list based on cuisine
         recipe_temp = []
         for i in recipes:
             print(i.cuisine)
-            c = Cuisine.objects.filter(cuisine_type=cuisine)
+            c = Cuisine.objects.filter(cuisine_type__iexact=cuisine)
             if i.cuisine == c[0]:
                 recipe_temp.append(i)
         recipes = recipe_temp.copy()
     
     
-    categories={"Vegetarian":1,"Vegan":2}
-    levels={"Beginner":0,"Intermediate":1,"Expert":2}    
+    categories={"vegetarian":1,"vegan":2}
+    levels={"beginner":0,"intermediate":1,"expert":2}    
     if category in categories.keys():
         #filtering the recipes based on category/cooking_type
         recipe_temp = []
@@ -351,7 +351,7 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
     #sort the list based on rating
     recipes_list.sort(key=lambda x:true_floor(x),reverse=True)   
     context_dict["recipes"]=recipes_list
-    context_dict["cuisines"]= cuisine_list
+    context_dict["cuisines"]= [i.title() for i in cuisine_list ]
     
     if name==None:
         name="All"
@@ -452,6 +452,7 @@ def upload_recipe(request) :
         ingredients = request.GET.get('ingredients', None)
         # category = request.GET.get('category', None)
         desc = request.GET.get('desc', None)
+        print(cuisine)
         recipe = Recipe(
             recipe_name = recipeName,
             username =  request.user,
@@ -459,7 +460,8 @@ def upload_recipe(request) :
             level = int(level),
             ingredients = ingredients,
             cooking_type = int(cooking_type),
-            cuisine = Cuisine.objects.get(cuisine_type=cuisine),
+            
+            cuisine = Cuisine.objects.filter(cuisine_type=cuisine)[0],
             description = desc,
             created = datetime.datetime.now()
         )
@@ -474,7 +476,7 @@ def upload_recipe(request) :
 
 #about page
 def about(request):
-    #retrieving the different types of recipes
+    #retrieving the different types of recipes' count
     nb_burger_recipes = Recipe.objects.filter(recipe_name__icontains="burger").count()
     nb_all_recipes = Recipe.objects.all().count()
     nb_meat_recipes = Recipe.objects.filter(cooking_type = "0").count()
