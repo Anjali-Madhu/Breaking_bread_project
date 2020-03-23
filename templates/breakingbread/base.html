@@ -1,7 +1,10 @@
 ﻿<!DOCTYPE html>
 {% load staticfiles %}
 <html lang="en">
-
+<!-- This HTML page is being reused by all other templates to display the common sections such as the navigation tabs, social
+ media handles, and the Breaking Bread logo. In the Browse tab, the JavaScript code below is used to display all cuisines, categories,
+ and levels of expertise to give the user the option to select a preference.
+ -->
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="">
@@ -59,7 +62,9 @@
 </head>
 
 <body>
-
+<!-- In case the user logs in, their username is displayed at the top left corner of the screen,
+ otherwise, it is "Hello YOU!"
+ -->
     <!-- Preloader -->
     <div id="preloader">
         <i class="circle-preloader"></i>

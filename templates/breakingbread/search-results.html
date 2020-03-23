@@ -6,7 +6,8 @@
 
     <div class="receipe-post-area section-padding-80">
 
-        <!-- Receipe Post Search -->
+        <!-- Receipe Post Search: the search term(s) inserted in the search bar is compared to the existing recipes in the database
+         using a for loop and an if statement. The same approach is followed for the selected cuisine, category, and level-->
         <div class="receipe-post-search mb-80">
             <div class="container">
                 <form action="{% url 'breakingbread:search' %}"+ method="post">
@@ -81,6 +82,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
+                    <!-- Handling a special case where if the user selects "All" as their cuisine, the output displayed would be "All recipes" and not "All All recipes" -->
                     {% if name == 'All' and user == 0  and display_name == "" or display_name == "All" %}
                     <div class="section-heading">
                         <h3>All Recipes</h3>
@@ -111,11 +113,12 @@
             {% for recipe in recipes %}
 
             
-                <!-- Single Best Receipe Area -->
+                <!-- Single Best Recipe Area -->
                 <div class="col-12 col-sm-6 col-lg-4">
                     <div class="single-best-receipe-area mb-30" >
                         <img src="{{ MEDIA_URL }}{{ recipe.image }}" style="height:250px; width:350px; object-fit:cover;" alt="" >
                         <div class="receipe-content" style="">
+                            <!-- redirecting to the receipe-post.html with the requested recipe_id -->
                             <a href="{{ recipe.path }}">
                                 <h5>{{ recipe.name }}</h5>
                             </a>

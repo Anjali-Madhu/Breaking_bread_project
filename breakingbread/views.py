@@ -90,11 +90,16 @@ def user_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        next = request.POST.get('next', None)
+        print('nextt', next)
         user = authenticate(username=username, password=password)
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect(reverse('breakingbread:index'))
+                if next is not None :
+                   return HttpResponseRedirect(next)
+                else :
+                    return redirect(reverse('breakingbread:index'))
             else:
                 print('error')
                 return render(request, 'breakingbread/login.html',context={"error":"Your account has been disabled"})

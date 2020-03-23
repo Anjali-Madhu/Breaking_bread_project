@@ -4,6 +4,9 @@
 {% block body_block %}
 {% load socialaccount %}
 
+<!-- Login page gives the user the ability to login using their registered credentials, login using Google, or sign up if they do not have an account.
+ Clicking on the sign up hyperlink redirects them to the registration page, while clicking on the Login with Google hyperlink takes them to the official Google
+ login page. -->
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -65,6 +68,7 @@
                 <div class="form-left">
                     <img src="{% static 'images/BB_logo.png' %}" class="w3-round" alt="form">
                 </div>
+                <!-- If the user is logged in successfully, the following message is displayed, otherwise, they are asked to type their username and password-->
                 {% if logged_in %}
                 <strong style="color:gray;">Thank you for registering!</strong>
                 {% else %}
@@ -75,6 +79,13 @@
                         {{error}}
                     </div>
                     {% endif %}
+
+                    {% if request.GET.next %}
+                        <div style="display: none;">
+                            <input type="hidden" name="next" value="{{request.GET.next}}"/>
+                        </div>
+                    {% endif %}
+                    
                     <p><label for="username">Username:</label></p>
                     <input type="text" name="username" value="" size="50" />
 
@@ -86,7 +97,6 @@
                     </div>
                     <h5 style="display:inline">Don't have an account?</h5>
                     <a href="{% url 'breakingbread:register' %}" style="text-decoration:underline;"> Sign Up Here</a>
-
                     <hr>
                     <a href="{% provider_login_url 'google' %} " style="text-decoration:underline;">Login with Google</a>
                 </form>
