@@ -183,7 +183,8 @@ def recipe(request,recipe_id):
     reviews = Review.objects.filter(recipe_id = recipe_to_display[0])
     review_list = []
     for r in reviews:
-        review = {"description":r.description,
+        review = {"id":r.review_id,
+                  "description":r.description,
                   "created":r.created,
                   "username":r.username,
                   "rating_ceil":list(range(5-r.rating)),
@@ -494,4 +495,19 @@ def delete_recipe(request, recipe_id):
 
     return render(request, '/')
     # If method is not POST, render the default template.
+    
+#report recipe or comment
+@login_required(login_url=None,redirect_field_name='next')
+def report(request,type,id):
+    #retrieving the inputs from the template
+    message = request.GET.get("message",None)
+    print(message)
+    report = Report(post_type=int(type), post_id=int(id),username=request.user, description=str(message))
+    report.save()
+    data = {
+        "success" : True,
+    }
+    #sending response to javascript
+    return JsonResponse(data)
+    
    

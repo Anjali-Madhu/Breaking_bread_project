@@ -2,8 +2,9 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.utils.timezone import now
+import django
 import math
-
+import datetime
 
 #User table
 class UserProfile(models.Model):
@@ -108,10 +109,10 @@ class Report(models.Model):
     modified = models.DateTimeField()
     
     def save(self, *args,**kwargs):
-        self.modified = now
+        self.modified = str(datetime.datetime.now())
         super(Report,self).save(*args,**kwargs)
     def __str__(self):
-        return self.review_id
+        return 'Reported {} by {}'.format(self.description, self.username)
     
 
     

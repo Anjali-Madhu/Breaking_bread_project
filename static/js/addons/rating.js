@@ -78,3 +78,15 @@ function addReview(recipeId) {
       }
 });
 }
+
+var postType;
+var postId;
+//open report popup
+function openForm(type,id) {
+  
+  postType = type;
+  postId = id;
+  document.getElementById("reportForm").style.display = "block";
+  
+}
+

@@ -21,4 +21,5 @@ path('uploadrecipe/', views.upload_recipe, name='upload_recipe'),
 path('about/', views.about, name='about'),
 path('reviews/<int:recipe_id>/', views.review, name='reviews'),
 path('delete/<int:recipe_id>/', views.delete_recipe, name='delete_recipe'),
+path('report/<int:type>/<int:id>/',views.report,name='report')
 ]

@@ -8,6 +8,120 @@
  of the recipe. If the user is not logged in and presses the "Post Comment" button, they are redirected to the login page, where they can login or
  sign up and then leave a comment on the recipe.
  -->
+ 
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  width: 500px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the post button */
+.form-container .btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+/* changing the cursor when it is on the report button */
+.report{
+    
+    cursor:pointer;
+}
+</style>
+<script>
+var postType;
+var postId;
+//open report popup
+function openForm(type,id) {
+  
+  postType = type;
+  postId = id;
+  document.getElementById("reportForm").style.display = "block";
+  
+}
+// close report popup
+function closeForm() {
+  document.getElementById("reportForm").style.display = "none";
+}
+//send report details to view.py
+function addReport() {
+  
+  var message =  $('#report-message').val();
+  console.log(message);
+  if(message == "" || message == " "){
+  div = document.getElementById("form-container");
+  strong = document.createElement("strong");
+  strong.innerHTML="Cannot submit report without a message";
+  strong.style.color = "red";
+  div.appendChild(strong)
+  console.log("in report");
+  }
+  //  call report url in django
+  else{
+  
+   $.ajax({
+    url: '/breakingbread/report/' + postType+'/'+postId+'/',
+    data: {
+        'message' : message,
+        
+    },
+    dataType: 'json',
+    success: function (data) {
+        if(data.success) {
+          location.reload();
+        }
+
+      }
+});
+}
+}
+</script>
+
+
 <div class="top-header-area">
     <div class="container h-100">
         <div class="row h-100 align-items-center justify-content-between">
@@ -60,8 +174,12 @@
                                     </div>
                                 </div>
                             </div>
+                                 
                             <div class="col-12 col-md-4">
                                 <div class="recipe-ratings text-right my-5">
+                                <!--report recipe-->
+                            <a class = "report" onclick="openForm(0,{{ id }})" style="color:red" >Report Recipe</a>
+                            
                                     <div class="ratings">
                                         {% if rating_floor %}
                                         {% for item in rating_floor %}
@@ -85,13 +203,15 @@
                                     {% else %}
                                     <a href="#" class="btn delicious-btn">For Experts</a>
                                     {% endif %}
+                                   
 
                                 </div>
+                                
                             </div>
 
-
+                            
                         </div>
-
+                        
                         <div class="row">
                             <div class="col-12 col-lg-8">
                                 {% for i in description %}
@@ -180,6 +300,7 @@
                                 </div>
                             </div>
                         </div>
+                        {% if reviews %}
                         <div class="row">
                             <div class="col-12">
                                 <div class="section-heading text-left">
@@ -187,7 +308,7 @@
                                 </div>
                             </div>
                         </div>
-                        {% if reviews %}
+                        
                         {% for review in reviews %}
                         <div class="section-heading text-left">
                             <div class="row">
@@ -216,9 +337,21 @@
                                             {% endif %}
                                         </div>
                                         <h6>By {{ review.username }}</h6><h6> posted on {{ review.created }}</h6>
+                                        <!--report comment-->
+                                        <a class="report" style="color:red" onClick="openForm(1,{{review.id}})">Report Comment</a>
+                                    
                                     </div>
                                     {% endfor %}
+                                    {% else %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="section-heading text-left">
+                                                <strong>This recipe does not have any comments</strong>
+                                            </div>
+                                        </div>
+                                    </div>
                                     {% endif %}
+                                   
                                 </div>
                             </div>
                         </div>
@@ -229,13 +362,26 @@
         </div>
 
         <!--## Delete Recipe ##-->
-        <h6></h6>
+        
         {% if username == user  %}
         <form action="{% url 'breakingbread:delete_recipe' id %}" method="post">
             {% csrf_token %}
             <input class="btn delicious-btn mt-30" type="submit" value="Delete recipe"></input>
         </form>
         {% endif %}
+        
+<!--report form-->        
+<div class="form-popup" id="reportForm">
+  <div  class="form-container" id="form-container">
+    <h2>Report</h2>
+
+    <textarea name="report-message" class="form-control" id="report-message" cols="30" rows="10" placeholder="Message"></textarea>
+    <br />
+    <button type="button" class="btn" onclick="addReport()">Post</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+  </div>
+</div>
+       
 
         <!-- ##### Follow Us Instagram Area Start ##### -->
         <div class="follow-us-instagram">
