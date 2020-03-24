@@ -108,6 +108,8 @@ def user_login(request):
         #if method is POST, retrieving the username and password
         username = request.POST.get('username')
         password = request.POST.get('password')
+        #if the user did not login and try to post comments and ratings
+        #redirect to login and if valid login redirect to the previous page(next)
         next = request.POST.get('next', None)
         user = authenticate(username=username, password=password)
         if user:
@@ -419,8 +421,8 @@ def user_details(request) :
 #view for uploading new recipe
 @login_required
 def upload_recipe(request) :
-    # for images
-    
+    # upload images for the created recipe 
+    # POST required to upload images
     if request.method == "POST":
         images = []
         recipe = Recipe.objects.get(recipe_id=request.POST.get('recipeId'))
@@ -444,7 +446,7 @@ def upload_recipe(request) :
         print('request.FILES', request.FILES)
 
     else :
-        #get the fields
+        #get the fields and create new recipe
         recipeName = request.GET.get('recipeName', None)
         cuisine = request.GET.get('cuisine', None)
         time_taken = request.GET.get('time_taken', None)
