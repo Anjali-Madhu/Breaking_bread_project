@@ -115,9 +115,9 @@ class Report(models.Model):
     
     def __str__(self):
         if self.review_id is not None:
-            return 'Reported {} against recipe {} by {}'.format(self.description,self.review_id.description, self.username)
+            return '{} reported {} against comment {} '.format( self.username,self.description,self.review_id.description)
         else:
-            return 'Reported {} against comment {} by {}'.format(self.description,self.recipe_id.recipe_name, self.username)
+            return '{} reported {} against recipe {}'.format( self.username,self.description,self.recipe_id.recipe_name)
     
 
     

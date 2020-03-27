@@ -16,9 +16,9 @@ body {font-family: Arial, Helvetica, sans-serif;}
 /* The popup form - hidden by default */
 .form-popup {
   display: none;
-  position: fixed;
-  bottom: 0;
-  right: 15px;
+  position:fixed;
+  top:30%;
+  left:30%;
   border: 3px solid #f1f1f1;
   z-index: 9;
 }
@@ -72,55 +72,15 @@ body {font-family: Arial, Helvetica, sans-serif;}
     cursor:pointer;
 }
 </style>
-<script>
-var postType;
-var postId;
-//open report popup
-function openForm(type,id) {
-  
-  postType = type;
-  postId = id;
-  document.getElementById("reportForm").style.display = "block";
-  
-}
-// close report popup
-function closeForm() {
-  document.getElementById("reportForm").style.display = "none";
-}
-//send report details to view.py
-function addReport() {
-  
-  var message =  $('#report-message').val();
-  console.log(message);
-  if(message == "" || message == " "){
-  div = document.getElementById("form-container");
-  strong = document.createElement("strong");
-  strong.innerHTML="Cannot submit report without a message";
-  strong.style.color = "red";
-  div.appendChild(strong)
-  console.log("in report");
-  }
-  //  call report url in django
-  else{
-  
-   $.ajax({
-    url: '/breakingbread/report/' + postType+'/'+postId+'/',
-    data: {
-        'message' : message,
-        
-    },
-    dataType: 'json',
-    success: function (data) {
-        if(data.success) {
-          location.reload();
-        }
 
-      }
-});
-}
+<script>
+function check_report(){
+    var report = "{{report}}";
+    if(report=="True"){
+        alert("Success");
+    }
 }
 </script>
-
 
 <div class="top-header-area">
     <div class="container h-100">
@@ -179,6 +139,7 @@ function addReport() {
                                 <div class="recipe-ratings text-right my-5">
                                 <!--report recipe-->
                             <a class = "report" onclick="openForm(0,{{ id }})" style="color:red" >Report Recipe</a>
+                                
                             
                                     <div class="ratings">
                                         {% if rating_floor %}
@@ -338,7 +299,18 @@ function addReport() {
                                         </div>
                                         <h6>By {{ review.username }}</h6><h6> posted on {{ review.created }}</h6>
                                         <!--report comment-->
-                                        <a class="report" style="color:red" onClick="openForm(1,{{review.id}})">Report Comment</a>
+                                        <a class="report" style="color:red" onClick="openForm(1,{{ review.id }})">Report Comment</a>
+                                        <div class="form-popup" id="reportForm2">
+                                          <form  class="form-container" id="form-container2" method="POST" action="{% url 'breakingbread:report' 1 review.id %}">
+                                          {% csrf_token %}
+                                          <h2>Report Comment</h2>
+
+                                          <textarea name="report-message" class="form-control" id="report-message" cols="30" rows="10" placeholder="Message"></textarea>
+                                          <br />
+                                          <button type="submit" class="btn" >Post</button>
+                                          <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+                                          </form>
+                                    </div>
                                     
                                     </div>
                                     {% endfor %}
@@ -370,17 +342,18 @@ function addReport() {
         </form>
         {% endif %}
         
-<!--report form-->        
-<div class="form-popup" id="reportForm">
-  <div  class="form-container" id="form-container">
-    <h2>Report</h2>
+        <!--report form for recipe-->        
+        <div class="form-popup" id="reportForm">
+          <form  class="form-container" id="form-container" method="POST" action="{% url 'breakingbread:report' 0 id %}">
+           {% csrf_token %}
+            <h2>Report Recipe</h2>
 
-    <textarea name="report-message" class="form-control" id="report-message" cols="30" rows="10" placeholder="Message"></textarea>
-    <br />
-    <button type="button" class="btn" onclick="addReport()">Post</button>
-    <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
-  </div>
-</div>
+            <textarea name="report-message" class="form-control" id="report-message" cols="30" rows="10" placeholder="Message"></textarea>
+            <br />
+            <button type="submit" class="btn"  >Post</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+          </form>
+        </div>
        
 
         <!-- ##### Follow Us Instagram Area Start ##### -->

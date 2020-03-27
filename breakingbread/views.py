@@ -13,6 +13,8 @@ import math
 
 # Create your views here.
 
+
+
 #method to check if any user has logged in 
 def check_logged_in(request):
     logged_in=False
@@ -137,7 +139,8 @@ def user_logout(request):
 
 
 #view for recipe-post
-def recipe(request,recipe_id):
+def recipe(request,recipe_id,get_report=False):
+    print(get_report)
     
     #check if any user has logged in
     username,logged_in =check_logged_in(request)
@@ -196,7 +199,9 @@ def recipe(request,recipe_id):
         #reversing the order so that the latest review comes first
         review_list.reverse()
     recipe_["reviews"] = review_list
-
+    
+    recipe_["report"]=get_report
+    
     return render(request, 'breakingbread/receipe-post.html', context = recipe_)
 
 #method for adding a new comment/review to database
@@ -499,23 +504,28 @@ def delete_recipe(request, recipe_id):
     # If method is not POST, render the default template.
     
 #report recipe or comment
+@login_required
 def report(request,type,id):
     #retrieving the inputs from the template
-    
-    message = request.POST.get("report-message")
-    print(message)
-    if int(type) == 0:
-        recipe=Recipe.objects.filter(recipe_id=id)
-        report = Report(post_type=int(type),recipe_id=recipe[0] ,username=request.user, description=str(message))
-    else:
-        review=Review.objects.filter(review_id=id)
-        report = Report(post_type=int(type),review_id=recipe[0] ,username=request.user, description=str(message))
+    if request.method=='POST':
+        message = request.POST.get("report-message")
+        print(message)
+        if int(type) == 0:
+            recipes=Recipe.objects.filter(recipe_id=id)
+            report = Report(post_type=int(type),recipe_id=recipes[0] ,username=request.user, description=str(message))
+            
+        else:
+            review=Review.objects.filter(review_id=id)
+            report = Report(post_type=int(type),review_id=review[0] ,username=request.user, description=str(message))
         
-    report.save()
-    data = {
+        report.save()
+        data = {
         "success" : True,
-    }
+        }
     #sending response to javascript
-    return JsonResponse(data)
+        
+    return JsonResponse(data) 
+    
+    
     
    

@@ -1,7 +1,11 @@
 var ratingValue;
+var postType = -99;
+var postId = -99;
 
 $(document).ready(function(){
   /* 1. Visualizing things on Hover - See next part for action on click */
+  
+  
   $('#stars li').on('mouseover', function(){
     var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
    
@@ -51,6 +55,7 @@ $(document).ready(function(){
     
   });
   
+      
   
 });
 
@@ -79,14 +84,27 @@ function addReview(recipeId) {
 });
 }
 //Report section
-var postType;
-var postId;
+
 //open report popup
-function openForm(type,id) {
+function openForm(type,id){
   
   postType = type;
   postId = id;
-  document.getElementById("reportForm").style.display = "block";
+  if(postType==0)
+      {document.getElementById("reportForm").style.display = "block";}
+  else
+      {document.getElementById("reportForm2").style.display = "block";}
+}
+
+// close report popup
+function closeForm() {
+    if(postType==0)
+      {document.getElementById("reportForm").style.display = "none";}
+  else
+      {document.getElementById("reportForm2").style.display = "none";}
   
 }
+
+
+
 
