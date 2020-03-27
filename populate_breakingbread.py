@@ -39,12 +39,12 @@ def populate():
         { 'user': selected_users[0],
          'usertype': 0,
          'address': '61 Kelvinhaugh Street',
-         'picture': 'populate_profile_images/profile1.jpg'
+         'picture': 'populate_profile_images/profile2.jpg'
          },
          { 'user': selected_users[1],
          'usertype': 1,
          'address': '11 Buchanan Street',
-         'picture': 'populate_profile_images/profile2.jpg'
+         'picture': 'populate_profile_images/profile1.jpg'
          }
         ]
 
