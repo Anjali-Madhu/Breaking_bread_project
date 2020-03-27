@@ -20,6 +20,7 @@ def populate():
     User.objects.filter(~Q(username="admin")).delete()
     UserProfile.objects.all().delete()
     Review.objects.all().delete()
+    Report.objects.all().delete()
 
     # Create users
     Users = [ {'username': 'JohnDoe', 'password':'JohnDoe123', 'first_name': 'John', 'last_name': 'Doe'},
@@ -224,7 +225,8 @@ def add_review(rev):
     return review
 
 def add_users(u):
-    user = User.objects.get_or_create(username = u['username'], password = u['password'])[0]
+    user = User.objects.get_or_create(username = u['username'])[0]
+    user.set_password(u['password'])
     user.first_name = u['first_name']
     user.last_name = u['last_name']
     user.save()

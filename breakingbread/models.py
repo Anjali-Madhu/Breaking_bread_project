@@ -94,12 +94,13 @@ class Review(models.Model):
         return 'Comment {} by {}'.format(self.description, self.username)
     
 #Reports table
+
 class Report(models.Model):
     report_id=models.AutoField(primary_key=True)
     #posttype = 0 for recipe , 1 for review
     post_type=models.IntegerField()
-    #if post type = 0 post_id = recipe_id elsepost_id = review_id
-    post_id=models.IntegerField()
+    review_id=models.ForeignKey(Review,on_delete=models.SET_NULL,null=True)
+    recipe_id=models.ForeignKey(Recipe,on_delete=models.SET_NULL,null=True)
     username=models.ForeignKey(User,on_delete=models.CASCADE)
     description = models.TextField(max_length=500)
     #False = assigned, True=resolved
@@ -111,8 +112,12 @@ class Report(models.Model):
     def save(self, *args,**kwargs):
         self.modified = str(datetime.datetime.now())
         super(Report,self).save(*args,**kwargs)
+    
     def __str__(self):
-        return 'Reported {} by {}'.format(self.description, self.username)
+        if self.review_id is not None:
+            return 'Reported {} against recipe {} by {}'.format(self.description,self.review_id.description, self.username)
+        else:
+            return 'Reported {} against comment {} by {}'.format(self.description,self.recipe_id.recipe_name, self.username)
     
 
     

@@ -78,7 +78,7 @@ function addReview(recipeId) {
       }
 });
 }
-
+//Report section
 var postType;
 var postId;
 //open report popup

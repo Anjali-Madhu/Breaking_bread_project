@@ -499,12 +499,18 @@ def delete_recipe(request, recipe_id):
     # If method is not POST, render the default template.
     
 #report recipe or comment
-@login_required(login_url=None,redirect_field_name='next')
 def report(request,type,id):
     #retrieving the inputs from the template
-    message = request.GET.get("message",None)
+    
+    message = request.POST.get("report-message")
     print(message)
-    report = Report(post_type=int(type), post_id=int(id),username=request.user, description=str(message))
+    if int(type) == 0:
+        recipe=Recipe.objects.filter(recipe_id=id)
+        report = Report(post_type=int(type),recipe_id=recipe[0] ,username=request.user, description=str(message))
+    else:
+        review=Review.objects.filter(review_id=id)
+        report = Report(post_type=int(type),review_id=recipe[0] ,username=request.user, description=str(message))
+        
     report.save()
     data = {
         "success" : True,
