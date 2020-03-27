@@ -25,13 +25,14 @@ def populate():
     # Create users
     Users = [ {'username': 'JohnDoe', 'password':'JohnDoe123', 'first_name': 'John', 'last_name': 'Doe'},
              {'username': 'EmmaWatson', 'password':'EmmaWatson123', 'first_name': 'Emma', 'last_name': 'Watson'},
+             {'username': 'janedoe', 'password':'j@nedoe666', 'first_name': 'Jane', 'last_name': 'Doe'},
              ]
 
     # Add users to db
     for u in Users:
         add_users(u)
     all_users = User.objects.all()
-    selected_users = User.objects.filter( Q(username = "JohnDoe") | Q(username = "EmmaWatson") ) # get only the users that we want to use
+    selected_users = User.objects.filter( Q(username = "JohnDoe") | Q(username = "EmmaWatson")|Q(username="janedoe" ) )# get only the users that we want to use
 
     # Create users profile
     UsersProfile = [
@@ -210,10 +211,23 @@ def populate():
               'rating': 5, 'description': 'very tasty',   'date': '12/03/2020'},
                {'review_id': 4, 'recipe_id': all_recipes[3], 'username': selected_users[1],
               'rating': 2, 'description': 'interesting taste',   'date': '12/03/2020'},
-               ]
+               {'review_id': 5, 'recipe_id': all_recipes[4], 'username': selected_users[1],
+              'rating': 2, 'description': 'not very tasty',   'date': '12/03/2020'},
+                {'review_id': 6, 'recipe_id': all_recipes[5], 'username': selected_users[1],
+              'rating': 3, 'description': 'a very bland dish',   'date': '12/03/2020'}]
     # Add reviews to db
     for rev in Reviews:
         add_review(rev)
+    all_reviews = Review.objects.all()
+        
+    #Define reports
+    Reports = [{'report_id': 1, 'post_type': 0, 'recipe_id': all_recipes[1],
+              'username': selected_users[2], 'description': 'copied from another website'},
+               {'report_id': 2, 'post_type':1, 'review_id':all_reviews[4], 'username': selected_users[2],
+              'description': 'the comment was very offensive'},
+              ]
+    for report in Reports:
+        add_report(report)
 
 # HELPER METHODS 
 def add_review(rev):
@@ -259,6 +273,14 @@ def add_image(image_id, picture, recipe_id):
     img.picture = picture
     img.save()
     return img
+def add_report(rep):
+    report = Report.objects.get_or_create(report_id=rep["report_id"],post_type=rep["post_type"],username=rep["username"],description=rep["description"])[0]
+    if rep["post_type"] == 0:
+        report.recipe_id = rep["recipe_id"]
+    else:
+        report.review_id = rep["review_id"]
+    report.save()
+    return report
 
 # Calling the script
 if __name__=='__main__':
