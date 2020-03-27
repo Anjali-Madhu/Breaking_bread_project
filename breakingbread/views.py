@@ -10,6 +10,7 @@ from django.utils.decorators import method_decorator
 import datetime
 import json
 import math
+from django.db.models import Q
 
 # Create your views here.
 
@@ -420,6 +421,8 @@ def user_details(request) :
             
 
     context_dict = {"profile" : current_profile, "updateSuccess" : updateSuccess}
+    context_dict["report_by_me"], context_dict["report_against_me"] = my_reports(request)
+    print("context : ",context_dict["report_by_me"])
     
     return render(request, 'breakingbread/user-details.html',context=context_dict)
 
@@ -526,6 +529,27 @@ def report(request,type,id):
         
     return JsonResponse(data) 
     
+
+#view to generate the reports of user
+
+def my_reports(request):
+    reports_by_me = []
+    reports_against_me = []
+    reports = Report.objects.all()
     
+    for report in reports:
+        print(report.username,request.user)
+        if report.username == request.user:
+            
+            reports_by_me.append(report)
+        elif report.recipe_id is not None and report.recipe_id.username == request.user:
+            
+            reports_against_me.append(report)
+        elif report.review_id is not None and report.review_id.username == request.user:
+            reports_against_me.append(report)
+    reports_by_me.reverse()
+    reports_against_me.reverse()
+    return(reports_by_me,reports_against_me)
+            
     
    

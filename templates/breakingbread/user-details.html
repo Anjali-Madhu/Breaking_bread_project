@@ -158,6 +158,7 @@
                     </div>
                     <ul class="nav nav-tabs">
                       <li class="nav-item"><a href="" class="active nav-link" id="formTitle">Personal Details</a></li>
+                      
                     </ul>
                     <!-- My Info-->
                     <div class="tab-content pt-3 info myDetails">
@@ -335,50 +336,198 @@
                   <div class="tab-content pt-3 info myreports" style="display: none;">
                     <div class="tab-pane active">
                       <form class="form" novalidate="">
+                      {% if report_by_me %}
+                      {% for r in report_by_me %}
                         <div class="row">
+                        
+                        
                           <div class="col">
                             <div class="row">
                               <div class="col">
                                 <div class="form-group">
-                                  <label>Report</label>
-                                  <input class="form-control" type="text" name="name" placeholder="John Smith" value="John Smith">
+                                  <label>Report ID : {{ r.report_id }}</label>
+                                  
                                 </div>
                               </div>
-                              <div class="col">
-                                <div class="form-group">
-                                  <label>Username</label>
-                                  <input class="form-control" type="text" name="username" placeholder="johnny.s" value="johnny.s">
-                                </div>
-                              </div>
+                              
+                              
+                            
+                              
+                            
+                        
+                          <div class="col">
+                          <div class="form-group">
+                          {% if r.post_type == 0 %} 
+                            <label>Post type : Recipe</label>
+                        {% else %}
+                            <label>Post type : Comment</label>
+                            {% endif %}
+                        </div>
+                          </div>
+                         </div>
+                        
+                        <div class="row">
+                          <div class="col">
+                          <div class="form-group">
+                             {% if r.post_type == 0 %} 
+                            <label>Recipe : {{ r.recipe_id }}</label>
+                        {% else %}
+                            <label>Comment : {{ r.review_id }}</label>
+                            {% endif %}
                             </div>
-                            <div class="row">
-                              <div class="col">
-                                <div class="form-group">
-                                  <label>Email</label>
-                                  <input class="form-control" type="text" placeholder="user@example.com">
-                                </div>
-                              </div>
-                            </div>
+                          </div>
+                        </div>
                             <div class="row">
                               <div class="col mb-3">
                                 <div class="form-group">
-                                  <label>About</label>
-                                  <textarea class="form-control" rows="5" placeholder="My Bio"></textarea>
+                                  <label>Description : </label>
+                                  <p class="form-control" rows="5" placeholder="My Bio">{{ r.description }}</p>
                                 </div>
                               </div>
                             </div>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group">
+                                {% if r.status %}
+                                  <label>Status : Under review</label>
+                                 {% else %} 
+                                 <label>Status : Closed</label>
+                                 {% endif %}
+                                </div>
+                              </div>
+                              
+                              <div class="col">
+                                <div class="form-group">
+                                  {% if r.action_taken == "" %}
+                                  <label>Action taken : Under review</label>
+                                 {% else %} 
+                                 <label>Action taken : {{ r.action_taken }}</label>
+                                 {% endif %}
+                                  
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>Date created  : {{ r.created }}</label>
+                                  
+                                </div>
+                              </div>
+                              
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>Date modified : {{ r.modified }}</label>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                            <svg height="10" width="100%">
+                          <line x1="0" y1="0" x2="2000" y2="0" style="stroke:rgb(0,0,0);stroke-width:2" />
+                            </svg>
+                           
                           </div>
                         </div>
+                        {% endfor %}
+                        
+                        {% elif report_against_me %}
+                      {% for r in report_against_me %}
+                        
                         <div class="row">
-                          <div class="col d-flex justify-content-end">
-                            <button class="btn btn-primary" type="submit">Save Changes</button>
+                        
+                        
+                          <div class="col">
+                            <div class="row">
+                              <strong style="color:red">* This is a report against your post</strong>
+                            </div>
+                            <div class="row">
+                              
+                            
+                        
+                          <div class="col">
+                          <div class="form-group">
+                            {% if r.post_type == 0 %} 
+                            <label>Post type: Recipe</label>
+                        {% else %}
+                            <label>Post type : Comment</label>
+                            {% endif %}
+                        </div>
+                          </div>
+                         
+                        
+                        
+                          <div class="col">
+                          <div class="form-group">
+                              {% if r.post_type == 0 %} 
+                            <label>Recipe : {{ r.recipe_id }}</label>
+                        {% else %}
+                            <label>Comment : {{ r.review_id.description }} on {{ r.review_id.recipe_id }}</label>
+                            {% endif %}
+                            </div>
                           </div>
                         </div>
+                            <div class="row">
+                              <div class="col mb-3">
+                                <div class="form-group">
+                                  <label>Description : </label>
+                                  <p class="form-control" rows="5" placeholder="My Bio">{{ r.description }}</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group">
+                                  {% if r.status %}
+                                  <label>Status : Under review</label>
+                                 {% else %} 
+                                 <label>Status : Closed</label>
+                                 {% endif %}
+                                  
+                                </div>
+                              </div>
+                              
+                              <div class="col">
+                                <div class="form-group">
+                                  {% if r.action_taken == "" %}
+                                  <label>Action taken : Under review</label>
+                                 {% else %} 
+                                 <label>Action taken : {{ r.action_taken }}</label>
+                                 {% endif %}
+                                  
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>Date created  : {{ r.created }}</label>
+                                  
+                                </div>
+                              </div>
+                              
+                              <div class="col">
+                                <div class="form-group">
+                                  <label>Date modified : {{ r.modified }}</label>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                            <svg height="10" width="100%">
+                          <line x1="0" y1="0" x2="2000" y2="0" style="stroke:rgb(0,0,0);stroke-width:2" />
+                            </svg>
+                           
+                          </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <strong>You don't have any reports yet</strong>
+                        {% endif %}
                       </form>
 
                     </div>
                   </div>
                 </div>
+                
               </div>
             </div>
           </div>
