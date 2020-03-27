@@ -422,7 +422,7 @@ def user_details(request) :
 
     context_dict = {"profile" : current_profile, "updateSuccess" : updateSuccess}
     context_dict["report_by_me"], context_dict["report_against_me"] = my_reports(request)
-    print("context : ",context_dict["report_by_me"])
+    print("context : ",context_dict["report_against_me"])
     
     return render(request, 'breakingbread/user-details.html',context=context_dict)
 

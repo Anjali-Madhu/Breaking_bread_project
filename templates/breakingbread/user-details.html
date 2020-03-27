@@ -388,7 +388,7 @@
                             <div class="row">
                               <div class="col">
                                 <div class="form-group">
-                                {% if r.status %}
+                                {% if r.status == "False" %}
                                   <label>Status : Under review</label>
                                  {% else %} 
                                  <label>Status : Closed</label>
@@ -399,7 +399,7 @@
                               <div class="col">
                                 <div class="form-group">
                                   {% if r.action_taken == "" %}
-                                  <label>Action taken : Under review</label>
+                                  <label>Action taken : Checking</label>
                                  {% else %} 
                                  <label>Action taken : {{ r.action_taken }}</label>
                                  {% endif %}
@@ -429,8 +429,8 @@
                           </div>
                         </div>
                         {% endfor %}
-                        
-                        {% elif report_against_me %}
+                        {% endif %}
+                        {% if report_against_me %}
                       {% for r in report_against_me %}
                         
                         <div class="row">
@@ -477,7 +477,7 @@
                             <div class="row">
                               <div class="col">
                                 <div class="form-group">
-                                  {% if r.status %}
+                                  {% if r.status == "False" %}
                                   <label>Status : Under review</label>
                                  {% else %} 
                                  <label>Status : Closed</label>
@@ -489,7 +489,7 @@
                               <div class="col">
                                 <div class="form-group">
                                   {% if r.action_taken == "" %}
-                                  <label>Action taken : Under review</label>
+                                  <label>Action taken : Checking</label>
                                  {% else %} 
                                  <label>Action taken : {{ r.action_taken }}</label>
                                  {% endif %}
@@ -519,7 +519,8 @@
                           </div>
                         </div>
                         {% endfor %}
-                        {% else %}
+                        {% endif %}
+                        {% if not report_by_me and not report_against_me %}
                         <strong>You don't have any reports yet</strong>
                         {% endif %}
                       </form>
