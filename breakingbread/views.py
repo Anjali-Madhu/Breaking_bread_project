@@ -516,10 +516,15 @@ def report(request,type,id):
         if int(type) == 0:
             recipes=Recipe.objects.filter(recipe_id=id)
             report = Report(post_type=int(type),recipe_id=recipes[0] ,username=request.user, description=str(message))
+            report.post = recipes[0].recipe_name
+            report.reported_user= recipes[0].username.username
             
         else:
             review=Review.objects.filter(review_id=id)
             report = Report(post_type=int(type),review_id=review[0] ,username=request.user, description=str(message))
+            report.post = review[0].description
+            report.reported_user= review[0].username.username
+            
         
         report.save()
         data = {
@@ -535,18 +540,16 @@ def report(request,type,id):
 def my_reports(request):
     reports_by_me = []
     reports_against_me = []
-    reports = Report.objects.all()
+    reports = Report.objects.filter(Q(username = request.user) | Q(reported_user = request.user.username))
     
     for report in reports:
-        print(report.username,request.user)
         if report.username == request.user:
             
             reports_by_me.append(report)
-        elif report.recipe_id is not None and report.recipe_id.username == request.user:
+        else:
             
             reports_against_me.append(report)
-        elif report.review_id is not None and report.review_id.username == request.user:
-            reports_against_me.append(report)
+        
     reports_by_me.reverse()
     reports_against_me.reverse()
     return(reports_by_me,reports_against_me)

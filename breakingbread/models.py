@@ -99,9 +99,14 @@ class Report(models.Model):
     report_id=models.AutoField(primary_key=True)
     #posttype = 0 for recipe , 1 for review
     post_type=models.IntegerField()
-    review_id=models.ForeignKey(Review,on_delete=models.SET_NULL,null=True)
-    recipe_id=models.ForeignKey(Recipe,on_delete=models.SET_NULL,null=True)
+    
+    review_id=models.ForeignKey(Review,on_delete=models.SET(None),null=True,blank=True)
+    recipe_id=models.ForeignKey(Recipe,on_delete=models.SET(None),null=True,blank=True)
     username=models.ForeignKey(User,on_delete=models.CASCADE)
+    #storing the values of reported post and user so that in case the post is deleted, the admin still can view the details 
+    reported_user = models.TextField(max_length=200,blank=True,null=True)
+    
+    post = models.TextField(max_length=200,blank=True)
     description = models.TextField(max_length=500)
     #False = assigned, True=resolved
     status=models.BooleanField(default=False)
@@ -114,10 +119,14 @@ class Report(models.Model):
         super(Report,self).save(*args,**kwargs)
     
     def __str__(self):
-        if self.review_id is not None:
-            return '{} reported {} against comment {} '.format( self.username,self.description,self.review_id.description)
+    
+        if self.review_id is not None :
+            try:
+                return '{} reported {} against comment {} '.format( self.username,self.description,self.review_id.description)
+            except:
+                return '{} reported {} against comment {} '.format( self.username,self.description,self.review_id)
         else:
-            return '{} reported {} against recipe {}'.format( self.username,self.description,self.recipe_id.recipe_name)
+            return '{} reported {} against recipe {}'.format( self.username,self.description,self.recipe_id)
     
 
     

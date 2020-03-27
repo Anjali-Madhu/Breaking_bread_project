@@ -369,10 +369,14 @@
                         <div class="row">
                           <div class="col">
                           <div class="form-group">
-                             {% if r.post_type == 0 %} 
+                             {% if r.post_type == 0 and r.recipe_id%} 
                             <label>Recipe : {{ r.recipe_id }}</label>
-                        {% else %}
-                            <label>Comment : {{ r.review_id }}</label>
+                            {% elif r.post_type == 0 %} 
+                            <label>Recipe : {{ r.post }}</label>
+                            {% elif r.review_id  %}
+                            <label>Comment : {{ r.review_id.description }}</label>
+                            {% else  %}
+                            <label>Comment : {{ r.post }}</label>
                             {% endif %}
                             </div>
                           </div>
@@ -388,10 +392,10 @@
                             <div class="row">
                               <div class="col">
                                 <div class="form-group">
-                                {% if r.status == "False" %}
-                                  <label>Status : Under review</label>
+                                {% if r.status %}
+                                  <label>Status : Closed</label>
                                  {% else %} 
-                                 <label>Status : Closed</label>
+                                 <label>Status : Open</label>
                                  {% endif %}
                                 </div>
                               </div>
@@ -399,7 +403,7 @@
                               <div class="col">
                                 <div class="form-group">
                                   {% if r.action_taken == "" %}
-                                  <label>Action taken : Checking</label>
+                                  <label>Action taken : Under review</label>
                                  {% else %} 
                                  <label>Action taken : {{ r.action_taken }}</label>
                                  {% endif %}
@@ -458,11 +462,17 @@
                         
                           <div class="col">
                           <div class="form-group">
-                              {% if r.post_type == 0 %} 
+                          {% if r.post_type == 0 and r.recipe_id%} 
                             <label>Recipe : {{ r.recipe_id }}</label>
-                        {% else %}
-                            <label>Comment : {{ r.review_id.description }} on {{ r.review_id.recipe_id }}</label>
+                            {% elif r.post_type == 0 %} 
+                            <label>Recipe : {{ r.post }}</label>
+                            {% elif r.review_id  %}
+                            <label>Comment : {{ r.review_id.description }}</label>
+                            {% else  %}
+                            <label>Comment : {{ r.post }}</label>
                             {% endif %}
+                              
+                            
                             </div>
                           </div>
                         </div>
@@ -477,10 +487,10 @@
                             <div class="row">
                               <div class="col">
                                 <div class="form-group">
-                                  {% if r.status == "False" %}
-                                  <label>Status : Under review</label>
+                                  {% if r.status  %}
+                                  <label>Status : Closed</label>
                                  {% else %} 
-                                 <label>Status : Closed</label>
+                                 <label>Status : Open</label>
                                  {% endif %}
                                   
                                 </div>
@@ -489,7 +499,7 @@
                               <div class="col">
                                 <div class="form-group">
                                   {% if r.action_taken == "" %}
-                                  <label>Action taken : Checking</label>
+                                  <label>Action taken : Under review</label>
                                  {% else %} 
                                  <label>Action taken : {{ r.action_taken }}</label>
                                  {% endif %}

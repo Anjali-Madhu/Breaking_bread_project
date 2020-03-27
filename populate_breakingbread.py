@@ -277,8 +277,12 @@ def add_report(rep):
     report = Report.objects.get_or_create(report_id=rep["report_id"],post_type=rep["post_type"],username=rep["username"],description=rep["description"])[0]
     if rep["post_type"] == 0:
         report.recipe_id = rep["recipe_id"]
+        report.post = rep["recipe_id"].recipe_name
+        report.reported_user = rep["recipe_id"].username.username
     else:
         report.review_id = rep["review_id"]
+        report.post = rep["review_id"].description
+        report.reported_user = rep["review_id"].username.username
     report.save()
     return report
 
