@@ -422,6 +422,7 @@ def user_details(request) :
 
     context_dict = {"profile" : current_profile, "updateSuccess" : updateSuccess}
     context_dict["report_by_me"], context_dict["report_against_me"] = my_reports(request)
+    context_dict["cuisines"]=Cuisine.objects.all()
     print("context : ",context_dict["report_against_me"])
     
     return render(request, 'breakingbread/user-details.html',context=context_dict)
@@ -457,6 +458,7 @@ def upload_recipe(request) :
         #get the fields and create new recipe
         recipeName = request.GET.get('recipeName', None)
         cuisine = request.GET.get('cuisine', None)
+        Cuisine.objects.get_or_create(cuisine_type=cuisine.title())
         time_taken = request.GET.get('time_taken', None)
         cooking_type = request.GET.get('type', None)
         level = request.GET.get('level', None)
@@ -472,7 +474,7 @@ def upload_recipe(request) :
             ingredients = ingredients,
             cooking_type = int(cooking_type),
             
-            cuisine = Cuisine.objects.filter(cuisine_type=cuisine)[0],
+            cuisine = Cuisine.objects.filter(cuisine_type=cuisine.title())[0],
             description = desc,
             created = datetime.datetime.now()
         )
