@@ -10,9 +10,6 @@
  -->
  
 
-
-
-
 <div class="top-header-area">
     <div class="container h-100">
         <div class="row h-100 align-items-center justify-content-between">
@@ -21,19 +18,6 @@
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
             <link rel="stylesheet" href="{% static 'report.css' %}">
 
-            <!-- ##### Breadcumb Area Start ##### -->
-            <div class="breadcumb-area bg-img bg-overlay" style="background-image: url(/static/images/bg-img/breadcumb3.jpg);">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center">
-                        <div class="col-12">
-                            <div class="breadcumb-text text-center">
-                                <h2>{{ name }}</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ##### Breadcumb Area End ##### -->
 
             <div class="receipe-post-area section-padding-80">
                 <!-- Receipe Slider -->
@@ -42,15 +26,15 @@
                         <div class="col-12">
                             <div class="receipe-slider owl-carousel">
                                 {% for i in images %}
-                                <img src="{{ MEDIA_URL }}{{ i }}" alt="">
+                                <img src="{{ MEDIA_URL }}{{ i }}" style="height:600px; object-fit:cover;" >
                                 {% endfor %}
                             </div>
                         </div>
                     </div>
                 </div>
 
+                <br>
                 <!-- Receipe Content Area: retrieved from recipe view in views.py -->
-
                 <div class="receipe-content-area">
                     <div class="container">
 
@@ -66,14 +50,10 @@
                                     </div>
                                 </div>
                             </div>
-                                 
+
                             <div class="col-12 col-md-4">
                                 <div class="recipe-ratings text-right my-5">
-                                <!--report recipe-->
-                            <!-- <a class = "report" onclick="openForm(0,{{ id }})" style="color:red" >Report Recipe</a> -->
-                                    <button type="button" onclick="openForm(0,{{ id }})" class="btn btn-danger">Report Recipe</button>
-                            
-                                    <div class="ratings" style="padding: 10px;">
+                                    <div class="ratings" style="padding: 10px; color:gold; font-size:20px;">
                                         {% if rating_floor %}
                                         {% for item in rating_floor %}
                                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -90,36 +70,49 @@
                                     </div>
 
                                     {% if level == 0 %}
-                                    <a href="#" class="btn delicious-btn">For Beginners</a>
+                                    <h2><span class="badge badge-warning" style="padding:15px;">For Beginners</span></h2>
                                     {% elif level == 1 %}
-                                    <a href="#" class="btn delicious-btn">For Intermediates</a>
+                                    <h2><span class="badge badge-warning" style="padding:15px;">For Intermediates</span></h2>
                                     {% else %}
-                                    <a href="#" class="btn delicious-btn">For Experts</a>
+                                    <h2><span class="badge badge-warning" style="padding:15px;">For Experts</span></h2>
                                     {% endif %}
 
                                 </div>
-                                
                             </div>
-                            
                         </div>
-                        
+
+
                         <div class="row">
                             <div class="col-12 col-lg-8">
                                 {% for i in description %}
                                 <!-- Single Preparation Step -->
                                 <div class="single-preparation-step d-flex">
-                                    <h4>Step {{forloop.counter}}. &nbsp;</h4>
+                                    <h4>Step {{forloop.counter}}. &nbsp; </h4>
                                     <p>{{ i }}</p>
                                 </div>
                                 {% endfor %}
+
+                                <!--report recipe-->
+                                <div style="float:left">
+                                    <button type="button" onclick="openForm(0,{{ id }})" class="btn btn-danger">Report Recipe</button>
+                                </div>
+
+                                <!--## Delete Recipe ##-->
+                                {% if username == user  %}
+                                <div style="float:right">
+                                    <form action="{% url 'breakingbread:delete_recipe' id %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="submit" class="btn delicious-btn mt-30"  value="Delete Recipe">
+                                    </form>
+                                </div>
+                                {% endif %}
+
                             </div>
 
                             <!-- Ingredients -->
-
                             <div class="col-12 col-lg-4">
                                 <div class="ingredients">
                                     <h4>Ingredients</h4>
-
                                     <!-- Custom Checkbox -->
                                     {% for i in ingredients %}
                                     <div class="custom-control custom-checkbox">
@@ -129,7 +122,11 @@
                                     {% endfor %}
                                 </div>
                             </div>
+
+                            
                         </div>
+
+                        <hr>
                         <div class="row">
                             <div class="col-12">
                                 <div class="section-heading text-left">
@@ -138,40 +135,40 @@
                             </div>
                         </div>
 
-
                         <div class="row">
                             <div class="col-12">
                                 <div class="contact-form-area">
-                                    
                                     <div class="row">
                                         <div class="col-12">
                                             {% csrf_token %}
-
                                             <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
                                         </div>
-
                                     </div>
                                     <div class="col-12">
-                                        <h4>Rate this recipe!</h4>
-                                        <!-- Rating Stars Box -->
-                                        <div class='rating-stars text-center'>
-                                            <ul id='stars' name="stars">
-                                                <li class='star' title='Poor' data-value='1'>
-                                                    <i class='fa fa-star'></i>
-                                                </li>
-                                                <li class='star' title='Fair' data-value='2'>
-                                                    <i class='fa fa-star'></i>
-                                                </li>
-                                                <li class='star' title='Good' data-value='3'>
-                                                    <i class='fa fa-star'></i>
-                                                </li>
-                                                <li class='star' title='Excellent' data-value='4'>
-                                                    <i class='fa fa-star'></i>
-                                                </li>
-                                                <li class='star' title='WOW!!!' data-value='5'>
-                                                    <i class='fa fa-star'></i>
-                                                </li>
-                                            </ul>
+
+                                     
+                                        <div style="">
+                                            <h4>Rate this recipe!</h4>
+                                            <!-- Rating Stars Box -->
+                                            <div class='rating-stars text-center'>
+                                                <ul id='stars' name="stars">
+                                                    <li class='star' title='Poor' data-value='1'>
+                                                        <i class='fa fa-star'></i>
+                                                    </li>
+                                                    <li class='star' title='Fair' data-value='2'>
+                                                        <i class='fa fa-star'></i>
+                                                    </li>
+                                                    <li class='star' title='Good' data-value='3'>
+                                                        <i class='fa fa-star'></i>
+                                                    </li>
+                                                    <li class='star' title='Excellent' data-value='4'>
+                                                        <i class='fa fa-star'></i>
+                                                    </li>
+                                                    <li class='star' title='WOW!!!' data-value='5'>
+                                                        <i class='fa fa-star'></i>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         {% if logged_in %}
                                         <div class="col-12">
@@ -191,6 +188,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <br><br><br><br>
                         {% if reviews %}
                         <div class="row">
                             <div class="col-12">
@@ -199,7 +198,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         {% for review in reviews %}
                         <div class="section-heading text-left">
                             <div class="row">
@@ -213,37 +212,39 @@
                                         </div>
                                     </div>
                                     <div class="col-12">
-
-                                        <!-- Rating Stars Box: retrieved from views.py -->
-                                        <div class="ratings">
-                                            {% if review.rating_floor %}
-                                            {% for item in review.rating_floor %}
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                            {% endfor %}
-                                            {% endif %}
-                                            {% if review.rating_ceil %}
-                                            {% for item in review.rating_ceil %}
-                                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                                            {% endfor %}
-                                            {% endif %}
+                                        <div style="float:left;">
+                                            <!-- Rating Stars Box: retrieved from views.py -->
+                                            <div class="ratings" style="color:gold;">
+                                                {% if review.rating_floor %}
+                                                {% for item in review.rating_floor %}
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                                {% endfor %}
+                                                {% endif %}
+                                                {% if review.rating_ceil %}
+                                                {% for item in review.rating_ceil %}
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                            <h6>By {{ review.username }}</h6><h6> posted on {{ review.created }}</h6>
                                         </div>
-                                        <h6>By {{ review.username }}</h6><h6> posted on {{ review.created }}</h6>
-                                        <!--report comment-->
-                                        <!-- <a class="report" style="color:red" onClick="openForm(1,{{ review.id }})">Report Comment</a> -->
-                                        <button type="button" onclick="openForm(0,{{ review.id }})" class="btn btn-danger">Report Comment</button>
+                                        <div style="float:right">
+                                            <!--report comment-->
+                                            <button type="button" onclick="openForm(0,{{ review.id }})" class="btn btn-danger">Report Comment</button>
+                                        </div>
 
                                         <div class="form-popup" id="reportForm2">
-                                          <form  class="form-container" id="form-container2" method="POST" action="{% url 'breakingbread:report' 1 review.id %}">
-                                          {% csrf_token %}
-                                          <h2>Report Comment</h2>
+                                            <form class="form-container" id="form-container2" method="POST" action="{% url 'breakingbread:report' 1 review.id %}">
+                                                {% csrf_token %}
+                                                <h2>Report Comment</h2>
 
-                                          <textarea name="report-message" class="form-control" id="report-message" cols="30" rows="10" placeholder="Message"></textarea>
-                                          <br />
-                                          <button type="submit" class="btn" >Post</button>
-                                          <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
-                                          </form>
-                                    </div>
-                                    
+                                                <textarea name="report-message" class="form-control" id="report-message" cols="30" rows="10" placeholder="Message"></textarea>
+                                                <br />
+                                                <button type="submit" class="btn">Post</button>
+                                                <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+                                            </form>
+                                        </div>
+
                                     </div>
                                     {% endfor %}
                                     {% else %}
@@ -255,7 +256,7 @@
                                         </div>
                                     </div>
                                     {% endif %}
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -265,15 +266,6 @@
             </div>
         </div>
 
-        <!--## Delete Recipe ##-->
-        
-        {% if username == user  %}
-        <form action="{% url 'breakingbread:delete_recipe' id %}" method="post">
-            {% csrf_token %}
-            <input class="btn delicious-btn mt-30" type="submit" value="Delete recipe"></input>
-        </form>
-        {% endif %}
-        
         <!--report form for recipe-->        
         <div class="form-popup" id="reportForm">
           <form  class="form-container" id="form-container" method="POST" action="{% url 'breakingbread:report' 0 id %}">
