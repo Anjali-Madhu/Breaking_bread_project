@@ -528,7 +528,7 @@ def report(request,type,id):
         
         report.save()
         data = {
-        "success" : True,
+            "success" : True,
         }
     #sending response to javascript
         

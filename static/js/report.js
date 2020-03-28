@@ -36,7 +36,7 @@ function addReport() {
         
     },
     dataType: 'json',
-    if database updated successfully refresh the page
+    // if database updated successfully refresh the page
     success: function (data) {
         if(data.success) {
           location.reload();

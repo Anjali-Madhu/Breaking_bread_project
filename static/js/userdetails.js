@@ -31,11 +31,11 @@ function showMyReports() {
     $('.uploadNew').css('display','none');
     $('.myDetails').css('display','none');
     document.getElementById('formTitle').innerHTML = 'My Reports'
-    $('.myreports').css('display','block');
-    $('.uploadNew').css('display','none');
-    $('.myDetails').css('display','none');
+    // $('.myreports').css('display','block');
+    // $('.uploadNew').css('display','none');
+    // $('.myDetails').css('display','none');
     
-    document.getElementById('formTitle').innerHTML = 'Reports against me'
+    // document.getElementById('formTitle').innerHTML = 'Reports against me'
    
 }
 function navigateToHomePage() {

@@ -70,10 +70,10 @@
                             <div class="col-12 col-md-4">
                                 <div class="recipe-ratings text-right my-5">
                                 <!--report recipe-->
-                            <a class = "report" onclick="openForm(0,{{ id }})" style="color:red" >Report Recipe</a>
-                                
+                            <!-- <a class = "report" onclick="openForm(0,{{ id }})" style="color:red" >Report Recipe</a> -->
+                                    <button type="button" onclick="openForm(0,{{ id }})" class="btn btn-danger">Report Recipe</button>
                             
-                                    <div class="ratings">
+                                    <div class="ratings" style="padding: 10px;">
                                         {% if rating_floor %}
                                         {% for item in rating_floor %}
                                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -96,12 +96,10 @@
                                     {% else %}
                                     <a href="#" class="btn delicious-btn">For Experts</a>
                                     {% endif %}
-                                   
 
                                 </div>
                                 
                             </div>
-
                             
                         </div>
                         
@@ -231,7 +229,9 @@
                                         </div>
                                         <h6>By {{ review.username }}</h6><h6> posted on {{ review.created }}</h6>
                                         <!--report comment-->
-                                        <a class="report" style="color:red" onClick="openForm(1,{{ review.id }})">Report Comment</a>
+                                        <!-- <a class="report" style="color:red" onClick="openForm(1,{{ review.id }})">Report Comment</a> -->
+                                        <button type="button" onclick="openForm(0,{{ review.id }})" class="btn btn-danger">Report Comment</button>
+
                                         <div class="form-popup" id="reportForm2">
                                           <form  class="form-container" id="form-container2" method="POST" action="{% url 'breakingbread:report' 1 review.id %}">
                                           {% csrf_token %}
