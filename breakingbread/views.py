@@ -420,7 +420,7 @@ def user_details(request) :
         updateSuccess = True
             
 
-    context_dict = {"profile" : current_profile, "updateSuccess" : updateSuccess}
+    context_dict = {"profile" : current_profile, "updateSuccess" : updateSuccess, "cuisines": Cuisine.objects.all()}
     context_dict["report_by_me"], context_dict["report_against_me"] = my_reports(request)
     print("context : ",context_dict["report_against_me"])
     
