@@ -247,16 +247,22 @@
                                     <!-- <input class="form-control" type="text" name="cuisine" id="cuisine" placeholder="e.g Italian"> -->
                                   <!-- </select> -->
                                   <select class="form-control" id="cuisine">
-                                    <option>Italian</option>
-                                    <option>Indian</option>
-                                    <option>Egyptian</option>
-                                    <option>Scottish</option>
-                                    <option>Chinese</option>
-                                    <option>Romanian</option>
-                                    <option>Mauritian</option>
-                                    <option>American</option>
-                                    <option>Lebanese</option>
+                                    
+                                    {% for cuisine in cuisines %}
+                                    <option value="{{ cuisine }}">{{ cuisine }}</option>
+                                    {% endfor %}
+                                    <option value="Others">Others</option>
+                                    
                                   </select>
+                                </div>
+                              </div>
+                              <div class="col" id="cuisine_input" style="display:none">
+                                <div class="form-group">
+                                  <label for="sel1">Add cuisine</label>
+                                  <!-- <select class="form-control" id="sel1"> -->
+                                    <!-- <input class="form-control" type="text" name="cuisine" id="cuisine" placeholder="e.g Italian"> -->
+                                  <!-- </select> -->
+                                 <input type="text" id="cuisine_type" class="form-control"/>
                                 </div>
                               </div>
                               <div class="col">
