@@ -93,10 +93,10 @@ def populate():
                         'Seal in plastic wrap and wither freeze for extended use or store in the refrigerator for up to a week.?To serve, cut a slice about 1/2-inch thick off the loaf. Fry in butter or oil until the edges are slightly crisped and browned.','created': now},
 
         {'recipe_id': 5, 'recipe_name': 'Veggie Chow Mein Noodles', 'username': selected_users[0], 'time_taken': 30,
-         'level': 0, 'ingredients': 'Vegetables, Egg Noodles, Soy Sauce', 'cooking_type': 1, 'cuisine': all_cuisines[4],
-         'description': ['Cook 225g egg noodles in a large pan of boiling water for 3-5 mins, then drain and put them in '
-                        'cold water. Drain thoroughly, toss them with 1 tbsp sesame oil and set aside.','Add the noodles, 2 tsp light soy sauce, 2 tsp dark soy sauce,1 tbsp Shaohsing rice wine or dry sherry,'
-                        ' ½ tsp white pepper, ½ tsp golden caster sugar, 2 finely chopped spring onions and 1 tsp salt.','Stir-fry for about 2 mins and then transfer to a plate.'], 'created': now},
+         'level': 0, 'ingredients': 'Vegetables? Egg Noodles? Soy Sauce', 'cooking_type': 1, 'cuisine': all_cuisines[4],
+         'description': 'Cook 225g egg noodles in a large pan of boiling water for 3-5 mins, then drain and put them in '
+                        'cold water. Drain thoroughly, toss them with 1 tbsp sesame oil and set aside.?Add the noodles, 2 tsp light soy sauce, 2 tsp dark soy sauce,1 tbsp Shaohsing rice wine or dry sherry,'
+                        ' ½ tsp white pepper, ½ tsp golden caster sugar, 2 finely chopped spring onions and 1 tsp salt.?Stir-fry for about 2 mins and then transfer to a plate.', 'created': now},
 
     
         {'recipe_id': 6, 'recipe_name': 'Polenta', 'username': selected_users[0], 'time_taken': 50,
