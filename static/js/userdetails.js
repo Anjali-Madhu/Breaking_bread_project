@@ -110,14 +110,14 @@ function saveRecipe() {
         msg += 'Please enter the time taken for this recipe.' + '\n'
         // alert('Please enter the time taken for this recipe');
     }
-    
-    if(steps.length <1) {
-        msg += 'Please enter the steps for this recipe.' + '\n'+steps.length
+    console.log(steps.length)
+    if(steps[0]=="") {
+        msg += 'Please enter the steps for this recipe.' + '\n'
     }
     if(msg == "") {
         $("#preloader").css("display", "block");        
         var desc = "";
-        if(steps.length > 1) {
+        if(steps.length > 0) {
             for(let i = 0; i < steps.length; i++) {
                 if(i == 0)  
                     desc = steps[i];
