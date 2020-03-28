@@ -532,9 +532,11 @@ def report(request,type,id):
         data = {
         "success" : True,
         }
+        return JsonResponse(data)
     #sending response to javascript
-        
-    return JsonResponse(data) 
+    else:
+        return redirect("../../../recipe/"+str(id))
+         
     
 
 #view to generate the reports of user
