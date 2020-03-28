@@ -22,6 +22,9 @@ class UserProfile(models.Model):
 class Cuisine(models.Model):
     cuisine_type=models.CharField(primary_key=True,max_length=200)
     
+    def __str__(self):
+        return self.cuisine_type
+    
 #Recipe table
 class Recipe(models.Model):
     recipe_id=models.AutoField(primary_key=True)
@@ -76,6 +79,9 @@ class Image(models.Model):
     image_id=models.AutoField(primary_key=True)
     picture = models.ImageField(upload_to='recipe_images', blank=False)
     recipe_id=models.ForeignKey(Recipe,on_delete=models.CASCADE,blank=False)
+    
+    def __str__(self):
+        return str(self.picture)
 
  #Review table   
 class Review(models.Model):

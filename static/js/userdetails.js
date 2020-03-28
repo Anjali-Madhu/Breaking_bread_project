@@ -1,6 +1,21 @@
 var fileList = [];
 var step = 1;
 
+$(document).ready(function ()
+ {
+  $('#cuisine').on('change',function () {
+    var cuisine = $(this).val();
+    if(cuisine == "Others"){
+        $("#cuisine_type").attr("readonly", false); 
+    }
+    else {
+        $('#cuisine_type').val("");
+        $("#cuisine_type").attr("readonly", true); 
+    }
+
+   });
+});
+
 function openDialog() {
     document.getElementById('fileid').click();
 }
@@ -70,6 +85,9 @@ function saveRecipe() {
 
     var recipeName =  $('#recipeName').val();
     var cuisine =  $('#cuisine').val();
+    if(cuisine=="Others"){
+        cuisine = $('#cuisine_type').val()
+    }
     var time_taken =  $('#time_taken').val();
     var type = cookingType[$('#type').val()];
     var level = levelType[$('#level').val()];
@@ -96,13 +114,14 @@ function saveRecipe() {
         msg += 'Please enter the time taken for this recipe.' + '\n'
         // alert('Please enter the time taken for this recipe');
     }
-    if(steps.length == 1) {
+    console.log(steps.length)
+    if(steps[0]=="") {
         msg += 'Please enter the steps for this recipe.' + '\n'
     }
     if(msg == "") {
         $("#preloader").css("display", "block");        
         var desc = "";
-        if(steps.length > 1) {
+        if(steps.length > 0) {
             for(let i = 0; i < steps.length; i++) {
                 if(i == 0)  
                     desc = steps[i];
