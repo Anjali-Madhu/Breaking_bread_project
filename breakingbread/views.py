@@ -536,6 +536,10 @@ def report(request,type,id):
         
         return JsonResponse(data) 
     else:
+        if type == 1:
+            
+            review = Review.objects.filter(review_id = id)
+            id = review[0].recipe_id.recipe_id
         return redirect("../../../recipe/"+str(id))
     
 

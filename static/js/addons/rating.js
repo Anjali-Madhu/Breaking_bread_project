@@ -93,7 +93,7 @@ function openForm(type,id){
   if(postType==0)
       {document.getElementById("reportForm").style.display = "block";}
   else
-      {document.getElementById("reportForm2").style.display = "block";}
+      {document.getElementById(postId).style.display = "block";}
 }
 
 // close report popup
@@ -101,7 +101,7 @@ function closeForm() {
     if(postType==0)
       {document.getElementById("reportForm").style.display = "none";}
   else
-      {document.getElementById("reportForm2").style.display = "none";}
+      {document.getElementById(postId).style.display = "none";}
   
 }
 

@@ -228,12 +228,13 @@
                                             </div>
                                             <h6>By {{ review.username }}</h6><h6> posted on {{ review.created }}</h6>
                                         </div>
+                                        
                                         <div style="float:right">
                                             <!--report comment-->
                                             <button type="button" onclick="openForm(1,{{ review.id }})" class="btn btn-danger">Report Comment</button>
                                         </div>
-
-                                        <div class="form-popup" id="reportForm2">
+<br /><br />
+                                        <div class="form-popup" id="{{ review.id }}">
                                             <form class="form-container" id="form-container2" method="POST" action="{% url 'breakingbread:report' 1 review.id %}">
                                                 {% csrf_token %}
                                                 <h2>Report Comment</h2>
@@ -246,7 +247,9 @@
                                         </div>
 
                                     </div>
+                                    <br /><br/>
                                     {% endfor %}
+                                    
                                     {% else %}
                                     <div class="row">
                                         <div class="col-12">
