@@ -1,5 +1,6 @@
 var postType;
 var postId;
+
 //open report popup
 function openForm(type,id) {
   
@@ -30,19 +31,19 @@ function addReport() {
   else{
   //send details to views.py
    $.ajax({
-    url: '/breakingbread/report/' + postType+'/'+postId+'/',
-    data: {
-        'message' : message,
-        
-    },
-    dataType: 'json',
-    // if database updated successfully refresh the page
-    success: function (data) {
-        if(data.success) {
-          location.reload();
-        }
+      url: '/breakingbread/report/' + postType+'/'+postId+'/',
+      data: {
+          'message' : message,
+          
+      },
+      dataType: 'json',
+      // if database updated successfully refresh the page
+      success: function (data) {
+          if(data.success) {
+            location.reload();
+          }
 
-      }
-});
-}
+        }
+    });
+  }
 }

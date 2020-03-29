@@ -16,6 +16,7 @@
 
             <script src="{% static 'js/addons/rating.js' %}"></script>
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
             <link rel="stylesheet" href="{% static 'report.css' %}">
 
 
@@ -235,7 +236,7 @@
                                         </div>
 <br /><br />
                                         <div class="form-popup" id="{{ review.id }}">
-                                            <form class="form-container" id="form-container2" method="POST" action="{% url 'breakingbread:report' 1 review.id %}">
+                                            <form name="reportComment" class="form-container" id="form-container2" method="POST" action="{% url 'breakingbread:report' 1 review.id %}">
                                                 {% csrf_token %}
                                                 <h2>Report Comment</h2>
 
@@ -271,7 +272,7 @@
 
         <!--report form for recipe-->        
         <div class="form-popup" id="reportForm">
-          <form  class="form-container" id="form-container" method="POST" action="{% url 'breakingbread:report' 0 id %}">
+          <form  name="reportRecipe" class="form-container" id="form-container" method="POST" action="{% url 'breakingbread:report' 0 id %}">
            {% csrf_token %}
             <h2>Report Recipe</h2>
 

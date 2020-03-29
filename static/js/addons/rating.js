@@ -2,10 +2,32 @@ var ratingValue;
 var postType = -99;
 var postId = -99;
 
+$(function(){
+  $('form[name=reportRecipe]').submit(function(){
+    $.post($(this).attr('action'), $(this).serialize(), function(response) {
+     if(response.success) {
+        swal("Recipe reported to admin", "We will get back to you soon", "success")
+        closeForm();
+     }
+    }, 'json');
+    return false;
+  });
+});
+
+$(function(){
+  $('form[name=reportComment]').submit(function(){
+    $.post($(this).attr('action'), $(this).serialize(), function(response) {
+     if(response.success) {
+        swal("Comment reported to admin", "We will get back to you soon", "success")
+        closeForm();
+     }
+    }, 'json');
+    return false;
+  });
+});
+
 $(document).ready(function(){
-  /* 1. Visualizing things on Hover - See next part for action on click */
-  
-  
+  /* 1. Visualizing things on Hover - See next part for action on click */ 
   $('#stars li').on('mouseover', function(){
     var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
    
