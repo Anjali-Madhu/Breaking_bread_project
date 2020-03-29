@@ -250,17 +250,20 @@
                                         </div>
                                         {% endif %}
                                         <br /><br />
-                                        <div class="form-popup" id="{{ review.id }}">
+                                        <center>
+                                        <div class="form-popupComment" style="width: fit-content;display: none;border: 1px solid #f1f1f1;" id="{{ review.id }}">
                                             <form name="reportComment" class="form-container" id="form-container2" method="POST" action="{% url 'breakingbread:report' 1 review.id %}">
                                                 {% csrf_token %}
-                                                <h2>Report Comment</h2>
-
+                                                <div>
+                                                    <h2>Report Comment</h2>
+                                                </div>
                                                 <textarea name="report-message" class="form-control" id="report-message" cols="30" rows="10" placeholder="Message"></textarea>
                                                 <br />
                                                 <button type="submit" class="btn">Post</button>
                                                 <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
                                             </form>
                                         </div>
+                                        </center>
 
                                     </div>
                                     <br /><br/>
