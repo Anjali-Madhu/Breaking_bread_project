@@ -1,0 +1,7 @@
+django==2.1.5
+pillow==7.0.0
+django-registration-redux==2.2
+requests
+bcrypt
+django-allauth
+coverage
