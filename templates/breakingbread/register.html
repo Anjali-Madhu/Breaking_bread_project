@@ -4,7 +4,7 @@
 {% block body_block %}
 
 <!-- This page is responsible for the registration process of the user. They are requested to provide the basic login details. -->
-{% load socialaccount %}
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -91,7 +91,7 @@
                                 <input type="submit" name="register" class="register" value="Register">
                             </div>
                             <hr>
-                            <a href="{% provider_login_url 'google' %}">Continue with Google</a>
+                            <a href="{% url 'social:begin' 'google-oauth2' %}">Continue with Google</a>
                         </form>
                        
 					{% endif %}

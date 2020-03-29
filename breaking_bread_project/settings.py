@@ -33,7 +33,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,20 +42,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'breakingbread',
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    'social_django', # application for google login
 ]
 
 
 AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
+    'social_core.backends.google.GoogleOAuth2', # defining backend for google login
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SITE_ID = 1
-LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "915987269859-qo7puu4vmh5nqcrtkr4dp0ce00nnk7g5.apps.googleusercontent.com" # for google authentication
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "R5ITE_LN5nNyTFLW8W2jGJYZ"
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -86,6 +84,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'breaking_bread_project.urls'
@@ -102,6 +101,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'social_django.context_processors.backends',  # <--
+                'social_django.context_processors.login_redirect', # <--
             ],
         },
     },
@@ -166,3 +167,8 @@ MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 LOGIN_URL = 'breakingbread:login'
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+
+
+#LOGIN_URL = '/auth/login/google-oauth2/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
