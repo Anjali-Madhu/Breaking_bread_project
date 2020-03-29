@@ -303,19 +303,19 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
     
     categories={"vegetarian":1,"vegan":2}
     levels={"beginner":0,"intermediate":1,"expert":2}    
-    if category in categories.keys():
+    if category.lower() in categories.keys():
         #filtering the recipes based on category/cooking_type
         recipe_temp = []
         for i in recipes:
-            if i.cooking_type == categories[category]:
+            if i.cooking_type == categories[category.lower()]:
                 recipe_temp.append(i)
         recipes = recipe_temp.copy()
         
-    if level in levels.keys():
+    if str(level).lower() in levels.keys():
         #filtering the recipes based on level
         recipe_temp = []
         for i in recipes:
-            if i.level == levels[level]:
+            if i.level == levels[level.lower()]:
                 recipe_temp.append(i)
         recipes =recipe_temp.copy()
     
