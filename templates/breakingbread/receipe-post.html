@@ -94,9 +94,17 @@
                                 {% endfor %}
 
                                 <!--report recipe-->
+                                {% if logged_in %}
                                 <div style="float:left">
                                     <button type="button" onclick="openForm(0,{{ id }})" class="btn btn-danger">Report Recipe</button>
                                 </div>
+                                {% else %}
+                                <div style="float:left">
+                                    <!-- <button type="button" onclick="openForm(0,{{ id }})" class="btn btn-danger">Report Recipe</button> -->
+                                    <a href="{% url 'breakingbread:login' %}?next={{ request.path }}" class="btn btn-danger">Report Recipe</a>
+                                </div>
+                                {% endif %}
+
 
                                 <!--## Delete Recipe ##-->
                                 {% if username == user  %}
@@ -177,9 +185,9 @@
                                         </div>
                                         {% else %}
                                         <div style="padding: 10px;">
-                                            <a href="{% url 'breakingbread:login' %}?next={{ request.path }}" style="text-decoration:underline;font-size: 17px;color: darkgreen;">Login here to post comments and ratings</a>
+                                            <!-- <a href="{% url 'breakingbread:login' %}?next={{ request.path }}" style="text-decoration:underline;font-size: 17px;color: darkgreen;">Login here to post comments and ratings</a> -->
                                             <div class="col-12">
-                                                <button class="btn delicious-btn mt-30" disabled>Post Comments</button>
+                                                <a href="{% url 'breakingbread:login' %}?next={{ request.path }}" class="btn delicious-btn mt-30">Post Comments</a>
                                             </div>
                                         </div>
                                         {% endif %}
@@ -230,11 +238,18 @@
                                             <h6>By {{ review.username }}</h6><h6> posted on {{ review.created }}</h6>
                                         </div>
                                         
+                                        {% if logged_in %}
                                         <div style="float:right">
                                             <!--report comment-->
                                             <button type="button" onclick="openForm(1,{{ review.id }})" class="btn btn-danger">Report Comment</button>
                                         </div>
-<br /><br />
+                                        {% else %}
+                                        <div style="float:right">
+                                            <!--report comment-->
+                                            <a href="{% url 'breakingbread:login' %}?next={{ request.path }}" class="btn btn-danger">Report Comment</a>
+                                        </div>
+                                        {% endif %}
+                                        <br /><br />
                                         <div class="form-popup" id="{{ review.id }}">
                                             <form name="reportComment" class="form-container" id="form-container2" method="POST" action="{% url 'breakingbread:report' 1 review.id %}">
                                                 {% csrf_token %}
