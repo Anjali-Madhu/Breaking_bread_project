@@ -93,7 +93,8 @@ def register(request):
                             'profile_form':profile_form,
                             'registered':registered,
                             'user_form_errors':user_form.errors,
-                            'profile_form_errors':profile_form.errors}
+                            'profile_form_errors':profile_form.errors,
+                            'nav_tab':"register"}
             print('errors_use', user_form.errors)
             return render(request,'breakingbread/register.html',context=context_dict)
     else:
@@ -122,11 +123,11 @@ def user_login(request):
                     return redirect(reverse('breakingbread:index'))
             else:
                 print('error')
-                return render(request, 'breakingbread/login.html',context={"error":"Your account has been disabled"})
+                return render(request, 'breakingbread/login.html',context={"error":"Your account has been disabled", "nav_tab":"log_in"})
                
         else:
             print('invalid')
-            return render(request, 'breakingbread/login.html',context={"error":"Incorrect username or password!"})
+            return render(request, 'breakingbread/login.html',context={"error":"Incorrect username or password!", "nav_tab":"log_in"})
     else:
         return render(request, 'breakingbread/login.html', context ={"nav_tab":"log_in"})
     
