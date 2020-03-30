@@ -10,11 +10,9 @@ from django.utils.decorators import method_decorator
 import datetime
 import json
 import math
-from django.db.models import Q
+from django.db.models import Q # for addressing more options
 
 # Create your views here.
-
-
 
 #method to check if any user has logged in 
 def check_logged_in(request):
@@ -200,8 +198,7 @@ def recipe(request,recipe_id,get_report=False):
         #reversing the order so that the latest review comes first
         review_list.reverse()
     recipe_["reviews"] = review_list
-    
-    recipe_["report"]=get_report
+    recipe_["report"]= get_report
     
     return render(request, 'breakingbread/receipe-post.html', context = recipe_)
 
@@ -224,8 +221,6 @@ def review(request, recipe_id):
 
 #method to retrieve all cuisine objects and send it to base html    
 def cuisine_list(request):
-    
-    
     cuisine_list=[];
     #retrieving the cuisine list
     cuisines = Cuisine.objects.all();
@@ -241,7 +236,6 @@ def true_floor(x):
     if x["rating_floor"]!=[]:
         floor_range = x["rating_floor"]
         floor = floor_range[-1]+1
-        
         return floor + 0.5
     else:
         return 0;
@@ -299,8 +293,7 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
             if i.cuisine == c[0]:
                 recipe_temp.append(i)
         recipes = recipe_temp.copy()
-    
-    
+
     categories={"vegetarian":1,"vegan":2}
     levels={"beginner":0,"intermediate":1,"expert":2}    
     if category.lower() in categories.keys():
@@ -328,9 +321,6 @@ def search(request,cuisine="",category="all",level=-1,userid=""):
             print("j :",j)
             
             recipes=Recipe.objects.filter(username=j)
-            
-            
-            
             
     recipes_list=[]
     for recipe in recipes:
@@ -412,13 +402,11 @@ def user_details(request) :
         address = request.POST.get('address')
         if 'picture' in request.FILES:
             current_profile.picture = request.FILES['picture']
-            
-
+ 
         current_profile.address = address
         request.user.save()
         current_profile.save()
         updateSuccess = True
-            
 
     context_dict = {"profile" : current_profile, "updateSuccess" : updateSuccess, "cuisines": Cuisine.objects.all()}
     context_dict["report_by_me"], context_dict["report_against_me"] = my_reports(request)
@@ -445,10 +433,8 @@ def upload_recipe(request) :
                 )
                 image.save()
                 images.append(image)
-
         
         data = {
-            
             "success" : True,
         }
         return JsonResponse(data)
@@ -489,12 +475,12 @@ def upload_recipe(request) :
 
 #about page
 def about(request):
-    #retrieving the different types of recipes' count
+    username,logged_in = check_logged_in(request) #checking if any user has logged in
     nb_burger_recipes = Recipe.objects.filter(recipe_name__icontains="burger").count()
     nb_all_recipes = Recipe.objects.all().count()
     nb_meat_recipes = Recipe.objects.filter(cooking_type = "0").count()
     nb_vegan_recipes = Recipe.objects.filter(cooking_type = "2").count()
-    context_dict = {"nb_burgers" : nb_burger_recipes, "nb_recipes" : nb_all_recipes, "nb_meats":nb_meat_recipes, "nb_vegans":nb_vegan_recipes, "nav_tab":"about"}
+    context_dict = {"logged_in": logged_in, "nb_burgers" : nb_burger_recipes, "nb_recipes" : nb_all_recipes, "nb_meats":nb_meat_recipes, "nb_vegans":nb_vegan_recipes, "nav_tab":"about"}
     return render(request, 'breakingbread/about.html', context = context_dict)
 
 #delete recipe
@@ -537,27 +523,21 @@ def report(request,type,id):
         return JsonResponse(data) 
     else:
         if type == 1:
-            
             review = Review.objects.filter(review_id = id)
             id = review[0].recipe_id.recipe_id
         return redirect("../../../recipe/"+str(id))
     
 
 #view to generate the reports of user
-
 def my_reports(request):
     reports_by_me = []
     reports_against_me = []
     reports = Report.objects.filter(Q(username = request.user) | Q(reported_user = request.user.username))
-    
     for report in reports:
         if report.username == request.user:
-            
             reports_by_me.append(report)
         else:
-            
             reports_against_me.append(report)
-        
     reports_by_me.reverse()
     reports_against_me.reverse()
     return(reports_by_me,reports_against_me)
