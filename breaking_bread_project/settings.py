@@ -29,7 +29,8 @@ SECRET_KEY = 'f7ko71cgfdn4czr3xco174=87!+=@p6z%gn3835d#7bg2ofu&u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['breakingbread.pythonanywhere.com',
+                 '127.0.0.1']
 
 
 # Application definition
