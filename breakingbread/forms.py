@@ -11,7 +11,7 @@ class SignUpForm(UserCreationForm):
     username=forms.CharField(max_length=128,required=True, widget=forms.TextInput())
     first_name=forms.CharField(max_length=30,required=True,widget=forms.TextInput())
     last_name=forms.CharField(max_length=30,required=True,widget=forms.TextInput())
-    email = forms.EmailField(max_length=20,required=True,widget=forms.TextInput())
+    email = forms.EmailField(max_length=40,required=True,widget=forms.TextInput())
     password1=forms.CharField(label = "Password",widget=forms.PasswordInput(),required=True)
     password2=forms.CharField(label = "Confirm Password",widget=forms.PasswordInput(),required=True)
     class Meta:

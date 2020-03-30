@@ -41,13 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'breakingbread',
-    'django.contrib.sites',
     'social_django', # application for google login
 ]
 
 
 AUTHENTICATION_BACKENDS = (
-    'allauth.account.auth_backends.AuthenticationBackend',
     'social_core.backends.google.GoogleOAuth2', # defining backend for google login
     'django.contrib.auth.backends.ModelBackend',
 )

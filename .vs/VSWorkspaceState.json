@@ -6,9 +6,10 @@
     "\\media",
     "\\static",
     "\\static\\images",
+    "\\static\\js",
     "\\templates",
     "\\templates\\breakingbread"
   ],
-  "SelectedNode": "\\static\\style.css",
+  "SelectedNode": "\\breaking_bread_project\\settings.py",
   "PreviewInSolutionExplorer": false
 }
