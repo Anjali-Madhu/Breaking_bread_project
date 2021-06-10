@@ -1,4 +1,4 @@
-django==2.1.5
+django==2.2.24
 pillow==7.0.0
 django-registration-redux==2.2
 requests
